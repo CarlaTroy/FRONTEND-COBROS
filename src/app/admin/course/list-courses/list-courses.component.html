@@ -1,0 +1,110 @@
+
+
+
+<div class="card ui-fluid">
+
+    <p-toast></p-toast>
+    <p-table
+        #dt
+        [value]="listCourse"
+        [(selection)]="selectedCourse"
+        dataKey="id"
+        styleClass="p-datatable-customers"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]"
+        [loading]="loading"
+        responsiveLayout="scroll"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+        [globalFilterFields]="['id','nombre', 'latitud', 'longitud']">
+        <ng-template pTemplate="caption">
+
+        <div class="table-header">
+            <div class="grid">
+                <div class="col-3">
+                    <p-button label="Nuevo" icon="pi pi-plus"></p-button>
+                </div>
+                <div class="col-1">
+                    <h3 class="mt-1"><b>Cursos</b></h3>
+                </div>
+
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input
+                        class="col-6"
+                        pInputText
+                        type="text"
+                        (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                        placeholder="Buscar por nombre" />
+                </span>
+            </div>
+        </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">
+                    <div class="flex justify-content-between align-items-center">
+                        #
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="name">
+                    <div class="flex justify-content-between align-items-center">
+                        Nombre
+                        <p-sortIcon field="nombre"></p-sortIcon>
+                    </div>
+                </th>
+
+                <th pSortableColumn="latitud">
+                    <div class="flex justify-content-between align-items-center">
+                        Descripción
+                        <p-sortIcon field="latitud"></p-sortIcon>
+                    </div>
+                </th>
+
+                <th>
+                    <div class="flex justify-content-between align-items-center">
+                        Acciones
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-course let-rowIndex="rowIndex">
+            <tr class="p-selectable-row">
+
+                <td>
+                    <span class="p-column-title">#</span>
+                    {{rowIndex+1}}
+                </td>
+                <td>
+                    <span class="p-column-title">Nombre</span>
+                    <span class="image-text">{{course.name}}</span>
+                </td>
+
+                <td>
+                    <span class="p-column-title">Descripción</span>
+                    <span class="image-text">{{course.description}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Acciones</span>
+                    <div class="text-center pr-8">
+                        <i class="pi pi-eye pl-3" ></i>
+                        <i class="pi pi-pencil pl-3" ></i>
+                        <i class="pi pi-trash pl-3" (click)="btnDeleteCourse(course)"></i>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No customers found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

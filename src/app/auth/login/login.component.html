@@ -1,0 +1,48 @@
+<app-topbar-principal></app-topbar-principal>
+<p-toast></p-toast>
+<div class="mt-7 pt-3 bg-logo surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="grid justify-content-center p-2 lg:p-0 " style="min-width:75%">
+        <div class="col-12  xl:mt-0 text-center absolute justify-content-center">
+            <img src="assets/images/logo.png" class=" text-center" style="width:150px; height:150px;">                
+        </div>
+        
+        <div class="col-12 xl:col-6 mt-8" style="border-radius:0px; padding:0.4rem; background: black">
+            <div class="h-full w-full m-0 py-7 px-4" style="border-radius:0px; background: white;">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3 mt-5">Inicio Sesión</div>
+                </div>
+
+                <div class="w-full md:w-10 mx-auto">
+                    <form [formGroup]="formUsuario" (ngSubmit)="login()">
+                        <div class="col-12">
+                            <div class="card p-fluid">
+                                <div class="field">
+                                    <label htmlFor="email">Username</label>
+                                    <input pInputText id="name1" type="text" formControlName="username"  />
+                    
+                                    <span *ngIf="submited && this.formUsuario.get('username')?.errors?.['required']">
+                                        <p class="text-red-600">(El username no puede quedar vacío)</p>
+                                    </span>
+                    
+                                </div>
+                                <div class="field">
+                                    <label htmlFor="password">Password</label>
+                                    <p-password formControlName="password" [toggleMask]="true"></p-password>
+                    
+                                    <span *ngIf="submited && this.formUsuario.get('password')?.errors?.['required']">
+                                        <p class="text-red-600">(El password no puede quedar vacío)</p>
+                                    </span>
+                    
+                                </div>
+                            </div>
+                    
+                        </div>
+                        <button pButton pRipple label="Iniciar Sesión" class="w-full p-3 text-xl"></button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

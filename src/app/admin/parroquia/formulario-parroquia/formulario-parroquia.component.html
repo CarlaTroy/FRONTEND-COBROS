@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+<form [formGroup]="formParroquia" (ngSubmit)="crearParroquia()" *ngIf="tipoAccion=='editar'">
+    <div class="col-12 md:col-12">
+        <div class="card p-fluid">
+            <div class="field">
+                <label htmlFor="nombre">Nombre</label>
+                <input pInputText id="name1" type="text" style="text-transform: uppercase;" formControlName="nombre" maxlength="250"/>
+
+                <span *ngIf="submited && this.formParroquia.get('nombre')?.errors?.['required']">
+                    <p class="text-red-600">(El nombre no puede quedar vacío)</p>
+                </span>
+                <div *ngIf="submited && this.formParroquia.get('nombre')?.errors?.['maxlength']">
+                    <p class="text-red-600">(Debe tener como máximo 10 caracteres)</p>
+                </div>
+
+
+            </div>
+            <div class="field">
+                <label htmlFor="canton">Cantón</label>
+                <p-dropdown id="name1" formControlName="fk_canton_id" 
+                [options]='cantones' (onChange)="onChange($event)" dataKey="value" placeholder="Seleccionar Cantón" 
+                optionLabel="name"  [showClear]="true"></p-dropdown>
+               <!-- <input pInputText id="name1" type="text" formControlName="latitud"  />-->
+               <span *ngIf="submited && this.formParroquia.get('fk_canton_id')?.errors?.['required']">
+                <p class="text-red-600">(El cantón no puede quedar vacío)</p>
+            </span>
+
+            </div>
+            
+        </div>
+        <div class="grid align-content-end text-right">
+            <div class="col-12">
+                <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                <button type="button" pButton icon="pi pi-times"  label="Cerrar" class="p-button-raised p-button-danger" (click)="cerrarModal()"></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="col-12 md:col-12" *ngIf="tipoAccion=='ver'" >
+    <div class="card p-fluid">
+        <div class="grid">
+                <div class="col-12 md:col-12 lg:col-12">
+                    <div class="field">
+                        <label htmlFor="nombre"><b>Nombre</b></label>
+                        <br>
+                        <label htmlFor="nombre">{{modeloUnaParroquia.nombre}}</label>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12 lg:col-12">
+                    <div class="field">
+                        <label htmlFor="canton"><b>Cantón</b></label>
+                        <br>
+                        <label htmlFor="canton">{{modeloUnaParroquia.fk_canton.nombre}}</label>
+                    </div>
+                </div>
+        </div>
+
+        <div class="grid">
+            <div class="col-12 md:col-12 lg:col-12">
+                <div class="field">
+                    <label htmlFor="cedula"><b>Activo</b></label>
+                    <br>
+                    <label htmlFor="cedula">{{modeloUnaParroquia.activo}}</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

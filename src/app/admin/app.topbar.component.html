@@ -1,0 +1,22 @@
+<p-toast></p-toast>
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="/principal">
+        <span class="text-3x text-white-alpha-80">PMDL</span>
+    </a>
+
+    <button class="p-link layout-menu-button layout-topbar-button p-trigger" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars" style="color: white;"></i>
+    </button>
+
+    
+
+    <div class="layout-topbar-menu-button">
+        <div class="text-center pt-2 mr-3 text-xl text-white-alpha-80" style="color: white;">{{usuarioLogueado}}</div>
+        <button pButton type="button"  
+        class="p-button-rounded p-button-text p-button-plain text-5x" 
+        (click)="menu.toggle($event)" ><i class="pi pi-cog" style="color: white;"></i></button>
+        
+        <p-menu #menu (click)="logout(items)" [popup]="true" [model]="items"></p-menu>
+    </div>
+    
+</div>

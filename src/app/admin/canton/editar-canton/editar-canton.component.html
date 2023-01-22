@@ -1,0 +1,11 @@
+<app-formulario-canton
+[modeloCanton]="modeloCanton"
+*ngIf="modeloCanton"
+tipoAccion="editar"
+(onSubmitCanton)="editarCanton($event)">
+</app-formulario-canton>
+<p-toast></p-toast>
+<div *ngIf="!modeloCanton" class="justify-content-center text-center">
+    <h5>Cargando...</h5>
+    <p-progressBar  mode="indeterminate"></p-progressBar>
+</div>

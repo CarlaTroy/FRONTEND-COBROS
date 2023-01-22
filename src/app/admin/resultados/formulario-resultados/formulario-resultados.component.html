@@ -1,0 +1,300 @@
+<span>Todos los resultados de esta investigación están generalizados</span>
+
+
+
+<p-toast></p-toast>
+<form [formGroup]="formResultado" (ngSubmit)="crearResultado()" *ngIf="tipoAccion=='editar'">
+
+    <div class="col-12 md:col-12">
+        <div class="card p-fluid">
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">AÑO</h5>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre">Año</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <p-calendar (onSelect)="fechaElegida()" formControlName="year" view="year" dateFormat="yy"></p-calendar>
+                    <span *ngIf="submited && this.formResultado.get('year')?.errors?.['required']">
+                        <p class="text-red-600">(El año no puede quedar vacío)</p>
+                    </span>
+                </div>
+            </div>
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">COSTO TOTAL DE PRODUCCIÓN</h5>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Costo Total de Producción</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">=</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label htmlFor="nombre">Costo Total de Producción por hectárea</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Número de hectáreas</label>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre"></label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre"></label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <input readonly pInputText id="name1" type="text" formControlName="costoTotalProduccionPorHectaria"  />
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <input  readonly pInputText id="name1" type="text" formControlName="numeroHectarias"  />
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6"></div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <div class="field">
+                        <input style="background-color: yellow;" readonly pInputText id="name1" type="text" formControlName="costo_total_produccion"/>
+                        <span *ngIf="submited && this.formResultado.get('costo_total_produccion')?.errors?.['required']">
+                            <p class="text-red-600">(El costo total de producción no puede quedar vacío)</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">RENTABILIDAD</h5>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Rentabilidad</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">=</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label htmlFor="nombre">Precio de venta al mercado</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Rendimiento del cultivo</label>
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre"></label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre"></label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <input readonly pInputText id="name1" type="text" formControlName="precioVentaAlMercado"  />
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <input  readonly pInputText id="name1" type="text" formControlName="rendimientoCultivo"  />
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6"></div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <div class="field">
+                        <input style="background-color: yellow;" readonly pInputText id="name1" type="text" formControlName="rentabilidad"  />
+                        <span *ngIf="submited && this.formResultado.get('rentabilidad')?.errors?.['required']">
+                            <p class="text-red-600">(La rentabilidad no puede quedar vacío)</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+          
+
+
+        </div>
+        <div class="grid align-content-end text-right">
+            <div class="col-12">
+                <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                <button type="button" pButton icon="pi pi-times"  label="Cerrar" class="p-button-raised p-button-danger" (click)="cerrarModal()"></button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<form [formGroup]="formResultado" *ngIf="tipoAccion=='ver'">
+
+    <div class="col-12 md:col-12">
+        <div class="card p-fluid">
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">AÑO</h5>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre">Año</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <p-calendar (onSelect)="fechaElegida()" [disabled]="true" formControlName="year" view="year" dateFormat="yy"></p-calendar>
+                    <span *ngIf="submited && this.formResultado.get('year')?.errors?.['required']">
+                        <p class="text-red-600">(El año no puede quedar vacío)</p>
+                    </span>
+                </div>
+            </div>
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">COSTO TOTAL DE PRODUCCIÓN</h5>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Costo Total de Producción</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">=</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label htmlFor="nombre">Costo Total de Producción por hectárea</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Número de hectáreas</label>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre"></label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre"></label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <input readonly pInputText id="name1" type="text" formControlName="costoTotalProduccionPorHectaria"  />
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <input  readonly pInputText id="name1" type="text" formControlName="numeroHectarias"  />
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6"></div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <div class="field">
+                        <input style="background-color: yellow;" readonly pInputText id="name1" type="text" formControlName="costo_total_produccion"/>
+                        <span *ngIf="submited && this.formResultado.get('costo_total_produccion')?.errors?.['required']">
+                            <p class="text-red-600">(El costo total de producción no puede quedar vacío)</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+            <h5 class="bg-blue-700 text-white-alpha-90 p-2 mb-5">RENTABILIDAD</h5>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Rentabilidad</label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">=</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label htmlFor="nombre">Precio de venta al mercado</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre">Rendimiento del cultivo</label>
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <label htmlFor="nombre"></label>
+                </div>
+                <div class="col-12 md:col-6 lg:col-1">
+                    <label htmlFor="nombre"></label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <input readonly pInputText id="name1" type="text" formControlName="precioVentaAlMercado"  />
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-1 text-center flex align-items-center justify-content-center">
+                    <label htmlFor="nombre">X</label>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-3">
+                    <input  readonly pInputText id="name1" type="text" formControlName="rendimientoCultivo"  />
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6"></div>
+                <div class="col-12 md:col-6 lg:col-5">
+                    <div class="field">
+                        <input style="background-color: yellow;" readonly pInputText id="name1" type="text" formControlName="rentabilidad"  />
+                        <span *ngIf="submited && this.formResultado.get('rentabilidad')?.errors?.['required']">
+                            <p class="text-red-600">(La rentabilidad no puede quedar vacío)</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="grid align-content-end text-right">
+            <div class="col-12">
+                <button type="button" pButton icon="pi pi-times"  label="Cerrar" class="p-button-raised p-button-danger" (click)="cerrarModal()"></button>
+            </div>
+        </div>
+
+    </div>
+</form>

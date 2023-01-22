@@ -1,0 +1,122 @@
+
+<p-toast></p-toast>
+<p-button label="Agregar" icon="pi pi-plus" (click)="btnAgregar()"></p-button>
+<p-table 
+    #dt 
+    [value]="listarResultado" 
+    [(selection)]="selectedCustomer" 
+    dataKey="id" 
+    styleClass="p-datatable-customers" 
+    [rowHover]="true"
+    [rows]="10" 
+    [showCurrentPageReport]="true" 
+    [rowsPerPageOptions]="[10,25,50]" 
+    [loading]="loading" 
+    responsiveLayout="scroll"
+    [paginator]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0" 
+    [globalFilterFields]="['id','year', 'costo_total_produccion', 'rentabilidad']">
+    <ng-template pTemplate="caption">
+
+    <div class="table-header">
+        <div class="grid">
+            <div class="col-6">
+                <h3 class="mt-4"><b>Gestionar Resultados</b></h3>
+            </div>
+
+            <div class="col-6">
+                <div class="col-12 text-right">
+
+                    <div class="grid align-items-center">
+                        <div class="col-4 md:col-6 lg:col-6">Buscar</div>
+                        <div class="col-8 md:col-6 lg:col-6 ">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input 
+                                    pInputText 
+                                    type="text" 
+                                    (input)="dt.filterGlobal($any($event.target).value, 'contains')" 
+                                    placeholder="Buscar por nombre" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+    
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">
+                <div class="flex justify-content-between align-items-center">
+                    #
+                    <p-sortIcon field="id"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="year">
+                <div class="flex justify-content-between align-items-center">
+                    Año
+                    <p-sortIcon field="year"></p-sortIcon>
+                </div>
+            </th>
+            
+            <th pSortableColumn="costo_total_produccion">
+                <div class="flex justify-content-between align-items-center">
+                    Costo Total de Producción
+                    <p-sortIcon field="costo_total_produccion"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="rentabilidad">
+                <div class="flex justify-content-between align-items-center">
+                    Rentabilidad
+                    <p-sortIcon field="rentabilidad"></p-sortIcon>
+                </div>
+            </th>
+            
+            <th>
+                <div class="flex justify-content-between align-items-center">
+                    Acciones
+                   
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-resultado let-rowIndex="rowIndex">
+        <tr class="p-selectable-row">
+            
+            <td>
+                <span class="p-column-title">#</span>
+                {{rowIndex+1}}
+            </td>
+            <td>
+                <span class="p-column-title">Año</span>
+                <span class="image-text">{{resultado.year}}</span>
+            </td>
+            
+            <td>
+                <span class="p-column-title">Costo Total de Producción</span>
+                <span class="image-text">{{resultado.costo_total_produccion}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Rentabilidad</span>
+                <span class="image-text">{{resultado.rentabilidad}}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Acciones</span>
+                <div class="text-center pr-8">
+                    <i class="pi pi-eye pl-3" (click)="btnVerResultado(resultado)"></i>
+                    <i class="pi pi-pencil pl-3" (click)="btnEditarResultado(resultado)"></i>
+                  <!--  <i class="pi pi-trash pl-3" (click)="btnEliminarResultado(resultado)"></i>-->
+                </div>
+            </td>
+        </tr>
+    </ng-template> 
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No customers found.</td>
+        </tr>
+    </ng-template>
+</p-table>

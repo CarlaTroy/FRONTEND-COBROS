@@ -1,0 +1,10 @@
+<app-formulario-produccion
+[modeloUnProduccion]="modeloProduccion"
+tipoAccion="ver"
+*ngIf="modeloProduccion">
+</app-formulario-produccion>
+<p-toast></p-toast>
+<div *ngIf="!modeloProduccion" class="justify-content-center text-center">
+    <h5>Cargando...</h5>
+    <p-progressBar  mode="indeterminate"></p-progressBar>
+</div>
