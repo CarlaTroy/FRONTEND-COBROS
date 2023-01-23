@@ -3,7 +3,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CourseService } from '../../servicios/course.service';
-import { CoursesFullDTO } from '../course';
+import { CourseFullDTO } from '../course';
 
 @Component({
   providers: [MessageService,DialogService],
@@ -13,8 +13,8 @@ import { CoursesFullDTO } from '../course';
 })
 export class ListCoursesComponent implements OnInit {
     //DTO
-    selectedCourse!: CoursesFullDTO;
-    listCourse:CoursesFullDTO[] = [];
+    selectedCourse!: CourseFullDTO;
+    listCourse:CourseFullDTO[] = [];
     //variables globales
    loading:boolean=false;
    //subcription
@@ -26,7 +26,7 @@ export class ListCoursesComponent implements OnInit {
     this.loadDataCourses();
   }
   loadDataCourses(){
-    this.subCourse=this.courseService.obtenerTodos().subscribe(response=>{
+    this.subCourse=this.courseService.getAll().subscribe(response=>{
         this.loading=false;
         this.listCourse=response.data;
       },error=>{

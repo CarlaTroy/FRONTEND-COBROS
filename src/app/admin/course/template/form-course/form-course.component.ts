@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { CourseService } from 'src/app/admin/servicios/course.service';
 import Swal from 'sweetalert2';
+import { CourseCreateDTO } from '../../course';
 
 @Component({
   selector: 'app-form-course',
@@ -8,6 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-course.component.scss']
 })
 export class FormCourseComponent implements OnInit {
+    //output
+   @Output() onSubmitCourse:EventEmitter<CourseCreateDTO>=new EventEmitter<CourseCreateDTO>();
+    isCreate:boolean=true;
    //form
    formCourse!:FormGroup;
    //toast
@@ -22,11 +29,36 @@ export class FormCourseComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
   })
-
-  constructor(private formBuilder: FormBuilder,) { }
+  //suscription
+  sub!:Subscription;
+  constructor(private formBuilder: FormBuilder,
+                private courseService:CourseService,
+              private activatedRoute:ActivatedRoute) { }
     //functon defaul angular
   ngOnInit(): void {
-    this.initInputForm();
+      this.activatedRoute.params.subscribe((response:any)=>{
+        console.log(response);
+        //modo creacion
+        this.initInputForm();
+        return;
+        if(response){
+            return;
+        }
+        //modo edicion
+        if(!response){
+            this.initInputForm();
+            return;
+        }
+    });
+    //observable cuandos se crea un registro nuevo
+    this.sub=this.courseService.refresh$.subscribe(()=>{
+        this.formCourse.reset();
+    });
+  }
+  OnDestroy(): void {
+    if(this.sub) {
+        this.sub.unsubscribe();
+    }
   }
   // function personality
   submitCourse(){
@@ -38,6 +70,11 @@ export class FormCourseComponent implements OnInit {
         return Object.values(this.formCourse.controls).forEach(contol=>{
             contol.markAsTouched();
         });
+    }
+    if(this.isCreate){
+        const createCourse:CourseCreateDTO=this.formCourse.value;
+        this.onSubmitCourse.emit(createCourse);
+        return;
     }
   }
   initInputForm(){
