@@ -8,19 +8,26 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
+import { FormCourseComponent } from './template/form-course/form-course.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.module';
 @NgModule({
   declarations: [
     CourseComponent,
-    ListCoursesComponent
+    ListCoursesComponent,
+    FormCourseComponent,
+    CreateCourseComponent
   ],
   imports: [
     CommonModule,
     CourseRoutingModule,
     ButtonModule,
     TableModule,
-    InputTextModule,
     ToastModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputDemoModule,
   ],
   providers: [MessageService],
 })

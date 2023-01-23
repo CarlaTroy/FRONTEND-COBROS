@@ -54,6 +54,32 @@ import { SliderModule } from 'primeng/slider';
         CheckboxModule,
         ButtonModule
     ],
+    exports:[
+        FormsModule,
+        InputDemoRoutingModule,
+        AutoCompleteModule,
+        CalendarModule,
+        ChipsModule,
+        DropdownModule,
+        InputMaskModule,
+        InputNumberModule,
+        ColorPickerModule,
+        CascadeSelectModule,
+        MultiSelectModule,
+        ToggleButtonModule,
+        SliderModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        InputTextModule,
+        RatingModule,
+        ChipModule,
+        KnobModule,
+        InputSwitchModule,
+        ListboxModule,
+        SelectButtonModule,
+        CheckboxModule,
+        ButtonModule
+    ],
     declarations: [InputDemoComponent]
 })
 export class InputDemoModule { }

@@ -40,7 +40,7 @@ export class FormularioParroquiaComponent implements OnInit {
   constructor(private cantonService:CantonService, private formBuilder: FormBuilder,
     //public dialogService: ListarRolesComponent,
     public ref: DynamicDialogRef,
-    private messageService: MessageService) { 
+    private messageService: MessageService) {
       this.cantones = [];
     }
 
@@ -48,9 +48,9 @@ export class FormularioParroquiaComponent implements OnInit {
     this.cargarCantones()
     this.iniciarFormulario();
     this.aplicarPatch();
-    
+
       //console.log(this.cantones)
-    
+
   }
 
   aplicarPatch(){
@@ -59,7 +59,7 @@ export class FormularioParroquiaComponent implements OnInit {
       console.log(this.modeloUnaParroquia)
       console.log(this.formParroquia.value)
       //this.formParroquia.value.fk_canton_id = this.modeloUnaParroquia.fk_canton.id
-  
+
       this.modeloParroquia = {
         id: this.modeloUnaParroquia.id,
         nombre: this.modeloUnaParroquia.nombre,
@@ -68,7 +68,7 @@ export class FormularioParroquiaComponent implements OnInit {
       }
       this.cantonSelected = this.modeloUnaParroquia.fk_canton.id
     }
-    
+
 
 
     console.log('ModeloParroquia')
@@ -93,10 +93,10 @@ export class FormularioParroquiaComponent implements OnInit {
               this.formParroquia.controls['fk_canton_id'].setValue(Number(this.listarCantones[i].id));
             }
           }
-          
+
         }
 
-        
+
         /*let newItems = this.listarCantones.filter((item)=> item.id === this.modeloProductor.fk_canton_id);
         console.log(newItems)
 
@@ -118,7 +118,7 @@ export class FormularioParroquiaComponent implements OnInit {
   iniciarFormulario(){
     console.log(this.tipoAccion)
     console.log(this.modeloParroquia)
-    
+
     //if(this.tipoAccion != 'ver'){
       this.formParroquia = this.formBuilder.group({
         nombre: ['', [Validators.required, Validators.maxLength(250)]],
@@ -138,7 +138,7 @@ crearParroquia():void{
   console.log('vall')
   console.log(this.formParroquia.value)
   /*for (let i = 0; i < this.listarCantones.length; i++) {
-    
+
     if(this.listarCantones[i].nombre == this.formParroquia.value.fk_canton_id.name){
       this.formParroquia.value.fk_canton_id = Number(this.listarCantones[i].id)
       //console.log(this.formProductor.value.fk_canton)
