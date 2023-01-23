@@ -25,8 +25,8 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
                                  routerLink: ['/admin/course']
-                            },
-                        ]
+                            }
+                        ],
                     },
                     {
                         label: 'Parroquias',
