@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CourseService } from '../../servicios/course.service';
 import { CourseCreateDTO } from '../course';
-import { FormCourseComponent } from '../template/form-course/form-course.component';
 
 @Component({
   selector: 'app-create-course',

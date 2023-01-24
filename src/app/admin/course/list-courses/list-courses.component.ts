@@ -40,6 +40,7 @@ export class ListCoursesComponent implements OnInit {
     });
   }
   loadDataCourses(){
+    this.loading=true;
     this.subCourse=this.courseService.getAll().subscribe(response=>{
         this.loading=false;
         this.listCourse=response.data;

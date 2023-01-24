@@ -1,1 +1,9 @@
-<p>create-cohorte works!</p>
+
+<div class="card ui-fluid">
+    <p-progressBar mode="indeterminate" *ngIf="!listCourse"></p-progressBar>
+    <app-form-cohorte
+        (onSubmitCourse)="createCohorte($event)"
+        [modeForm]="'Crear Cohorte'"
+        *ngIf="listCourse">
+    </app-form-cohorte>
+</div>

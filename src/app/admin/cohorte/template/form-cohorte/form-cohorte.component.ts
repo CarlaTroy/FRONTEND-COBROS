@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CourseFullDTO } from 'src/app/admin/course/course';
 import Swal from 'sweetalert2';
 import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
 
@@ -11,6 +12,7 @@ import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
 })
 export class FormCohorteComponent implements OnInit {
     @Input() modeForm!:string;
+    @Input() modelCourseFull!:CourseFullDTO[];
     @Input() modelCohorteseFull!:CohorteFullDTO;
     //output
    @Output() onSubmitCourse:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
@@ -30,6 +32,8 @@ export class FormCohorteComponent implements OnInit {
     })
     //suscription
     sub!:Subscription;
+    //global var
+    intanceCourse!:CourseFullDTO;
   constructor(private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
@@ -47,7 +51,8 @@ export class FormCohorteComponent implements OnInit {
         date_init: ['', [Validators.required]],
         date_end: ['', [Validators.required]],
         cost_effective: ['', [Validators.required]],
-        cost_credit: ['', [Validators.required]]
+        cost_credit: ['', [Validators.required]],
+        course_id: ['', [Validators.required]],
       });
   }
   submitCohorte(){

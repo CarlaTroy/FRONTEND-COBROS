@@ -6,7 +6,62 @@
     </div>
 </div>
 <form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
-    <div class="col-12 md:col-12">
+
+	<div class="col-12">
+		<div class="card">
+			<div class="p-fluid p-formgrid grid">
+                <div class="field col-6">
+					<label htmlFor="state">Cursos</label>
+					<p-dropdown
+                        [options]="modelCourseFull"
+                        optionLabel="name"
+                        formControlName="course_id"
+                        [(ngModel)]="intanceCourse"></p-dropdown>
+				</div>
+				<div class="field col-6">
+					<label htmlFor="firstname2">Nombre</label>
+					<input
+                        pInputText
+                        id="firstname2"
+                        formControlName="name"
+                        type="text" />
+				</div>
+				<div class="field col-12 md:col-6">
+					<label htmlFor="lastname2">Fecha Inicio</label>
+					<input
+                        pInputText
+                        id="lastname2"
+                        formControlName="date_init"
+                        type="date" />
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="lastname2">Fecha Fin</label>
+					<input
+                        pInputText
+                        id="lastname2"
+                        formControlName="date_end"
+                        type="date" />
+				</div>
+				<div class="field col-12 md:col-6">
+					<label htmlFor="city">Costo a Credito</label>
+					<input
+                        pInputText
+                        id="city"
+                        formControlName="cost_effective"
+                        type="number" />
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="city">Costo a Efectivo</label>
+					<input
+                        pInputText
+                        id="city"
+                        formControlName="cost_credit"
+                        type="number" />
+				</div>
+			</div>
+		</div>
+	</div>
+<!--     <div class="col-12 md:col-12">
         <div class="card p-fluid">
             <div class="field">
                 <label htmlFor="nombre">
@@ -19,10 +74,10 @@
                         [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
                         [maxlength]="100"/>
 
-                <span *ngIf="nameNotValid && formCourse.get('name')?.errors?.['required']">
+                <span *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['required']">
                     <p class="text-red-600">*Campo Requerido</p>
                 </span>
-                <div *ngIf="nameNotValid && formCourse.get('name')?.errors?.['maxlength']">
+                <div *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['maxlength']">
                     <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
                 </div>
             </div>
@@ -60,5 +115,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </form>

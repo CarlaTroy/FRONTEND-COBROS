@@ -19,6 +19,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         ButtonModule,
         FormlayoutRoutingModule
     ],
+    exports:[
+        InputTextModule,
+        InputTextareaModule,
+        ButtonModule,
+        FormlayoutRoutingModule
+    ],
     declarations: [FormLayoutComponent]
 })
 export class FormlayoutModule { }
