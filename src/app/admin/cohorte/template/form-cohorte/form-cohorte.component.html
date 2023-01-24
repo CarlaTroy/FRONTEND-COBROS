@@ -11,55 +11,80 @@
 		<div class="card">
 			<div class="p-fluid p-formgrid grid">
                 <div class="field col-6">
-					<label htmlFor="state">Cursos</label>
+					<label htmlFor="course_id">Cursos</label>
 					<p-dropdown
                         [options]="modelCourseFull"
                         optionLabel="name"
+                        id="course_id"
+                        placeholder="Selecione un curso"
+                        *ngIf="modelCourseFull"
+                        [ngClass]="{'ng-invalid ng-dirty': courseNotValid}"
                         formControlName="course_id"
-                        [(ngModel)]="intanceCourse"></p-dropdown>
+                        [(ngModel)]="intanceCourse">
+                    </p-dropdown>
 				</div>
 				<div class="field col-6">
-					<label htmlFor="firstname2">Nombre</label>
+					<label htmlFor="name">Nombre</label>
 					<input
                         pInputText
-                        id="firstname2"
+                        id="name"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
                         formControlName="name"
                         type="text" />
 				</div>
 				<div class="field col-12 md:col-6">
-					<label htmlFor="lastname2">Fecha Inicio</label>
+					<label htmlFor="date_init">Fecha Inicio</label>
 					<input
                         pInputText
-                        id="lastname2"
+                        id="date_init"
+                        [ngClass]="{'ng-invalid ng-dirty': dateInitNotValid}"
                         formControlName="date_init"
                         type="date" />
 				</div>
                 <div class="field col-12 md:col-6">
-					<label htmlFor="lastname2">Fecha Fin</label>
+					<label htmlFor="date_end">Fecha Fin</label>
 					<input
                         pInputText
-                        id="lastname2"
+                        id="date_end"
+                        [ngClass]="{'ng-invalid ng-dirty': dateEndNotValid}"
                         formControlName="date_end"
                         type="date" />
 				</div>
 				<div class="field col-12 md:col-6">
-					<label htmlFor="city">Costo a Credito</label>
+					<label htmlFor="cost_effective">Costo a Credito</label>
 					<input
                         pInputText
-                        id="city"
+                        id="cost_effective"
+                        min="0"
+                        [ngClass]="{'ng-invalid ng-dirty': costEffectiveNotValid}"
                         formControlName="cost_effective"
                         type="number" />
 				</div>
                 <div class="field col-12 md:col-6">
-					<label htmlFor="city">Costo a Efectivo</label>
+					<label htmlFor="cost_credit">Costo a Efectivo</label>
 					<input
                         pInputText
-                        id="city"
+                        min="0"
+                        id="cost_credit"
+                        [ngClass]="{'ng-invalid ng-dirty': costCreditNotValid}"
                         formControlName="cost_credit"
                         type="number" />
 				</div>
 			</div>
 		</div>
+        <div class="grid flex flex-row-reverse ">
+            <div class="grid">
+                <div class="col">
+                    <button type="button"
+                    pButton icon="pi pi-times"
+                    label="Cerrar" class="p-button-raised p-button-danger"
+                    [routerLink]="['/admin/cohorte']"></button>
+                </div>
+                <div class="col">
+                    <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                </div>
+            </div>
+        </div>
 	</div>
 <!--     <div class="col-12 md:col-12">
         <div class="card p-fluid">

@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CourseFullDTO } from '../../course/course';
+import { CohorteService } from '../../servicios/cohorte.service';
 import { CourseService } from '../../servicios/course.service';
+import { CohorteCreateDTO } from '../cohorte';
 
 @Component({
   selector: 'app-create-cohorte',
@@ -10,9 +12,22 @@ import { CourseService } from '../../servicios/course.service';
   styleUrls: ['./create-cohorte.component.scss']
 })
 export class CreateCohorteComponent implements OnInit {
-  listCourse:CourseFullDTO[] = [];
-  subCourse!:Subscription;
-  constructor(private courseService:CourseService) { }
+    listCourse:CourseFullDTO[] = [];
+    subCourse!:Subscription;
+    //toast
+    Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+  constructor(private courseService:CourseService,
+                private cohorteService:CohorteService) { }
 
   ngOnInit(): void {
     this.loadDataCourses();
@@ -31,14 +46,14 @@ export class CreateCohorteComponent implements OnInit {
           })
       });
   }
-  createCohorte(courseCreate:any){
+  createCohorte(courseCreate:CohorteCreateDTO){
     Swal.fire({
         allowOutsideClick: false,
         text: 'Espere por favor...',
         timerProgressBar: false,
     });
     Swal.showLoading()
-/*     this.courseService.create(courseCreate).subscribe(response=>{
+    this.cohorteService.create(courseCreate).subscribe(response=>{
         Swal.close();
         if(response.succes){
             this.Toast.fire({
@@ -62,7 +77,7 @@ export class CreateCohorteComponent implements OnInit {
             text: 'Error',
             footer: error.message
           })
-    }); */
+    });
   }
   OnDestroy(){
     if(this.subCourse){

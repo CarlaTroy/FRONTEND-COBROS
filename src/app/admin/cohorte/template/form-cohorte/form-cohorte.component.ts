@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseFullDTO } from 'src/app/admin/course/course';
+import { CohorteService } from 'src/app/admin/servicios/cohorte.service';
 import Swal from 'sweetalert2';
 import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
 
@@ -15,7 +16,7 @@ export class FormCohorteComponent implements OnInit {
     @Input() modelCourseFull!:CourseFullDTO[];
     @Input() modelCohorteseFull!:CohorteFullDTO;
     //output
-   @Output() onSubmitCourse:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
+   @Output() onSubmitCohorte:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
     //form
     formCohorte!:FormGroup;
     //toast
@@ -34,10 +35,16 @@ export class FormCohorteComponent implements OnInit {
     sub!:Subscription;
     //global var
     intanceCourse!:CourseFullDTO;
-  constructor(private formBuilder: FormBuilder,) { }
+    filterValue = '';
+  constructor(private formBuilder: FormBuilder,
+                private cohorteService:CohorteService) { }
 
   ngOnInit(): void {
     this.initInputForm();
+    //observable cuandos se crea un registro nuevo
+    this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
+        this.formCohorte.reset();
+    });
   }
   OnDestroy(): void {
     if(this.sub) {
@@ -50,11 +57,12 @@ export class FormCohorteComponent implements OnInit {
         name: ['', [Validators.required, Validators.maxLength(100)]],
         date_init: ['', [Validators.required]],
         date_end: ['', [Validators.required]],
-        cost_effective: ['', [Validators.required]],
-        cost_credit: ['', [Validators.required]],
+        cost_effective: ['', [Validators.required,Validators.min(0)]],
+        cost_credit: ['', [Validators.required,Validators.min(0)]],
         course_id: ['', [Validators.required]],
       });
   }
+
   submitCohorte(){
     if(this.formCohorte.invalid){
         this.Toast.fire({
@@ -65,9 +73,15 @@ export class FormCohorteComponent implements OnInit {
             contol.markAsTouched();
         });
     }
-    let createCourse:CohorteCreateDTO=this.formCohorte.value;
-    createCourse.course_id=1;
-    this.onSubmitCourse.emit(createCourse);
+    const createCourse:CohorteCreateDTO={
+        name:this.formCohorte.value.name,
+        cost_credit:this.formCohorte.value.cost_credit,
+        cost_effective:this.formCohorte.value.cost_effective,
+        course_id:this.intanceCourse.id,
+        date_end:this.formCohorte.value.date_end,
+        date_init:this.formCohorte.value.date_init
+    }
+    this.onSubmitCohorte.emit(createCourse);
     return;
   }
     //validate input
@@ -86,5 +100,8 @@ export class FormCohorteComponent implements OnInit {
     }
     get costCreditNotValid(){
         return this.formCohorte.get('cost_credit')?.invalid && this.formCohorte.get('cost_credit')?.touched;
+    }
+    get courseNotValid(){
+        return this.formCohorte.get('course_id')?.invalid && this.formCohorte.get('course_id')?.touched;
     }
 }

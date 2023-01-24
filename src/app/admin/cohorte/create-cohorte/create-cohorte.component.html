@@ -2,8 +2,9 @@
 <div class="card ui-fluid">
     <p-progressBar mode="indeterminate" *ngIf="!listCourse"></p-progressBar>
     <app-form-cohorte
-        (onSubmitCourse)="createCohorte($event)"
+        (onSubmitCohorte)="createCohorte($event)"
         [modeForm]="'Crear Cohorte'"
+        [modelCourseFull]="listCourse"
         *ngIf="listCourse">
     </app-form-cohorte>
 </div>
