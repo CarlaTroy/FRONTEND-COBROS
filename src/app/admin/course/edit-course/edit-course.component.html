@@ -1,16 +1,10 @@
 
 <div class="card ui-fluid">
-    <div class="table-header">
-        <div class="grid">
-            <div class="col-12">
-                <h3 class="mt-1"><b>Editar Curso</b></h3>
-            </div>
-        </div>
-    </div>
     <p-progressBar mode="indeterminate" *ngIf="!modelCourseFull"></p-progressBar>
     <app-form-course
         (onSubmitCourse)="editCourse($event)"
         [modelCourseFull]="modelCourseFull"
+        [modeForm]="'Editar Course'"
         *ngIf="modelCourseFull">
     </app-form-course>
 </div>

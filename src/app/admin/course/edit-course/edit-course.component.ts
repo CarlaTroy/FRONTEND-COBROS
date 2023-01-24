@@ -62,15 +62,21 @@ export class EditCourseComponent implements OnInit {
         timerProgressBar: false,
     });
     Swal.showLoading()
-    this.courseService.create(courseCreate).subscribe(response=>{
+    this.courseService.edit(courseCreate,this.modelCourseFull.id).subscribe(response=>{
         Swal.close();
-        if(response.succes){
+        if(response.success){
             this.Toast.fire({
                 icon: 'success',
                 title: response.message
             })
             return;
         }
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Información',
+            footer: response.message
+        })
     },error=>{
         console.log(error);
         Swal.close();

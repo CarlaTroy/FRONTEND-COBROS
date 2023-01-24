@@ -13,6 +13,7 @@ import { CourseCreateDTO } from '../../course';
   styleUrls: ['./form-course.component.scss']
 })
 export class FormCourseComponent implements OnInit {
+    @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO;
     //output
    @Output() onSubmitCourse:EventEmitter<CourseCreateDTO>=new EventEmitter<CourseCreateDTO>();
@@ -51,7 +52,7 @@ export class FormCourseComponent implements OnInit {
         return;
       }
     //observable cuandos se crea un registro nuevo
-    this.sub=this.courseService.refresh$.subscribe(()=>{
+    this.sub=this.courseService.refreshForm$.subscribe(()=>{
         this.formCourse.reset();
     });
   }

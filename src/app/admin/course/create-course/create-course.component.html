@@ -1,11 +1,7 @@
 
 <div class="card ui-fluid">
-    <div class="table-header">
-        <div class="grid">
-            <div class="col-12">
-                <h3 class="mt-1"><b>Registrar Curso</b></h3>
-            </div>
-        </div>
-    </div>
-    <app-form-course (onSubmitCourse)="createCourse($event)"></app-form-course>
+    <app-form-course
+        (onSubmitCourse)="createCourse($event)"
+        [modeForm]="'Crear Curso'">
+    </app-form-course>
 </div>

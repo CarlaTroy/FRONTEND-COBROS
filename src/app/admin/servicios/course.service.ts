@@ -9,10 +9,15 @@ import { CourseCreateDTO, CourseFullDTO } from '../course/course';
 export class CourseService {
   private apiURL=environment.apiURL+'/api';
   private _resetForm$ = new Subject<void>();
+  private _refreshTable$ = new Subject<void>();
   constructor(public http: HttpClient) { }
  //observables
- get refresh$(){
+ get refreshForm$(){
     return this._resetForm$;
+  }
+   //observables
+ get refreshTable$(){
+    return this._refreshTable$;
   }
   public getAll():Observable<any>{
     return this.http.get<CourseFullDTO[]>(`${this.apiURL}/courses`);
@@ -23,6 +28,16 @@ export class CourseService {
   public create(courseCreate: CourseCreateDTO):Observable<any> {
     return this.http.post<boolean>(`${this.apiURL}/courses/`, courseCreate).pipe(
         tap(() => this._resetForm$.next())
+    );
+  }
+  public edit(courseCreate: CourseCreateDTO,id:number):Observable<any> {
+    return this.http.put<boolean>(`${this.apiURL}/courses/${id}`, courseCreate);
+  }
+  public deleteCourseId(id: number): Observable<any> {
+    return this.http.delete<boolean>(`${this.apiURL}/courses/${id}`).pipe(
+      tap(() => {
+        this._refreshTable$.next();  //esto se ejecuta antes de retorna la data al componente
+      })
     );
   }
 }

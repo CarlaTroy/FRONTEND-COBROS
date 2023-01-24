@@ -86,24 +86,32 @@
                 </td>
                 <td class="col-2">
                     <div class="grid">
+<!--                         <div class="col">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-eye"
+                                (click)="btnDeleteCourse(course)"
+                                class="p-button-raised p-button-rounded">
+                            </button>
+                        </div> -->
                         <div class="col">
-
-                            <i class="pi pi-eye " ></i>
-                        </div>
-                        <div class="col">
-<!--                             <i class="pi pi-pencil"
-                                [routerLink]="['/admin/course/edit']">
-                            </i> -->
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-pencil"
-                                [routerLink]="['/admin/course/edit',1]"
+                                [routerLink]="['/admin/course/edit',course.id]"
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div>
                         <div class="col">
-                            <i class="pi pi-trash" (click)="btnDeleteCourse(course)"></i>
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-trash"
+                                (click)="btnDeleteCourse(course)"
+                                class="p-button-danger p-button-rounded">
+                            </button>
                         </div>
                     </div>
                 </td>
