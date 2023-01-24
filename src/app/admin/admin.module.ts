@@ -25,6 +25,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from '../auth/auth-interceptor.service';
+import { CohorteComponent } from './cohorte/cohorte.component';
 
 
 
@@ -36,6 +37,7 @@ import { AuthInterceptorService } from '../auth/auth-interceptor.service';
         AppMenuComponent,
         AppSidebarComponent,
         AdminComponent,
+        CohorteComponent,
     ],
     imports: [
         BrowserModule,
@@ -57,8 +59,8 @@ import { AuthInterceptorService } from '../auth/auth-interceptor.service';
         DynamicDialogModule,
         DialogModule,
         ToastModule,
-        
-        
+
+
     ],
     providers: [
         {

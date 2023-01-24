@@ -20,7 +20,7 @@ import { PrincipalComponent } from './principal/principal.component';
                 //{ path: 'resultados', loadChildren: () => import('./admin/resultados/resultados.module').then(m => m.ResultadosModule) },
                 //{ path: 'costo-produccion', loadChildren: () => import('./admin/costo-produccion/costo-produccion.module').then(m => m.CostoProduccionModule) },
                 { path: 'course', loadChildren: () => import('./admin/course/course.module').then(m => m.CourseModule) },
-                //{ path: 'parroquia', loadChildren: () => import('./admin/parroquia/parroquia.module').then(m => m.ParroquiaModule) },
+                { path: 'cohorte', loadChildren: () => import('./admin/cohorte/cohorte.module').then(m => m.CohorteModule) },
                 //{ path: 'productores', loadChildren: () => import('./admin/productores/productores.module').then(m => m.ProductoresModule) },
                 //{ path: 'intermediario-produccion', loadChildren: () => import('./admin/intermediario-produccion/intermediario-produccion.module').then(m => m.IntermediarioModule) },
                 //{ path: 'intermediario', loadChildren: () => import('./admin/intermediario/intermediario.module').then(m => m.IntermediarioModule) },

@@ -1,0 +1,64 @@
+<div class="table-header">
+    <div class="grid">
+        <div class="col-12">
+            <h3 class="mt-1"><b>{{modeForm}}</b></h3>
+        </div>
+    </div>
+</div>
+<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+    <div class="col-12 md:col-12">
+        <div class="card p-fluid">
+            <div class="field">
+                <label htmlFor="nombre">
+                    <span class="text-red-600">*</span>
+                    Nombre
+                </label>
+                <input pInputText
+                        type="text"
+                        formControlName="name"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                        [maxlength]="100"/>
+
+                <span *ngIf="nameNotValid && formCourse.get('name')?.errors?.['required']">
+                    <p class="text-red-600">*Campo Requerido</p>
+                </span>
+                <div *ngIf="nameNotValid && formCourse.get('name')?.errors?.['maxlength']">
+                    <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                </div>
+            </div>
+            <div class="field">
+                <label htmlFor="canton">
+                    <span class="text-red-600">*</span>
+                    Descripción
+                </label>
+                <textarea rows="5"
+                            cols="30"
+                            formControlName="description"
+                            placeholder="Escribe una descripción"
+                            [ngClass]="{'ng-invalid ng-dirty': descriptionNotValid}"
+                            pInputTextarea>
+                </textarea>
+                <span *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['required']">
+                    <p class="text-red-600">*Campo Requerido</p>
+                </span>
+                <div *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['maxlength']">
+                    <p class="text-red-600">* Debe tener como máximo 250 caracteres</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="grid flex flex-row-reverse ">
+            <div class="grid">
+                <div class="col">
+                    <button type="button"
+                    pButton icon="pi pi-times"
+                    label="Cerrar" class="p-button-raised p-button-danger"
+                    [routerLink]="['/admin/course']"></button>
+                </div>
+                <div class="col">
+                    <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
