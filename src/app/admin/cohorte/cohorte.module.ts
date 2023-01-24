@@ -11,15 +11,16 @@ import { ToastModule } from 'primeng/toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.module';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { FormLayoutComponent } from 'src/app/demo/components/uikit/formlayout/formlayout.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { ListCohorteComponent } from './list-cohorte/list-cohorte.component';
 
 
 @NgModule({
   declarations: [
+    ListCohorteComponent,
     CreateCohorteComponent,
     EditCohorteComponent,
-    FormCohorteComponent
+    FormCohorteComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +32,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ReactiveFormsModule,
     InputDemoModule,
     ProgressBarModule,
-    DropdownModule
+    DropdownModule,
+
     //FormLayoutComponent
   ]
 })

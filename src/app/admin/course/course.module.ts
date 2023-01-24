@@ -33,6 +33,6 @@ import { ProgressBarModule } from 'primeng/progressbar';
     InputDemoModule,
     ProgressBarModule,
   ],
-  providers: [MessageService],
+  providers: [],
 })
 export class CourseModule { }

@@ -29,6 +29,7 @@ import { CohorteComponent } from './cohorte/cohorte.component';
 
 
 
+
 @NgModule({
     declarations: [
         AppMenuitemComponent,
@@ -37,8 +38,16 @@ import { CohorteComponent } from './cohorte/cohorte.component';
         AppMenuComponent,
         AppSidebarComponent,
         AdminComponent,
-        CohorteComponent,
+        //CohorteComponent,
     ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        }
+    ],
+    exports: [AdminComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -58,17 +67,7 @@ import { CohorteComponent } from './cohorte/cohorte.component';
         ButtonModule,
         DynamicDialogModule,
         DialogModule,
-        ToastModule,
-
-
-    ],
-    providers: [
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: AuthInterceptorService,
-          multi: true
-        }
-      ],
-    exports: [AdminComponent]
+        ToastModule
+    ]
 })
 export class AdminModule { }

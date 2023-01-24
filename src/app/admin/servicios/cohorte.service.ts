@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CohorteCreateDTO } from '../cohorte/cohorte';
+import { CohorteCreateDTO, CohorteFullDTO } from '../cohorte/cohorte';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,8 @@ export class CohorteService {
     return this.http.post<boolean>(`${this.apiURL}/cohortes/`, courseCreate).pipe(
         tap(() => this._resetForm$.next())
     );
+  }
+  public getAll():Observable<any>{
+    return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes`);
   }
 }
