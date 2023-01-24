@@ -1,5 +1,6 @@
+import { CourseFullDTO } from './../../course';
 import { Subscription } from 'rxjs';
-import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from 'src/app/admin/servicios/course.service';
@@ -12,6 +13,7 @@ import { CourseCreateDTO } from '../../course';
   styleUrls: ['./form-course.component.scss']
 })
 export class FormCourseComponent implements OnInit {
+    @Input() modelCourseFull!:CourseFullDTO;
     //output
    @Output() onSubmitCourse:EventEmitter<CourseCreateDTO>=new EventEmitter<CourseCreateDTO>();
     isCreate:boolean=true;
@@ -36,20 +38,18 @@ export class FormCourseComponent implements OnInit {
               private activatedRoute:ActivatedRoute) { }
     //functon defaul angular
   ngOnInit(): void {
-      this.activatedRoute.params.subscribe((response:any)=>{
-        console.log(response);
-        //modo creacion
-        this.initInputForm();
+      //console.log(response);
+      //modo creacion
+      this.initInputForm();
+      //si existe data entonces en modo edicion
+      if(this.modelCourseFull){
+        this.loadDataForm();
         return;
-        if(response){
-            return;
-        }
-        //modo edicion
-        if(!response){
-            this.initInputForm();
-            return;
-        }
-    });
+      }
+      //modo creacion
+      if(!this.modelCourseFull){
+        return;
+      }
     //observable cuandos se crea un registro nuevo
     this.sub=this.courseService.refresh$.subscribe(()=>{
         this.formCourse.reset();
@@ -61,6 +61,9 @@ export class FormCourseComponent implements OnInit {
     }
   }
   // function personality
+  loadDataForm(){
+    this.formCourse.patchValue(this.modelCourseFull);
+  }
   submitCourse(){
     if(this.formCourse.invalid){
         this.Toast.fire({
@@ -71,11 +74,9 @@ export class FormCourseComponent implements OnInit {
             contol.markAsTouched();
         });
     }
-    if(this.isCreate){
-        const createCourse:CourseCreateDTO=this.formCourse.value;
-        this.onSubmitCourse.emit(createCourse);
-        return;
-    }
+    const createCourse:CourseCreateDTO=this.formCourse.value;
+    this.onSubmitCourse.emit(createCourse);
+    return;
   }
   initInputForm(){
     this.formCourse = this.formBuilder.group({

@@ -12,12 +12,15 @@ import { FormCourseComponent } from './template/form-course/form-course.componen
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.module';
+import { EditCourseComponent } from './edit-course/edit-course.component';
+import { ProgressBarModule } from 'primeng/progressbar';
 @NgModule({
   declarations: [
     CourseComponent,
     ListCoursesComponent,
     FormCourseComponent,
-    CreateCourseComponent
+    CreateCourseComponent,
+    EditCourseComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.m
     FormsModule,
     ReactiveFormsModule,
     InputDemoModule,
+    ProgressBarModule,
   ],
   providers: [MessageService],
 })

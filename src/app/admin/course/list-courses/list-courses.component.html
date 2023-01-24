@@ -1,8 +1,5 @@
 
-
-
 <div class="card ui-fluid">
-
     <p-toast></p-toast>
     <p-table
         #dt
@@ -45,57 +42,69 @@
         </ng-template>
 
         <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="id">
+            <tr class="grid">
+                <th pSortableColumn="id" class="col-1">
                     <div class="flex justify-content-between align-items-center">
                         #
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name">
+                <th pSortableColumn="name" class="col-2">
                     <div class="flex justify-content-between align-items-center">
                         Nombre
                         <p-sortIcon field="nombre"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="latitud">
+                <th pSortableColumn="description" class="col-7">
                     <div class="flex justify-content-between align-items-center">
                         Descripción
-                        <p-sortIcon field="latitud"></p-sortIcon>
+                        <p-sortIcon field="description"></p-sortIcon>
                     </div>
                 </th>
-
-                <th>
-                    <div class="flex justify-content-between align-items-center">
-
-                    </div>
+                <th class="col-2">
+                    Acciones
                 </th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-course let-rowIndex="rowIndex">
-            <tr class="p-selectable-row">
+            <tr class="grid">
 
-                <td>
+                <td class="col-1">
                     <span class="p-column-title">#</span>
                     {{rowIndex+1}}
                 </td>
-                <td>
+                <td class="col-2">
                     <span class="p-column-title">Nombre</span>
-                    <span class="image-text">{{course.name}}</span>
+                    <span >{{course.name}}</span>
                 </td>
 
-                <td>
+                <td class="col-7">
                     <span class="p-column-title">Descripción</span>
-                    <span class="image-text">{{course.description}}</span>
+                    <p>{{course.description}}</p>
                 </td>
-                <td>
-                    <span class="p-column-title">Acciones</span>
-                    <div class="text-center pr-8">
-                        <i class="pi pi-eye pl-3" ></i>
-                        <i class="pi pi-pencil pl-3" ></i>
-                        <i class="pi pi-trash pl-3" (click)="btnDeleteCourse(course)"></i>
+                <td class="col-2">
+                    <div class="grid">
+                        <div class="col">
+
+                            <i class="pi pi-eye " ></i>
+                        </div>
+                        <div class="col">
+<!--                             <i class="pi pi-pencil"
+                                [routerLink]="['/admin/course/edit']">
+                            </i> -->
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-pencil"
+                                [routerLink]="['/admin/course/edit',1]"
+                                class="p-button-raised p-button-rounded">
+                            </button>
+                        </div>
+                        <div class="col">
+                            <i class="pi pi-trash" (click)="btnDeleteCourse(course)"></i>
+                        </div>
                     </div>
                 </td>
             </tr>

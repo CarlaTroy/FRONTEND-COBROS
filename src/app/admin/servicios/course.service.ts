@@ -17,6 +17,9 @@ export class CourseService {
   public getAll():Observable<any>{
     return this.http.get<CourseFullDTO[]>(`${this.apiURL}/courses`);
   }
+  public getCourseId(id:number):Observable<any>{
+    return this.http.get<CourseFullDTO[]>(`${this.apiURL}/courses/${id}`);
+  }
   public create(courseCreate: CourseCreateDTO):Observable<any> {
     return this.http.post<boolean>(`${this.apiURL}/courses/`, courseCreate).pipe(
         tap(() => this._resetForm$.next())

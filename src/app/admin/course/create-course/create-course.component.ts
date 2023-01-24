@@ -27,7 +27,6 @@ export class CreateCourseComponent implements OnInit {
   ngOnInit(): void {
   }
   createCourse(courseCreate:CourseCreateDTO){
-    let timerInterval;
     Swal.fire({
         allowOutsideClick: false,
         text: 'Espere por favor...',
@@ -43,6 +42,12 @@ export class CreateCourseComponent implements OnInit {
             })
             return;
         }
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Información',
+            footer: response.message
+        })
     },error=>{
         console.log(error);
         Swal.close();
