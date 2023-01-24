@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { CohorteRoutingModule } from './cohorte-routing.module';
 import { CreateCohorteComponent } from './create-cohorte/create-cohorte.component';
 import { EditCohorteComponent } from './edit-cohorte/edit-cohorte.component';
@@ -13,10 +12,12 @@ import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.m
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ListCohorteComponent } from './list-cohorte/list-cohorte.component';
+import { CohorteComponent } from './cohorte.component';
 
 
 @NgModule({
   declarations: [
+    CohorteComponent,
     ListCohorteComponent,
     CreateCohorteComponent,
     EditCohorteComponent,

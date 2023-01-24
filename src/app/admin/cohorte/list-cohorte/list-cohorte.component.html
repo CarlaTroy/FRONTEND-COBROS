@@ -55,13 +55,13 @@
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-1">
+                <th pSortableColumn="date_init" class="col-2">
                     <div class="flex justify-content-between align-items-center">
                         Fecha Inicio
                         <p-sortIcon field="date_init"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="date_end" class="col-1">
+                <th pSortableColumn="date_end" class="col-2">
                     <div class="flex justify-content-between align-items-center">
                         Fecha Fin
                         <p-sortIcon field="date_end"></p-sortIcon>
@@ -87,14 +87,13 @@
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="course" class="col-2">
+                <th pSortableColumn="course" class="col-1">
                     <div class="flex justify-content-between align-items-center">
                         Curso
                         <p-sortIcon field="course"></p-sortIcon>
                     </div>
                 </th>
                 <th class="col-2">
-                    Acciones
                 </th>
             </tr>
         </ng-template>
@@ -111,11 +110,11 @@
                     <span >{{cohorte.name}}</span>
                 </td>
 
-                <td class="col-1">
+                <td class="col-2">
                     <span class="p-column-title"> Fecha Inicio</span>
                     <p>{{cohorte.date_init}}</p>
                 </td>
-                <td class="col-1">
+                <td class="col-2">
                     <span class="p-column-title">  Fecha Fin</span>
                     <p>{{cohorte.date_end}}</p>
                 </td>
@@ -127,11 +126,11 @@
                     <span class="p-column-title"> Costo Credito</span>
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
-                <td class="col-2">
-                    <span class="p-column-title">Curso</span>
-                    <p>{{cohorte.course}}</p>
-                </td>
                 <td class="col-1">
+                    <span class="p-column-title">Curso</span>
+                    <p>{{cohorte.course.name}}</p>
+                </td>
+                <td class="col-2">
                     <div class="grid">
 <!--                         <div class="col">
                             <button
