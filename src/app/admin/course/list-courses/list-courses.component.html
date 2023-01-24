@@ -16,7 +16,7 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['id','nombre', 'latitud', 'longitud']">
+        [globalFilterFields]="['id','name', 'description']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -52,7 +52,7 @@
                 <th pSortableColumn="name" class="col-2">
                     <div class="flex justify-content-between align-items-center">
                         Nombre
-                        <p-sortIcon field="nombre"></p-sortIcon>
+                        <p-sortIcon field="name"></p-sortIcon>
                     </div>
                 </th>
 

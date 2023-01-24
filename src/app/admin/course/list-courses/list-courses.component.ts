@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CourseService } from '../../servicios/course.service';
