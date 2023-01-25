@@ -81,8 +81,8 @@ export class EditCohorteComponent implements OnInit {
 }
 
  editCourse(courseCreate:CohorteCreateDTO){
-  console.log('courseCreate')
-  console.log(courseCreate)
+  //console.log('courseCreate')
+  //console.log(courseCreate)
    Swal.fire({
        allowOutsideClick: false,
        text: 'Espere por favor...',

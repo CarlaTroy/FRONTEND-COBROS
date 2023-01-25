@@ -12,15 +12,15 @@
 			<div class="p-fluid p-formgrid grid">
                 <div class="field col-6">
                     <label htmlFor="course">Cantón</label>
-                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="selectedCountry" formControlName="course_id" optionLabel="name" 
+                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="courseNameSelected" formControlName="course_id" optionLabel="name" 
                 [filter]="true" filterBy="name"
                 (onChange)="onChange($event)"
                 dataKey="value"
                 optionLabel="name"  [showClear]="true"
                 [showClear]="true" placeholder="Seleccionar Curso">
                 <ng-template pTemplate="selectedItem">
-                    <div class="country-item country-item-value" *ngIf="selectedCountry">
-                        <div>{{selectedCountry}}</div>
+                    <div class="country-item country-item-value" *ngIf="courseNameSelected">
+                        <div>{{courseNameSelected}}</div>
                     </div>
                 </ng-template>
                 <ng-template let-cantones pTemplate="item">

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { CourseFullDTO, obtenerDropdownCourseDTO } from 'src/app/admin/course/course';
+import { CourseFullDTO} from 'src/app/admin/course/course';
 import { CohorteService } from 'src/app/admin/servicios/cohorte.service';
 import Swal from 'sweetalert2';
 import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
@@ -16,15 +16,9 @@ export class FormCohorteComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO[];
     @Input() modelCohorteseFull!:CohorteFullDTO;
-    modelcreateCohorteDTO!:CohorteCreateDTO;
     
-
-
-    listarCantones:CourseFullDTO[] = [];
-    cantones: obtenerDropdownCourseDTO[];
-    cantonSelected!: number;
-
-    selectedCountry: string = '';
+    courseIdSelected!: number;
+    courseNameSelected: string = '';
 
     //output
    @Output() onSubmitCohorte:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
@@ -48,15 +42,11 @@ export class FormCohorteComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
-                private cohorteService:CohorteService,
-                private courseService:CourseService,) 
+                private cohorteService:CohorteService,) 
                 {
-                  this.cantones = [];
                 }
 
   ngOnInit(): void {
-    console.log('this.modelCourseFull')
-    console.log(this.modelCourseFull)
     this.initInputForm();
    //si existe data entonces en modo edicion
    if(this.modelCohorteseFull){
@@ -81,8 +71,8 @@ export class FormCohorteComponent implements OnInit {
   loadDataForm(){
   
         this.formCohorte.patchValue(this.modelCohorteseFull);
-      this.selectedCountry = this.modelCohorteseFull.course.name;
-      this.cantonSelected = this.modelCohorteseFull.course.id;
+      this.courseNameSelected = this.modelCohorteseFull.course.name;
+      this.courseIdSelected = this.modelCohorteseFull.course.id;
     
   }
 
@@ -103,8 +93,8 @@ export class FormCohorteComponent implements OnInit {
   onChange(event: any) {
     if(!event.value) return
     console.log(event.value['id'])
-    this.cantonSelected = event.value['id']
-    this.selectedCountry = event.value['name']
+    this.courseIdSelected = event.value['id']
+    this.courseNameSelected = event.value['name']
     //this.formParroquia.value.fk_canton_id.id = Number(event.value['id'])
   }
 
@@ -121,7 +111,7 @@ export class FormCohorteComponent implements OnInit {
     }
 
     /*console.log(this.formCohorte.value)
-    this.formCohorte.value.course_id = this.cantonSelected
+    this.formCohorte.value.course_id = this.courseIdSelected
     const createCourse:CohorteCreateDTO=this.formCohorte.value
     this.onSubmitCohorte.emit(createCourse);*/
 
@@ -130,13 +120,11 @@ export class FormCohorteComponent implements OnInit {
       name:this.formCohorte.value.name,
         cost_credit:this.formCohorte.value.cost_credit,
         cost_effective:this.formCohorte.value.cost_effective,
-        course_id:this.cantonSelected,
+        course_id:this.courseIdSelected,
         date_end:this.formCohorte.value.date_end,
         date_init:this.formCohorte.value.date_init
     }
 
-    console.log('createCourse')
-    console.log(createCourse)
     this.onSubmitCohorte.emit(createCourse);
     return;
   }

@@ -7,7 +7,3 @@ export interface CourseCreateDTO{
     name: string,
     description: string
 }
-export interface obtenerDropdownCourseDTO{
-    id: number;
-    name:string;
-  }
