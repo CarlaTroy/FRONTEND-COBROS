@@ -1,11 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
-import { CourseFullDTO } from '../../course/course';
-import { CohorteService } from '../../servicios/cohorte.service';
-import { CourseService } from '../../servicios/course.service';
-import { CohorteFullDTO } from '../cohorte';
 
 @Component({
   selector: 'app-edit-cohorte',
@@ -13,26 +6,8 @@ import { CohorteFullDTO } from '../cohorte';
   styleUrls: ['./edit-cohorte.component.scss']
 })
 export class EditCohorteComponent implements OnInit {
-    listCourse:CourseFullDTO[] = [];
-    subCourse!:Subscription;
-    modelCohorteFull!:CohorteFullDTO;
-    //toast
-    Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    })
-    //suscription
-    sub!:Subscription;
-  constructor( private cohorteService:CohorteService,
-                private courseService:CourseService,
-                private activatedRoute:ActivatedRoute) { }
+
+  constructor() { }
 
   ngOnInit(): void {
     this.loadDataCourses();

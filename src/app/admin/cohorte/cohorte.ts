@@ -9,6 +9,8 @@ export interface CohorteFullDTO{
     cost_credit: number,
     course: CourseFullDTO
 }
+
+
 export interface CohorteCreateDTO{
     name: string,
     date_init: string,
@@ -17,3 +19,4 @@ export interface CohorteCreateDTO{
     cost_credit: number,
     course_id: number
 }
+
