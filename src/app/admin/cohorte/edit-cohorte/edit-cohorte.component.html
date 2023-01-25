@@ -1,17 +1,11 @@
+
 <div class="card ui-fluid">
-    <p-progressBar mode="indeterminate"  *ngIf="!listCourse && !modelCohorteFull "></p-progressBar>
-<!--     <app-form-course
-        (onSubmitCourse)="editCourse($event)"
-        [modelCourseFull]="modelCourseFull"
-        [modeForm]="'Editar Course'"
-        *ngIf="modelCourseFull">
-    </app-form-course> -->
+    <p-progressBar mode="indeterminate" *ngIf="!modelCohorteseFull"></p-progressBar>
     <app-form-cohorte
         (onSubmitCohorte)="editCourse($event)"
         [modelCohorteseFull]="modelCohorteseFull"
-        [modeForm]="'Editar Cohorte'"
         [modelCourseFull]="listCourse"
-        [modelCohorteFull]="modelCohorteFull"
-        *ngIf="listCourse && modelCohorteFull">
+        [modeForm]="'Editar Cohorte'"
+        *ngIf="modelCohorteseFull">
     </app-form-cohorte>
 </div>
