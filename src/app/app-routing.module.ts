@@ -16,7 +16,7 @@ import { PrincipalComponent } from './principal/principal.component';
             { path: "admin",component:AdminComponent,children:[
                 { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                 { path: 'usuario', loadChildren: () => import('./admin/usuario/usuario.module').then(m => m.UsuarioModule) },
-                { path: 'estudiante', loadChildren: () => import('./admin/student/student.module').then(m => m.StudentModule) },
+                { path: 'student', loadChildren: () => import('./admin/student/student.module').then(m => m.StudentModule) },
                 //{ path: 'produccion', loadChildren: () => import('./admin/produccion/produccion.module').then(m => m.ProduccionModule) },
                 //{ path: 'resultados', loadChildren: () => import('./admin/resultados/resultados.module').then(m => m.ResultadosModule) },
                 //{ path: 'costo-produccion', loadChildren: () => import('./admin/costo-produccion/costo-produccion.module').then(m => m.CostoProduccionModule) },

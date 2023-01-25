@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { CourseFullDTO } from '../../course/course';
-import { CourseService } from '../../servicios/course.service';
-import { CohorteService } from '../../servicios/cohorte.service';
-import { CohorteCreateDTO } from '../../cohorte/cohorte';
+import { StudentCreateDTO } from '../student';
+import { StudentService } from '../../servicios/student.service';
+import { UsuarioDTO } from '../../usuario/usuario.model';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-create-student',
@@ -13,7 +13,7 @@ import { CohorteCreateDTO } from '../../cohorte/cohorte';
 })
 export class CreateStudentComponent implements OnInit {
 
-  listCourse:CourseFullDTO[] = [];
+  listUsers:UsuarioDTO[] = [];
   subCourse!:Subscription;
   //toast
   Toast = Swal.mixin({
@@ -27,15 +27,16 @@ export class CreateStudentComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
   })
-constructor(private courseService:CourseService,
-              private cohorteService:CohorteService) { }
+constructor(private usuarioService:UsuarioService,
+              private cohorteService:StudentService) { }
 
 ngOnInit(): void {
   this.loadDataCourses();
 }
 loadDataCourses(){
-  this.subCourse=this.courseService.getAll().subscribe(response=>{
-      this.listCourse=response.data;
+  this.subCourse=this.usuarioService.obtenerTodos().subscribe(response=>{
+    console.log(response.data)
+      this.listUsers=response.data;
     },error=>{
       let message= error.error.message;
       Swal.close();
@@ -47,7 +48,7 @@ loadDataCourses(){
         })
     });
 }
-createCohorte(courseCreate:CohorteCreateDTO){
+createStudent(courseCreate:StudentCreateDTO){
   Swal.fire({
       allowOutsideClick: false,
       text: 'Espere por favor...',

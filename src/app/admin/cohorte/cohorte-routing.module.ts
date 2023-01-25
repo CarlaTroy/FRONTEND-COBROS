@@ -5,7 +5,7 @@ import { CreateCohorteComponent } from './create-cohorte/create-cohorte.componen
 import { EditCohorteComponent } from './edit-cohorte/edit-cohorte.component';
 
 const routes: Routes = [
-    {path: '',component: CohorteComponent},
+    { path: '',component: CohorteComponent},
     { path: "create",component:CreateCohorteComponent },
     { path: "edit/:id",component:EditCohorteComponent },
 ];

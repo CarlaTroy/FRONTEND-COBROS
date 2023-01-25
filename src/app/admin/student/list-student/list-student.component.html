@@ -1,1 +1,160 @@
-<p>list-student works!</p>
+
+<div class="card ui-fluid">
+    <p-table
+        #dt
+        [value]="listCohorte"
+        [(selection)]="selectedCohorte"
+        dataKey="id"
+        styleClass="p-datatable-customers"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]"
+        [loading]="loading"
+        responsiveLayout="scroll"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+        [globalFilterFields]="['name', 'last_name', 'identification','cell_phone']">
+        <ng-template pTemplate="caption">
+
+        <div class="table-header">
+            <div class="grid">
+                <div class="col">
+                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/student/create']"></p-button>
+                </div>
+                <div class="col">
+                    <h3 class="mt-1"><b>Estudiantes</b></h3>
+                </div>
+                <div class="col">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input
+                            pInputText
+                            type="text"
+                            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Buscar por nombre" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr class="grid">
+                <th pSortableColumn="id" class="col-1 pt-4">
+                    <div class="flex justify-content-between align-items-center">
+                        #
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="name" class="col-1 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        Nombre
+                        <p-sortIcon field="name"></p-sortIcon>
+                    </div>
+                </th>
+
+                <th pSortableColumn="date_init" class="col-1 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        Apellido
+                        <p-sortIcon field="date_init"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="date_end" class="col-2 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        Cédula
+                        <p-sortIcon field="date_end"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="cost_effective" class="col-2 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        <span>
+                            Celular
+                        </span>
+                        <p-sortIcon field="cost_effective"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="cost_credit" class="col-2 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        <span>
+                            usuario
+                        </span>
+                        <p-sortIcon field="cost_credit"></p-sortIcon>
+                    </div>
+                </th>
+                <th class="col-3 pt-5">
+                    Acciones
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
+            <tr class="grid">
+
+                <td class="col-1 flex justify-content-between align-items-center">
+                    <span class="p-column-title">#</span>
+                    {{rowIndex+1}}
+                </td>
+                <td class="col-1 flex justify-content-between align-items-center">
+                    <span class="p-column-title">Nombre</span>
+                    <span >{{student.name}}</span>
+                </td>
+
+                <td class="col-1 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Apellido</span>
+                    <p>{{student.last_name}}</p>
+                </td>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title">  Cédula</span>
+                    <p>{{student.identification}}</p>
+                </td>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Celular</span>
+                    <p>{{student.cell_phone}}</p>
+                </td>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> usuario</span>
+                    <p>{{student.address}}</p>
+                </td>
+                <td class="col-3 flex justify-content-between align-items-center">
+                    <div class="grid pt-4">
+<!--                         <div class="col">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-eye"
+                                (click)="btnDeleteCourse(course)"
+                                class="p-button-raised p-button-rounded">
+                            </button>
+                        </div> -->
+                        <div class="col pr-0">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-pencil"
+                                [routerLink]="['/admin/student/edit',student.id]"
+                                class="p-button-raised p-button-rounded">
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-trash"
+                                (click)="btnDeletStudent(student)"
+                                class="p-button-danger p-button-rounded">
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No existen resultados.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>

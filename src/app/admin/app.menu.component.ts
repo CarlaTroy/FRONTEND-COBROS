@@ -51,11 +51,11 @@ export class AppMenuComponent implements OnInit {
                         items: [
                             {
                                 label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
-                                routerLink: ['/admin/estudiante']
+                                routerLink: ['/admin/student']
                             },
                             {
                                 label: 'Crear', icon: 'pi pi-fw pi-bookmark',
-                                 routerLink: ['/admin/estudiante/create']
+                                 routerLink: ['/admin/student/create']
                             }
                         ]
                     },
