@@ -12,7 +12,7 @@
 			<div class="p-fluid p-formgrid grid">
                 <div class="field col-6">
                     <label htmlFor="course">Cantón</label>
-                    <p-dropdown [options]="cantones" formControlName="course_id" optionLabel="name" 
+                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="selectedCountry" formControlName="course_id" optionLabel="name" 
                 [filter]="true" filterBy="name"
                 (onChange)="onChange($event)"
                 dataKey="value"

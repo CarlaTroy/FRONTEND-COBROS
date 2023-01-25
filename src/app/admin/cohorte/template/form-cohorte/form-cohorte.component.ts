@@ -49,12 +49,14 @@ export class FormCohorteComponent implements OnInit {
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
                 private cohorteService:CohorteService,
-                private courseService:CourseService,
-                ) {
-                    this.cantones = [];
-                 }
+                private courseService:CourseService,) 
+                {
+                  this.cantones = [];
+                }
 
   ngOnInit(): void {
+    console.log('this.modelCourseFull')
+    console.log(this.modelCourseFull)
     this.cargarCourses();
     this.initInputForm();
     //si existe data entonces en modo edicion
@@ -82,9 +84,10 @@ export class FormCohorteComponent implements OnInit {
           date_end: this.modelCohorteseFull.date_end,
           cost_effective: this.modelCohorteseFull.cost_effective,
           cost_credit: this.modelCohorteseFull.cost_credit,
-          course_id: parseInt(this.modelCohorteseFull.course.id.toString()),
+          course_id: this.modelCohorteseFull.course.id,
         }
         this.cantonSelected = this.modelCohorteseFull.course.id
+        this.selectedCountry = this.modelCohorteseFull.course.name
       }
 
       console.log('this.modelcreateCohorteDTO')
@@ -95,8 +98,8 @@ export class FormCohorteComponent implements OnInit {
           console.log(this.modelcreateCohorteDTO)
         this.formCohorte.patchValue(this.modelcreateCohorteDTO);
 
-        setTimeout(() => {
-
+       // setTimeout(() => {
+          
 
             for (let i = 0; i < this.listarCantones.length; i++) {
                 if(this.listarCantones[i].id === this.modelCohorteseFull.course.id){
@@ -114,7 +117,7 @@ export class FormCohorteComponent implements OnInit {
                 }
                 
               }
-               }, 1000);
+             //  }, 1000);
       }
     
   }
@@ -135,7 +138,7 @@ export class FormCohorteComponent implements OnInit {
   cargarCourses():void{
     this.courseService.getAll().subscribe(cantones=>{
       this.listarCantones=cantones.data;
-    console.log(cantones.data)
+    //console.log(cantones.data)
 
       for (let i = 0; i < cantones.data.length; i++) {
         let mapa = {id: cantones.data[i].id, name: cantones.data[i].name}
