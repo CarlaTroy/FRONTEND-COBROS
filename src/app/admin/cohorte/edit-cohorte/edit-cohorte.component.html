@@ -1,1 +1,16 @@
-<p>edit-cohorte works!</p>
+<div class="card ui-fluid">
+    <p-progressBar mode="indeterminate"  *ngIf="!listCourse && !modelCohorteFull "></p-progressBar>
+<!--     <app-form-course
+        (onSubmitCourse)="editCourse($event)"
+        [modelCourseFull]="modelCourseFull"
+        [modeForm]="'Editar Course'"
+        *ngIf="modelCourseFull">
+    </app-form-course> -->
+    <app-form-cohorte
+        (onSubmitCohorte)="editCohorte($event)"
+        [modeForm]="'Editar Cohorte'"
+        [modelCourseFull]="listCourse"
+        [modelCohorteFull]="modelCohorteFull"
+        *ngIf="listCourse && modelCohorteFull">
+    </app-form-cohorte>
+</div>

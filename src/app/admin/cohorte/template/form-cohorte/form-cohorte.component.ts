@@ -14,7 +14,7 @@ import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
 export class FormCohorteComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO[];
-    @Input() modelCohorteseFull!:CohorteFullDTO;
+    @Input() modelCohorteFull!:CohorteFullDTO;
     //output
    @Output() onSubmitCohorte:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
     //form
@@ -41,6 +41,15 @@ export class FormCohorteComponent implements OnInit {
 
   ngOnInit(): void {
     this.initInputForm();
+      //si existe data entonces en modo edicion
+      if(this.modelCohorteFull){
+        this.loadDataForm();
+        return;
+      }
+      //modo creacion
+      if(!this.modelCohorteFull){
+        return;
+      }
     //observable cuandos se crea un registro nuevo
     this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
         this.formCohorte.reset();
@@ -52,6 +61,10 @@ export class FormCohorteComponent implements OnInit {
     }
   }
   // function personality
+  loadDataForm(){
+    this.formCohorte.patchValue(this.modelCohorteFull);
+    this.intanceCourse=this.modelCohorteFull.course;
+  }
   initInputForm(){
     this.formCohorte = this.formBuilder.group({
         name: ['', [Validators.required, Validators.maxLength(100)]],
