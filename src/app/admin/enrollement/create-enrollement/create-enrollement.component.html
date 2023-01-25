@@ -5,8 +5,9 @@
     <app-form-enrollement
         (onSubmitCohorte)="createStudent($event)"
         [modeForm]="'Crear Enrollement'"
-        [modelCourseFull]="listUsers"
+        [modelStudentFull]="listUsers"
         [modelCohorteFull]="listCohorte"
+        [modelTypePaysFull]="listTypePays"
         *ngIf="listUsers">
     </app-form-enrollement>
 </div>

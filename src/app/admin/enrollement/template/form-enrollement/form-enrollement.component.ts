@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { CourseFullDTO } from 'src/app/admin/course/course';
 import { StudentFullDTO } from 'src/app/admin/student/student';
 import Swal from 'sweetalert2';
-import { EnrollementCreateDTO, EnrollementFullDTO } from '../../enrollement';
+import { EnrollementCreateDTO, EnrollementFullDTO, TypePaysFullDTO } from '../../enrollement';
 import { EnrollementService } from 'src/app/admin/servicios/enrollement.service';
 import { MessageService } from 'primeng/api';
 import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
@@ -18,19 +18,29 @@ import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
 export class FormEnrollementComponent implements OnInit {
 
   @Input() modeForm!:string;
-  @Input() modelCourseFull!:StudentFullDTO[];
+  @Input() modelStudentFull!:StudentFullDTO[];
   @Input() modelCohorteFull!:CohorteFullDTO[];
+  @Input() modelTypePaysFull!:TypePaysFullDTO[];
   @Input() modelCohorteseFull!:EnrollementFullDTO;
   
 
-  selectedCustomer!: StudentFullDTO;
+  selectedStudent!: StudentFullDTO;
   selectedCohorte!: CohorteFullDTO;
 
 
-  courseIdSelected!: number;
-  courseNameSelected: string = '';
+  studentIdSelected!: number;
+  studentNameSelected: string = '';
+
+
+  typePayIdSelected!: number;
+  typePayNameSelected: string = '';
   display: boolean = false;
 
+
+
+
+  activateFieldCash: boolean = false;
+  activateFieldCuotas: boolean = false;
 
   //output
  @Output() onSubmitCohorte:EventEmitter<EnrollementCreateDTO>=new EventEmitter<EnrollementCreateDTO>();
@@ -90,10 +100,14 @@ OnDestroy(): void {
 }
 
 onRowSelect(event: any) {
+  console.log(event.data)
+  this.formCohorte.controls['student_id'].setValue(event.data.id);
+  this.studentIdSelected = event.data.id
   this.messageService.add({severity: 'info', summary: 'Estudiante Selected', detail: event.data.name});
 }
 
 onRowSelectCohorte(event: any) {
+  this.formCohorte.controls['cohorte_id'].setValue(event.data.id);
   console.log(event.data)
   this.messageService.add({severity: 'info', summary: 'Cohorte Selected', detail: event.data.name});
 }
@@ -101,9 +115,9 @@ loadDataForm(){
 console.log('this.modelCohorteseFull')
 console.log(this.modelCohorteseFull)
       this.formCohorte.patchValue(this.modelCohorteseFull);
-      this.courseNameSelected = this.modelCohorteseFull.student.name;
-      this.courseIdSelected = this.modelCohorteseFull.student.id;
-  
+      this.studentNameSelected = this.modelCohorteseFull.student.name;
+      this.studentIdSelected = this.modelCohorteseFull.student.id;
+      
 }
 
 // function personality
@@ -124,14 +138,30 @@ initInputForm(){
 onChange(event: any) {
   if(!event.value) return
   console.log(event.value.id)
-  console.log(event.value.username)
-  this.courseIdSelected = Number.parseInt(event.value.id)
-  this.courseNameSelected = event.value.username
+  console.log(event.value.name)
+  console.log(event.value.codigo)
+  this.typePayIdSelected = Number.parseInt(event.value.id)
+  this.typePayNameSelected = event.value.name
+
+  if(event.value.codigo == '001'){
+    this.activateFieldCuotas = true
+  }else{
+    this.activateFieldCuotas = false
+  }
+  if(event.value.codigo == '002'){
+    this.activateFieldCash = true
+  }else{
+    this.activateFieldCash = false
+  }
+  
   
 }
 
 
 submitCohorte(){
+  console.log('this.formCohorte.value')
+    console.log(this.formCohorte.value)
+    console.log(this.studentIdSelected)
   if(this.formCohorte.invalid){
       this.Toast.fire({
           icon: 'warning',
@@ -142,10 +172,11 @@ submitCohorte(){
       });
   }
 
-  /* this.formCohorte.value.course_id = this.courseIdSelected
+  /* this.formCohorte.value.course_id = this.studentIdSelected
   const createCourse:CohorteCreateDTO=this.formCohorte.value
   this.onSubmitCohorte.emit(createCourse);*/
-  this.formCohorte.value.user_id= this.courseIdSelected
+  this.formCohorte.controls['tipe_pay_id'].setValue(this.typePayIdSelected);
+  
  
 const createCourse:EnrollementCreateDTO={
       student_id:this.formCohorte.value.student_id,
@@ -156,6 +187,7 @@ const createCourse:EnrollementCreateDTO={
       cash:this.formCohorte.value.cash,
       discount:this.formCohorte.value.discount
     }
+    console.log('this.formCohorte.value')
     console.log(this.formCohorte.value)
     
   this.onSubmitCohorte.emit(createCourse);
@@ -169,13 +201,13 @@ const createCourse:EnrollementCreateDTO={
   get lastNameNotValid(){
   return this.formCohorte.get('cohorte_id')?.invalid && this.formCohorte.get('cohorte_id')?.touched;
   }
-  get identificationNotValid(){
-      return this.formCohorte.get('tipe_pay_id')?.invalid && this.formCohorte.get('tipe_pay_id')?.touched;
+  get cashNotValid(){
+      return this.formCohorte.get('cash')?.invalid && this.formCohorte.get('cash')?.touched;
   }
-  get cellPhoneNotValid(){
+  get cuotasNotValid(){
       return this.formCohorte.get('cuotas')?.invalid && this.formCohorte.get('cuotas')?.touched;
   }
-  get AddressNotValid(){
+  get DayLimitNotValid(){
       return this.formCohorte.get('day_limite')?.invalid && this.formCohorte.get('day_limite')?.touched;
   }
   get userIdNotValid(){

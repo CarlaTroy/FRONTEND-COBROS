@@ -5,7 +5,7 @@ export interface EnrollementFullDTO {
     id:         number;
     student:    StudentFullDTO;
     cohorte:    CohorteFullDTO;
-    tipe_pay:   TipePay;
+    tipe_pay:   TypePaysFullDTO;
     cuotas:     number;
     day_limite: number;
     cash:       number;
@@ -23,7 +23,7 @@ export interface EnrollementCreateDTO {
     discount:   number;
 }
 
-export interface TipePay {
+export interface TypePaysFullDTO {
     id:     number;
     name:   string;
     codigo: string;
