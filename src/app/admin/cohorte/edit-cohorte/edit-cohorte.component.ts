@@ -4,8 +4,6 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CohorteCreateDTO, CohorteFullDTO } from '../cohorte';
 import { CohorteService } from '../../servicios/cohorte.service';
-import { CourseFullDTO } from '../../course/course';
-import { CourseService } from '../../servicios/course.service';
 @Component({
   selector: 'app-edit-cohorte',
   templateUrl: './edit-cohorte.component.html',
@@ -15,11 +13,8 @@ export class EditCohorteComponent implements OnInit {
 
  //toast
  modelCohorteseFull!:CohorteFullDTO;
- listCourse!: CourseFullDTO[];
  //suscription
  sub!:Subscription;
- subAllCourse!:Subscription;
-
  Toast = Swal.mixin({
    toast: true,
    position: 'top-end',
@@ -31,18 +26,15 @@ export class EditCohorteComponent implements OnInit {
      toast.addEventListener('mouseleave', Swal.resumeTimer)
    }
  })
- constructor(
-            private cohorteService:CohorteService,
-            private courseService:CourseService,
+ constructor(private courseService:CohorteService,
              private activatedRoute:ActivatedRoute) { }
 
  ngOnInit(): void {
    this.getCourseId();
-   this.loadDataCourses();
  }
  getCourseId(){
    this.activatedRoute.params.subscribe((response:any)=>{
-       this.sub = this.cohorteService.getCohorteId(Number(response.id)).subscribe(response=>{
+       this.sub = this.courseService.getCohorteId(Number(response.id)).subscribe(response=>{
            if(response.success){
                this.modelCohorteseFull=response.data;
                return;
@@ -63,23 +55,6 @@ export class EditCohorteComponent implements OnInit {
        });
    });
  }
-
- loadDataCourses(){
-  this.subAllCourse=this.courseService.getAll().subscribe(response=>{
-    console.log('getAllCourse')
-    console.log(response.data)
-      this.listCourse=response.data;
-    },error=>{
-      let message= error.error.message;
-      Swal.close();
-      Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error',
-          footer:message
-        })
-    });
-}
  editCourse(courseCreate:CohorteCreateDTO){
   console.log('courseCreate')
   console.log(courseCreate)
@@ -89,7 +64,7 @@ export class EditCohorteComponent implements OnInit {
        timerProgressBar: false,
    });
    Swal.showLoading()
-   this.cohorteService.edit(courseCreate,this.modelCohorteseFull.id).subscribe(response=>{
+   this.courseService.edit(courseCreate,this.modelCohorteseFull.id).subscribe(response=>{
        Swal.close();
        if(response.success){
            this.Toast.fire({
@@ -115,9 +90,5 @@ export class EditCohorteComponent implements OnInit {
          })
    });
  }
- OnDestroy(){
-  if(this.subAllCourse){
-      this.subAllCourse.unsubscribe();
-  }
-}
+
 }

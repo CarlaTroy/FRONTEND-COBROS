@@ -10,10 +10,15 @@ import { CohorteCreateDTO, CohorteFullDTO } from '../cohorte/cohorte';
 export class CohorteService {
     private apiURL=environment.apiURL+'/api';
     private _resetForm$ = new Subject<void>();
+    private _refreshTable$ = new Subject<void>();
   constructor(public http: HttpClient) { }
  //observables
  get refreshForm$(){
     return this._resetForm$;
+  }
+     //observables
+ get refreshTable$(){
+    return this._refreshTable$;
   }
   public create(courseCreate: CohorteCreateDTO):Observable<any> {
     return this.http.post<boolean>(`${this.apiURL}/cohortes/`, courseCreate).pipe(
@@ -33,11 +38,14 @@ export class CohorteService {
   public getAll():Observable<any>{
     return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes`);
   }
+  public getCohorte(id:number):Observable<any>{
+    return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes/${id}`);
+  }
 
   public deleteCohorteId(id: number): Observable<any> {
     return this.http.delete<boolean>(`${this.apiURL}/cohortes/${id}`).pipe(
       tap(() => {
-        this._resetForm$.next();  //esto se ejecuta antes de retorna la data al componente
+        this._refreshTable$.next();  //esto se ejecuta antes de retorna la data al componente
       })
     );
   }

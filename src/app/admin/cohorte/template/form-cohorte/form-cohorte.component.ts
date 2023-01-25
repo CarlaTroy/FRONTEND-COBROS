@@ -15,17 +15,7 @@ import { CourseService } from 'src/app/admin/servicios/course.service';
 export class FormCohorteComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO[];
-    @Input() modelCohorteseFull!:CohorteFullDTO;
-    modelcreateCohorteDTO!:CohorteCreateDTO;
-    
-
-
-    listarCantones:CourseFullDTO[] = [];
-    cantones: obtenerDropdownCourseDTO[];
-    cantonSelected!: number;
-
-    selectedCountry: string = '';
-
+    @Input() modelCohorteFull!:CohorteFullDTO;
     //output
    @Output() onSubmitCohorte:EventEmitter<CohorteCreateDTO>=new EventEmitter<CohorteCreateDTO>();
     //form
@@ -59,8 +49,15 @@ export class FormCohorteComponent implements OnInit {
     console.log(this.modelCourseFull)
     this.cargarCourses();
     this.initInputForm();
-    //si existe data entonces en modo edicion
-   this.loadDataForm();
+      //si existe data entonces en modo edicion
+      if(this.modelCohorteFull){
+        this.loadDataForm();
+        return;
+      }
+      //modo creacion
+      if(!this.modelCohorteFull){
+        return;
+      }
     //observable cuandos se crea un registro nuevo
     this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
         this.formCohorte.reset();
@@ -77,7 +74,7 @@ export class FormCohorteComponent implements OnInit {
     console.log(this.modelCohorteseFull)
     if(this.modelCohorteseFull != undefined){
         //this.formParroquia.value.fk_canton_id = this.modelCohorteseFull.fk_canton.id
-    
+
         this.modelcreateCohorteDTO = {
           name: this.modelCohorteseFull.name,
           date_init: this.modelCohorteseFull.date_init,
@@ -115,14 +112,18 @@ export class FormCohorteComponent implements OnInit {
                     this.formCohorte.controls['course_id'].setValue(Number(this.listarCantones[i].id));
                   }
                 }
-                
+
               }
              //  }, 1000);
       }
-    
+
   }
 
   // function personality
+  loadDataForm(){
+    this.formCohorte.patchValue(this.modelCohorteFull);
+    this.intanceCourse=this.modelCohorteFull.course;
+  }
   initInputForm(){
     this.formCohorte = this.formBuilder.group({
         name: ['', [Validators.required, Validators.maxLength(100)]],
@@ -147,7 +148,7 @@ export class FormCohorteComponent implements OnInit {
     },error=>{
       //this.messageService.add({severity:'error', summary: 'Error', detail: 'Error vuelva a recargar la página'});
     });
-  
+
   }
   onChange(event: any) {
     if(!event.value) return
@@ -174,7 +175,7 @@ export class FormCohorteComponent implements OnInit {
     const createCourse:CohorteCreateDTO=this.formCohorte.value
     this.onSubmitCohorte.emit(createCourse);
 
-    
+
     /*const createCourse:CohorteCreateDTO={
         name:this.formCohorte.value.name,
         cost_credit:this.formCohorte.value.cost_credit,

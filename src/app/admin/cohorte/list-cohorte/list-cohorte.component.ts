@@ -34,14 +34,15 @@ export class ListCohorteComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDataCourses();
-    this.subDelete = this.cohorteService.refreshForm$.subscribe(()=>{
-      this.loadDataCourses();
-  });
+    //refresh table and delete registro
+    this.subDelete = this.cohorteService.refreshTable$.subscribe(()=>{
+        this.loadDataCourses();
+    });
   }
   loadDataCourses(){
     this.loading=true;
     this.subCohorte=this.cohorteService.getAll().subscribe(response=>{
-        //debugger
+        debugger
         this.loading=false;
         this.listCohorte=response.data;
       },error=>{
@@ -74,7 +75,7 @@ export class ListCohorteComponent implements OnInit {
             allowOutsideClick: false,
             didOpen: () => {
               Swal.showLoading(undefined)
-               this.subDelete=this.cohorteService.deleteCohorteId(cohorte.id).subscribe((response)=>{
+              this.subDelete=this.cohorteService.deleteCohorteId(cohorte.id).subscribe((response)=>{
                 if(response.success){
                     this.Toast.fire({
                       icon: 'success',
@@ -98,7 +99,7 @@ export class ListCohorteComponent implements OnInit {
                     text: 'Error',
                     footer:message
                   })
-              }) 
+              })
             }
           });
         }
