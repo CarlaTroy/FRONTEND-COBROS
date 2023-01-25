@@ -17,7 +17,7 @@ export class FormStudentComponent implements OnInit {
   @Input() modeForm!:string;
     @Input() modelCourseFull!:UsuarioDTO[];
     @Input() modelCohorteseFull!:StudentFullDTO;
-    
+
     courseIdSelected!: number;
     courseNameSelected: string = '';
 
@@ -43,7 +43,7 @@ export class FormStudentComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
-                private cohorteService:StudentService,) 
+                private cohorteService:StudentService,)
                 {
                 }
 
@@ -75,7 +75,7 @@ export class FormStudentComponent implements OnInit {
         this.formCohorte.patchValue(this.modelCohorteseFull);
         this.courseNameSelected = this.modelCohorteseFull.user.username;
         this.courseIdSelected = this.modelCohorteseFull.user.id;
-    
+
   }
 
   // function personality
@@ -83,22 +83,22 @@ export class FormStudentComponent implements OnInit {
     this.formCohorte = this.formBuilder.group({
         name: ['', [Validators.required, Validators.maxLength(100)]],
         last_name: ['', [Validators.required]],
-        identification: ['', [Validators.required]],
-        cell_phone: ['', [Validators.required,Validators.min(0)]],
+        identification: ['', [Validators.required,Validators.maxLength(10)]],
+        cell_phone: ['', [Validators.required,Validators.maxLength(10)]],
         address: ['', [Validators.required,Validators.min(0)]],
         user_id: ['', [Validators.required]],
       });
   }
 
 
-  
+
   onChange(event: any) {
     if(!event.value) return
     console.log(event.value.id)
     console.log(event.value.username)
     this.courseIdSelected = Number.parseInt(event.value.id)
     this.courseNameSelected = event.value.username
-    
+
   }
 
 
@@ -117,7 +117,7 @@ export class FormStudentComponent implements OnInit {
     const createCourse:CohorteCreateDTO=this.formCohorte.value
     this.onSubmitCohorte.emit(createCourse);*/
     this.formCohorte.value.user_id= this.courseIdSelected
-   
+
   const createCourse:StudentCreateDTO={
         name:this.formCohorte.value.name,
         last_name:this.formCohorte.value.last_name,
@@ -127,7 +127,7 @@ export class FormStudentComponent implements OnInit {
         user_id:this.courseIdSelected
       }
       console.log(this.formCohorte.value)
-      
+
     this.onSubmitCohorte.emit(createCourse);
     return;
   }

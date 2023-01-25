@@ -16,7 +16,7 @@ export class UsuarioService {
   token: any;
 
   tokenObtenido: any = localStorage.getItem('token');
- 
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export class UsuarioService {
     })
   };
 
-  constructor(public http: HttpClient, private router: Router) { 
+  constructor(public http: HttpClient, private router: Router) {
     this.cargarStorage()
   }
 
@@ -74,7 +74,7 @@ export class UsuarioService {
     return this.http.post(`${this.apiURL}/logout/`, this.httpOptions).pipe(
       map((resp: any) => {
         this.eliminarStorage()
-        this.router.navigate(['/principal']);
+        this.router.navigate(['/']);
         return resp.data;
       }),
       catchError((err) => {
@@ -102,7 +102,7 @@ export class UsuarioService {
   }*/
 
 
-  
+
   public crear(usuario: CrearUsuarioDTO) {
     return this.http.post<boolean>(`${this.apiURL}/register/`, usuario, this.httpOptions)  //envia el contenido del form al backend (web api)
     .pipe(

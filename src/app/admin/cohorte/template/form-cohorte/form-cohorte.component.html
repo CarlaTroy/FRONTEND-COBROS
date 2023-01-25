@@ -11,14 +11,17 @@
 		<div class="card">
 			<div class="p-fluid p-formgrid grid">
                 <div class="field col-6">
-                    <label htmlFor="course">Cantón</label>
-                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="courseNameSelected" formControlName="course_id" optionLabel="name" 
-                [filter]="true" filterBy="name"
-                (onChange)="onChange($event)"
-                dataKey="value"
-                optionLabel="name"  [showClear]="true"
-                [showClear]="true" placeholder="Seleccionar Curso">
-                <ng-template pTemplate="selectedItem">
+                    <label htmlFor="course">
+                        <span class="text-red-600">*</span>  Curso
+                    </label>
+                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="courseNameSelected" formControlName="course_id" optionLabel="name"
+                        [filter]="true" filterBy="name"
+                        (onChange)="onChange($event)"
+                        dataKey="value"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                        optionLabel="name"  [showClear]="true"
+                        [showClear]="true" placeholder="Seleccionar Curso">
+                    <ng-template pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="courseNameSelected">
                         <div>{{courseNameSelected}}</div>
                     </div>
