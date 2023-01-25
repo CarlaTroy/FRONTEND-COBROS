@@ -34,6 +34,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
         AppLayoutModule,
         AdminModule,
         PrincipalModule,
+        
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

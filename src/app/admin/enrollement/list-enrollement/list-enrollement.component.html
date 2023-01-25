@@ -15,16 +15,16 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['name', 'last_name', 'identification','cell_phone']">
+        [globalFilterFields]="['cuotas', 'student']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
             <div class="grid">
                 <div class="col">
-                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/student/create']"></p-button>
+                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/enrollement/create']"></p-button>
                 </div>
                 <div class="col">
-                    <h3 class="mt-1"><b>Enrollement</b></h3>
+                    <h3 class="mt-1"><b>Matrículas</b></h3>
                 </div>
                 <div class="col">
                     <span class="p-input-icon-left">
@@ -48,29 +48,23 @@
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-1 pt-5">
+                <th pSortableColumn="name" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Nombre
                         <p-sortIcon field="name"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-1 pt-5">
+                <th pSortableColumn="date_init" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
-                        Apellido
+                        Curso - Cohorte
                         <p-sortIcon field="date_init"></p-sortIcon>
-                    </div>
-                </th>
-                <th pSortableColumn="date_end" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        Cédula
-                        <p-sortIcon field="date_end"></p-sortIcon>
                     </div>
                 </th>
                 <th pSortableColumn="cost_effective" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
-                            Celular
+                            Cuotas Pendientes
                         </span>
                         <p-sortIcon field="cost_effective"></p-sortIcon>
                     </div>
@@ -78,7 +72,7 @@
                 <th pSortableColumn="cost_credit" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
-                            usuario
+                            Días límite
                         </span>
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
@@ -96,26 +90,22 @@
                     <span class="p-column-title">#</span>
                     {{rowIndex+1}}
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">Nombre</span>
-                    <span >{{student.name}}</span>
+                    <span >{{student.student.name +' '+ student.student.last_name}}</span>
                 </td>
 
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Apellido</span>
-                    <p>{{student.last_name}}</p>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Curso - Cohorte</span>
+                    <p>{{student.cohorte.course.name +' '+ student.cohorte.name}}</p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">  Cédula</span>
-                    <p>{{student.identification}}</p>
+                    <span class="p-column-title"> Cuotas Pendientes</span>
+                    <p>{{student.cuotas}}</p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Celular</span>
-                    <p>{{student.cell_phone}}</p>
-                </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> usuario</span>
-                    <p>{{student.address}}</p>
+                    <span class="p-column-title"> Días límite</span>
+                    <p>{{student.day_limite}}</p>
                 </td>
                 <td class="col-3 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
@@ -128,15 +118,15 @@
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div> -->
-                        <div class="col pr-0">
+                        <!--<div class="col pr-0">
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-pencil"
-                                [routerLink]="['/admin/student/edit',student.id]"
+                                [routerLink]="['/admin/enrollement/edit',student.id]"
                                 class="p-button-raised p-button-rounded">
                             </button>
-                        </div>
+                        </div>-->
                         <div class="col">
                             <button
                                 pButton
