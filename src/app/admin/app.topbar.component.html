@@ -14,7 +14,7 @@
         <div class="text-center pt-2 mr-3 text-xl">{{usuarioLogueado}}</div>
         <button pButton type="button"
         class="p-button-rounded p-button-text p-button-plain text-5x"
-        (click)="menu.toggle($event)" ><i class="pi pi-cog"></i></button>
+        (click)="menu.toggle($event)" ><i class="pi pi-cog" style="color: #fff;"></i></button>
         <p-menu #menu (click)="logout(items)" [popup]="true" [model]="items"></p-menu>
     </div>
 

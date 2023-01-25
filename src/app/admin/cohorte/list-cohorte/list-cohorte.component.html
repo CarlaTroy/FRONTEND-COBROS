@@ -42,32 +42,32 @@
 
         <ng-template pTemplate="header">
             <tr class="grid">
-                <th pSortableColumn="id" class="col-1">
+                <th pSortableColumn="id" class="col-1 pt-4">
                     <div class="flex justify-content-between align-items-center">
                         #
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-2">
+                <th pSortableColumn="name" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Nombre
                         <p-sortIcon field="name"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-2">
+                <th pSortableColumn="date_init" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Fecha Inicio
                         <p-sortIcon field="date_init"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="date_end" class="col-2">
+                <th pSortableColumn="date_end" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Fecha Fin
                         <p-sortIcon field="date_end"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="cost_effective" class="col-1">
+                <th pSortableColumn="cost_effective" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
                             Consto
@@ -77,7 +77,7 @@
                         <p-sortIcon field="cost_effective"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="cost_credit" class="col-1">
+                <th pSortableColumn="cost_credit" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
                             Consto
@@ -87,13 +87,14 @@
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="course" class="col-1">
+                <th pSortableColumn="course" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Curso
                         <p-sortIcon field="course"></p-sortIcon>
                     </div>
                 </th>
-                <th class="col-2">
+                <th class="col-2 pt-5">
+                    Acciones
                 </th>
             </tr>
         </ng-template>
@@ -101,37 +102,37 @@
         <ng-template pTemplate="body" let-cohorte let-rowIndex="rowIndex">
             <tr class="grid">
 
-                <td class="col-1">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">#</span>
                     {{rowIndex+1}}
                 </td>
-                <td class="col-2">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">Nombre</span>
                     <span >{{cohorte.name}}</span>
                 </td>
 
-                <td class="col-2">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Fecha Inicio</span>
                     <p>{{cohorte.date_init}}</p>
                 </td>
-                <td class="col-2">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">  Fecha Fin</span>
                     <p>{{cohorte.date_end}}</p>
                 </td>
-                <td class="col-1">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Costo Efectivo</span>
                     <p>{{cohorte.cost_effective}}</p>
                 </td>
-                <td class="col-1">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Costo Credito</span>
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
-                <td class="col-1">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">Curso</span>
                     <p>{{cohorte.course.name}}</p>
                 </td>
-                <td class="col-2">
-                    <div class="grid">
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <div class="grid pt-4">
 <!--                         <div class="col">
                             <button
                                 pButton
@@ -141,7 +142,7 @@
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div> -->
-                        <div class="col">
+                        <div class="col pr-0">
                             <button
                                 pButton
                                 type="button"

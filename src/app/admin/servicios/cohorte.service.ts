@@ -25,15 +25,23 @@ export class CohorteService {
         tap(() => this._resetForm$.next())
     );
   }
+
+  public edit(courseCreate: CohorteCreateDTO,id:number):Observable<any> {
+    return this.http.put<boolean>(`${this.apiURL}/cohortes/${id}`, courseCreate);
+  }
+
+
+  public getCohorteId(id:number):Observable<any>{
+    return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes/${id}`);
+  }
+
   public getAll():Observable<any>{
     return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes`);
   }
   public getCohorte(id:number):Observable<any>{
     return this.http.get<CohorteFullDTO[]>(`${this.apiURL}/cohortes/${id}`);
   }
-  public edit(courseCreate: CohorteCreateDTO,id:number):Observable<any> {
-    return this.http.put<boolean>(`${this.apiURL}/cohortes/${id}`, courseCreate);
-  }
+
   public deleteCohorteId(id: number): Observable<any> {
     return this.http.delete<boolean>(`${this.apiURL}/cohortes/${id}`).pipe(
       tap(() => {

@@ -15,6 +15,7 @@ import { ListCohorteComponent } from './list-cohorte/list-cohorte.component';
 import { CohorteComponent } from './cohorte.component';
 
 
+
 @NgModule({
   declarations: [
     CohorteComponent,

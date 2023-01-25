@@ -36,6 +36,7 @@ export class EditCourseComponent implements OnInit {
     this.activatedRoute.params.subscribe((response:any)=>{
         this.sub = this.courseService.getCourseId(Number(response.id)).subscribe(response=>{
             if(response.success){
+              console.log(response.data)
                 this.modelCourseFull=response.data;
                 return;
             }

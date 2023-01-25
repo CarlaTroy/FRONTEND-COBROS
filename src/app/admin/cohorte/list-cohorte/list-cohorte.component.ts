@@ -42,6 +42,7 @@ export class ListCohorteComponent implements OnInit {
   loadDataCourses(){
     this.loading=true;
     this.subCohorte=this.cohorteService.getAll().subscribe(response=>{
+        debugger
         this.loading=false;
         this.listCohorte=response.data;
       },error=>{
