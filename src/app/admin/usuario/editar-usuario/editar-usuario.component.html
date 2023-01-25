@@ -1,0 +1,11 @@
+<app-formulario-usuario
+[modeloUnaUsuario]="modeloUsuario"
+*ngIf="modeloUsuario"
+tipoAccion="editar"
+(onSubmitUsuario)="editarUsuario($event)">
+</app-formulario-usuario>
+<p-toast></p-toast>
+<div *ngIf="!modeloUsuario" class="justify-content-center text-center">
+    <h5>Cargando...</h5>
+    <p-progressBar  mode="indeterminate"></p-progressBar>
+</div>

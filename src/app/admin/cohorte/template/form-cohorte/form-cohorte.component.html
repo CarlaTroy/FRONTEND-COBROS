@@ -1,0 +1,143 @@
+<div class="table-header">
+    <div class="grid">
+        <div class="col-12">
+            <h3 class="mt-1"><b>{{modeForm}}</b></h3>
+        </div>
+    </div>
+</div>
+<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+
+	<div class="col-12">
+		<div class="card">
+			<div class="p-fluid p-formgrid grid">
+                <div class="field col-6">
+                    <label htmlFor="course">
+                        <span class="text-red-600">*</span>  Curso
+                    </label>
+                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="courseNameSelected" formControlName="course_id" optionLabel="name"
+                        [filter]="true" filterBy="name"
+                        (onChange)="onChange($event)"
+                        dataKey="value"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                        optionLabel="name"  [showClear]="true"
+                        [showClear]="true" placeholder="Seleccionar Curso">
+                    <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value" *ngIf="courseNameSelected">
+                        <div>{{courseNameSelected}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-cantones pTemplate="item">
+                    <div class="country-item">
+                        <div>{{cantones.name}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+                   <!-- <input pInputText id="name1" type="text" formControlName="latitud"  />-->
+
+
+                </div>
+
+
+
+
+
+
+
+
+				<div class="field col-6">
+					<label htmlFor="name">
+                        <span class="text-red-600">*</span>
+                        Nombre
+                    </label>
+					<input
+                        pInputText
+                        id="name"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                        formControlName="name"
+                        type="text" />
+                    <span *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                    </div>
+				</div>
+				<div class="field col-12 md:col-6">
+					<label htmlFor="date_init">
+                        <span class="text-red-600">*</span>
+                        Fecha Inicio
+                    </label>
+					<input
+                        pInputText
+                        id="date_init"
+                        [ngClass]="{'ng-invalid ng-dirty': dateInitNotValid}"
+                        formControlName="date_init"
+                        type="date" />
+                    <span *ngIf="dateInitNotValid && formCohorte.get('date_init')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="date_end">
+                        <span class="text-red-600">*</span>
+                        Fecha Fin
+                    </label>
+					<input
+                        pInputText
+                        id="date_end"
+                        [ngClass]="{'ng-invalid ng-dirty': dateEndNotValid}"
+                        formControlName="date_end"
+                        type="date" />
+                        <span *ngIf="dateEndNotValid && formCohorte.get('date_init')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+				</div>
+				<div class="field col-12 md:col-6">
+					<label htmlFor="cost_effective">
+                        <span class="text-red-600">*</span>
+                        Costo a Credito
+                    </label>
+					<input
+                        pInputText
+                        id="cost_effective"
+                        min="0"
+                        [ngClass]="{'ng-invalid ng-dirty': costEffectiveNotValid}"
+                        formControlName="cost_effective"
+                        type="number" />
+                        <span *ngIf="costEffectiveNotValid && formCohorte.get('cost_effective')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="cost_credit">
+                        <span class="text-red-600">*</span>
+                        Costo a Efectivo
+                    </label>
+					<input
+                        pInputText
+                        min="0"
+                        id="cost_credit"
+                        [ngClass]="{'ng-invalid ng-dirty': costCreditNotValid}"
+                        formControlName="cost_credit"
+                        type="number" />
+                        <span *ngIf="costCreditNotValid && formCohorte.get('cost_credit')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+				</div>
+			</div>
+		</div>
+        <div class="grid flex flex-row-reverse ">
+            <div class="grid">
+                <div class="col">
+                    <button type="button"
+                    pButton icon="pi pi-times"
+                    label="Cerrar" class="p-button-raised p-button-danger"
+                    [routerLink]="['/admin/cohorte']"></button>
+                </div>
+                <div class="col">
+                    <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                </div>
+            </div>
+        </div>
+	</div>
+</form>

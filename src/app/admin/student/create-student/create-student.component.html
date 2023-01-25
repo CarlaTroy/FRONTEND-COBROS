@@ -1,0 +1,11 @@
+
+
+<div class="card ui-fluid">
+    <p-progressBar mode="indeterminate" *ngIf="!listUsers"></p-progressBar>
+    <app-form-student
+        (onSubmitCohorte)="createStudent($event)"
+        [modeForm]="'Crear Estudiante'"
+        [modelCourseFull]="listUsers"
+        *ngIf="listUsers">
+    </app-form-student>
+</div>

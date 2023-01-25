@@ -1,0 +1,10 @@
+
+<div class="card ui-fluid">
+    <p-progressBar mode="indeterminate" *ngIf="!modelCourseFull"></p-progressBar>
+    <app-form-course
+        (onSubmitCourse)="editCourse($event)"
+        [modelCourseFull]="modelCourseFull"
+        [modeForm]="'Editar Course'"
+        *ngIf="modelCourseFull">
+    </app-form-course>
+</div>

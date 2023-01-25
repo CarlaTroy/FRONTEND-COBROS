@@ -1,0 +1,150 @@
+<div class="table-header">
+    <div class="grid">
+        <div class="col-12">
+            <h3 class="mt-1"><b>{{modeForm}}</b></h3>
+        </div>
+    </div>
+</div>
+<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+
+	<div class="col-12">
+		<div class="card">
+			<div class="p-fluid p-formgrid grid">
+
+
+				<div class="field col-6">
+					<label htmlFor="last_name">
+                        <span class="text-red-600">*</span>
+                        Apellidos
+                    </label>
+					<input
+                        pInputText
+                        id="last_name"
+                        [ngClass]="{'ng-invalid ng-dirty': lastNameNotValid}"
+                        formControlName="last_name"
+                        type="text" />
+                    <span *ngIf="lastNameNotValid && formCohorte.get('last_name')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="lastNameNotValid && formCohorte.get('last_name')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                    </div>
+				</div>
+
+
+                <div class="field col-6">
+					<label htmlFor="name">
+                        <span class="text-red-600">*</span>
+                        Nombres
+                    </label>
+					<input
+                        pInputText
+                        id="name"
+                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                        formControlName="name"
+                        type="text" />
+                    <span *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="nameNotValid && formCohorte.get('name')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                    </div>
+				</div>
+
+
+
+				<div class="field col-12 md:col-6">
+					<label htmlFor="identification">
+                        <span class="text-red-600">*</span>
+                        Cédula
+                    </label>
+					<input
+                        pInputText
+                        id="identification"
+                        [ngClass]="{'ng-invalid ng-dirty': identificationNotValid}"
+                        formControlName="identification"
+                        type="text" />
+                        <span *ngIf="identificationNotValid && formCohorte.get('identification')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <div *ngIf="nameNotValid && formCohorte.get('identification')?.errors?.['maxlength']">
+                            <p class="text-red-600">*Debe tener como máximo 10 caracteres</p>
+                        </div>
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="cell_phone">
+                        <span class="text-red-600">*</span>
+                        Celular
+                    </label>
+					<input
+                        pInputText
+                        min="0"
+                        id="cell_phone"
+                        [ngClass]="{'ng-invalid ng-dirty': cellPhoneNotValid}"
+                        formControlName="cell_phone"
+                        type="text" />
+                        <span *ngIf="cellPhoneNotValid && formCohorte.get('cell_phone')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <div *ngIf="nameNotValid && formCohorte.get('cell_phone')?.errors?.['maxlength']">
+                            <p class="text-red-600">*Debe tener como máximo 10 números</p>
+                        </div>
+				</div>
+
+                <div class="field col-12 md:col-6">
+					<label htmlFor="address">
+                        <span class="text-red-600">*</span>
+                        Dirección
+                    </label>
+					<input
+                        pInputText
+                        min="0"
+                        id="address"
+                        [ngClass]="{'ng-invalid ng-dirty': AddressNotValid}"
+                        formControlName="address"
+                        type="text" />
+                        <span *ngIf="AddressNotValid && formCohorte.get('address')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+				</div>
+
+
+                <div class="field col-6">
+                    <label htmlFor="course">Usuario</label>
+                    <p-dropdown [options]="modelCourseFull" [(ngModel)]="courseNameSelected" formControlName="user_id" optionLabel="username"
+                [filter]="true" filterBy="username"
+                (onChange)="onChange($event)"
+                [ngClass]="{'ng-invalid ng-dirty': userIdNotValid}"
+                dataKey="value" [showClear]="true"
+                [showClear]="true" placeholder="Seleccionar Usuario">
+                <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value" *ngIf="courseNameSelected">
+                        <div>{{courseNameSelected}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-cantones pTemplate="item">
+                    <div class="country-item">
+                        <div>{{cantones.username}}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+                   <!-- <input pInputText id="name1" type="text" formControlName="latitud"  />-->
+
+                </div>
+			</div>
+		</div>
+        <div class="grid flex flex-row-reverse ">
+            <div class="grid">
+                <div class="col">
+                    <button type="button"
+                    pButton icon="pi pi-times"
+                    label="Cerrar" class="p-button-raised p-button-danger"
+                    [routerLink]="['/admin/student']"></button>
+                </div>
+                <div class="col">
+                    <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                </div>
+            </div>
+        </div>
+	</div>
+</form>
