@@ -20,7 +20,7 @@ export class TopbarPrincipalComponent implements OnInit {
         {
             icon: 'pi pi-user',
             items: [
-            
+
             /*{
               label: 'Dashboard',
               icon: 'pi pi-fw pi-external-link',
@@ -44,7 +44,7 @@ export class TopbarPrincipalComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        if (this.router.url == '/principal' || '/') {
+        if (this.router.url == '/auth/login' || '/') {
             this.login = true;
         }
         if (this.router.url === '/auth/login') {

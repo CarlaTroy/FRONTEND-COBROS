@@ -10,7 +10,8 @@ import { PrincipalComponent } from './principal/principal.component';
     imports: [
 
         RouterModule.forRoot([
-            {path: '', component: AdminComponent},
+            { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
+            //{path: '', component: AdminComponent},
             { path: "home",component:HomeComponent },
             { path: "principal",component:PrincipalComponent },
             { path: "admin",component:AdminComponent,children:[

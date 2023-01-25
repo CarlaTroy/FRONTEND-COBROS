@@ -3,7 +3,7 @@
         <div routerLink="/admin" *ngIf="token" class="login text-3xl flex align-items-center justify-content-center font-bold text-white border-round m-2">
             COBROS
         </div>
-        <div routerLink="/principal" *ngIf="!token" class="login text-4xl flex align-items-center justify-content-center font-bold text-white border-round m-2">
+        <div routerLink="/" *ngIf="!token" class="login text-4xl flex align-items-center justify-content-center font-bold text-white border-round m-2">
             COBROS
         </div>
         <div *ngIf="login && !token" routerLink="/auth/login" class=" login text-2xl flex align-items-center justify-content-centerfont-bold text-gray-900 border-round m-2">
@@ -24,7 +24,7 @@
                 </div>
             </div>-->
 
-            <i routerLink="/admin" class="pi pi-user font-bold text-xl mr-2 pt-4 coloricon"> <b ></b> {{usuarioLogueado}} </i>
+            <i routerLink="/" class="pi pi-user font-bold text-xl mr-2 pt-4 coloricon"> <b ></b> {{usuarioLogueado}} </i>
 
 
         </div>
