@@ -61,6 +61,8 @@ export class FormCourseComponent implements OnInit {
   // function personality
   loadDataForm(){
     this.formCourse.patchValue(this.modelCourseFull);
+    console.log('this.modelCourseFull')
+    console.log(this.modelCourseFull)
   }
   submitCourse(){
     if(this.formCourse.invalid){
@@ -73,6 +75,8 @@ export class FormCourseComponent implements OnInit {
         });
     }
     const createCourse:CourseCreateDTO=this.formCourse.value;
+    console.log('createCourse')
+    console.log(createCourse)
     this.onSubmitCourse.emit(createCourse);
     return;
   }
