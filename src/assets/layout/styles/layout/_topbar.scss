@@ -6,7 +6,7 @@
     top: 0;
     width: 100%;
     padding: 0 2rem;
-    background-color: #0c2342;
+    background-color: var(--surface-card);
     transition: left $transitionDuration;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@
     .layout-topbar-logo {
         display: flex;
         align-items: center;
-        color: #fff;
+        color: var(--surface-900);
         font-size: 1.5rem;
         font-weight: 500;
         width: 300px;
@@ -30,14 +30,13 @@
             @include focused();
         }
     }
-    
 
     .layout-topbar-button {
         display: inline-flex;
         justify-content: center;
         align-items: center;
         position: relative;
-        //color: var(--text-color-secondary);
+        color: var(--text-color-secondary);
         border-radius: 50%;
         width: 3rem;
         height: 3rem;
@@ -45,8 +44,8 @@
         transition: background-color $transitionDuration;
 
         &:hover {
-            //color: var(--text-color);
-            //background-color: var(--surface-hover);
+            color: var(--text-color);
+            background-color: var(--surface-hover);
         }
 
         &:focus {
@@ -65,15 +64,10 @@
 
     .layout-menu-button {
         margin-left: 2rem;
-        color: #fff;
     }
 
     .layout-topbar-menu-button {
-        display: inline-flex;
-        margin-left:auto; 
-        right: 0;
-        color: #fff;
-        
+        display: none;
 
         i {
             font-size: 1.25rem;

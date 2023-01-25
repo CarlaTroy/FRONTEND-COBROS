@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputDemoModule } from 'src/app/demo/components/uikit/input/inputdemo.module';
 import { EditCourseComponent } from './edit-course/edit-course.component';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [
     CourseComponent,
@@ -32,7 +31,6 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     ReactiveFormsModule,
     InputDemoModule,
-    InputTextModule,
     ProgressBarModule,
   ],
   providers: [],

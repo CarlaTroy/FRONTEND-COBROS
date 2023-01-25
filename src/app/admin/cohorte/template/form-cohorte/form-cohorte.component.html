@@ -11,36 +11,24 @@
 		<div class="card">
 			<div class="p-fluid p-formgrid grid">
                 <div class="field col-6">
-                    <label htmlFor="course">Cantón</label>
-                    <p-dropdown [options]="cantones" formControlName="course_id" optionLabel="name"
-                [filter]="true" filterBy="name"
-                (onChange)="onChange($event)"
-                dataKey="value"
-                optionLabel="name"  [showClear]="true"
-                [showClear]="true" placeholder="Seleccionar Curso">
-                <ng-template pTemplate="selectedItem">
-                    <div class="country-item country-item-value" *ngIf="selectedCountry">
-                        <div>{{selectedCountry}}</div>
-                    </div>
-                </ng-template>
-                <ng-template let-cantones pTemplate="item">
-                    <div class="country-item">
-                        <div>{{cantones.name}}</div>
-                    </div>
-                </ng-template>
-            </p-dropdown>
-                   <!-- <input pInputText id="name1" type="text" formControlName="latitud"  />-->
-
-
-                </div>
-
-
-
-
-
-
-
-
+					<label htmlFor="course_id">
+                        <span class="text-red-600">*</span>
+                        Cursos
+                    </label>
+					<p-dropdown
+                        [options]="modelCourseFull"
+                        optionLabel="name"
+                        id="course_id"
+                        placeholder="Selecione un curso"
+                        *ngIf="modelCourseFull"
+                        [ngClass]="{'ng-invalid ng-dirty': courseNotValid}"
+                        formControlName="course_id"
+                        [(ngModel)]="intanceCourse">
+                    </p-dropdown>
+                    <span *ngIf="courseNotValid && formCohorte.get('course_id')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+				</div>
 				<div class="field col-6">
 					<label htmlFor="name">
                         <span class="text-red-600">*</span>
