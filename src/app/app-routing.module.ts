@@ -17,6 +17,7 @@ import { PrincipalComponent } from './principal/principal.component';
             { path: "admin",component:AdminComponent,children:[
                 { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                 { path: 'usuario', loadChildren: () => import('./admin/usuario/usuario.module').then(m => m.UsuarioModule) },
+                { path: 'user', loadChildren: () => import('./admin/user/user.module').then(m => m.UserModule) },
                 { path: 'student', loadChildren: () => import('./admin/student/student.module').then(m => m.StudentModule) },
                 { path: 'enrollement', loadChildren: () => import('./admin/enrollement/enrollement.module').then(m => m.EnrollementModule) },
                 //{ path: 'produccion', loadChildren: () => import('./admin/produccion/produccion.module').then(m => m.ProduccionModule) },

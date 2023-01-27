@@ -17,8 +17,8 @@ import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import {DialogModule} from 'primeng/dialog';
 import {PasswordModule} from 'primeng/password';
-import { VerUsuarioComponent } from './ver-usuario/ver-usuario.component';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { VerUsuarioComponent } from './ver-usuario/ver-usuario.component';
 
 
 

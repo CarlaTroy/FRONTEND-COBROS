@@ -33,9 +33,12 @@ export class CreateCourseComponent implements OnInit {
     });
     Swal.showLoading()
     this.courseService.create(courseCreate).subscribe(response=>{
+      console.log(response)
         Swal.close();
-        if(response.succes){
+        if(response.success){
+          
             this.Toast.fire({
+
                 icon: 'success',
                 title: response.message
             })

@@ -2,8 +2,8 @@
 <div class="card ui-fluid">
     <p-table
         #dt
-        [value]="listCourse"
-        [(selection)]="selectedCourse"
+        [value]="listCohorte"
+        [(selection)]="selectedCohorte"
         dataKey="id"
         styleClass="p-datatable-customers"
         [rowHover]="true"
@@ -15,16 +15,16 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['id','name', 'description']">
+        [globalFilterFields]="['username', 'email']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
             <div class="grid">
                 <div class="col">
-                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/course/create']"></p-button>
+                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/user/create']"></p-button>
                 </div>
                 <div class="col">
-                    <h3 class="mt-1"><b>Cursos</b></h3>
+                    <h3 class="mt-1"><b>Usuarios</b></h3>
                 </div>
                 <div class="col">
                     <span class="p-input-icon-left">
@@ -33,7 +33,7 @@
                             pInputText
                             type="text"
                             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                            placeholder="Buscar por nombre" />
+                            placeholder="Buscar por username" />
                     </span>
                 </div>
             </div>
@@ -48,26 +48,26 @@
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-4 pt-4">
+                <th pSortableColumn="username" class="col-4 pt-5">
                     <div class="flex justify-content-between align-items-center">
-                        Nombre
-                        <p-sortIcon field="name"></p-sortIcon>
+                        Username
+                        <p-sortIcon field="username"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="description" class="col-4 pt-4">
+                <th pSortableColumn="email" class="col-4 pt-5">
                     <div class="flex justify-content-between align-items-center">
-                        Descripción
-                        <p-sortIcon field="description"></p-sortIcon>
+                        Email
+                        <p-sortIcon field="email"></p-sortIcon>
                     </div>
                 </th>
-                <th class="col-2 pt-4">
+                <th class="col-3 pt-5">
                     Acciones
                 </th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-course let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
             <tr class="grid">
 
                 <td class="col-1 flex justify-content-between align-items-center">
@@ -75,15 +75,15 @@
                     {{rowIndex+1}}
                 </td>
                 <td class="col-4 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Nombre</span>
-                    <span >{{course.name}}</span>
+                    <span class="p-column-title">Username</span>
+                    <span >{{student.username}}</span>
                 </td>
 
                 <td class="col-4 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Descripción</span>
-                    <p>{{course.description}}</p>
+                    <span class="p-column-title"> Email</span>
+                    <p>{{student.email}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center ">
+                <td class="col-3 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
 <!--                         <div class="col">
                             <button
@@ -99,16 +99,16 @@
                                 pButton
                                 type="button"
                                 icon="pi pi-pencil"
-                                [routerLink]="['/admin/course/edit',course.id]"
+                                [routerLink]="['/admin/user/edit',student.id]"
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div>
-                        <div class="col pl-2">
+                        <div class="col">
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-trash"
-                                (click)="btnDeleteCourse(course)"
+                                (click)="btnDeletStudent(student)"
                                 class="p-button-danger p-button-rounded">
                             </button>
                         </div>

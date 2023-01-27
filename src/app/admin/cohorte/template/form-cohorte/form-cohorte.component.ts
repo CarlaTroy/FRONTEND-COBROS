@@ -57,10 +57,7 @@ export class FormCohorteComponent implements OnInit {
   if(!this.modelCohorteseFull){
     return;
   }
-    //observable cuandos se crea un registro nuevo
-    this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
-        this.formCohorte.reset();
-    });
+    
   }
   OnDestroy(): void {
     if(this.sub) {
@@ -126,6 +123,12 @@ export class FormCohorteComponent implements OnInit {
     }
 
     this.onSubmitCohorte.emit(createCourse);
+
+    //observable cuandos se crea un registro nuevo
+    this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
+      this.formCohorte.reset();
+  });
+  
     return;
   }
     //validate input

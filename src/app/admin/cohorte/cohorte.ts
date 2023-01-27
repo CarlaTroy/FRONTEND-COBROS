@@ -5,7 +5,7 @@ export interface CohorteFullDTO{
     name: string,
     date_init: string,
     date_end: string,
-    cost_effective: string,
+    cost_effective: number,
     cost_credit: number,
     course: CourseFullDTO
 }

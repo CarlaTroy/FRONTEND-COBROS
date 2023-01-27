@@ -1,0 +1,109 @@
+<div class="table-header">
+    <div class="grid">
+        <div class="col-12">
+            <h3 class="mt-1"><b>{{modeForm}}</b></h3>
+        </div>
+    </div>
+</div>
+<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+
+	<div class="col-12">
+		<div class="card">
+			<div class="p-fluid p-formgrid grid">
+
+
+				<div class="field col-6">
+					<label htmlFor="username">
+                        <span class="text-red-600">*</span>
+                        Username
+                    </label>
+					<input
+                        pInputText
+                        id="username"
+                        [ngClass]="{'ng-invalid ng-dirty': usernameNotValid}"
+                        formControlName="username"
+                        type="text" />
+                    <span *ngIf="usernameNotValid && formCohorte.get('username')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="usernameNotValid && formCohorte.get('username')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                    </div>
+				</div>
+
+
+                <div class="field col-6">
+					<label htmlFor="email">
+                        <span class="text-red-600">*</span>
+                        Email
+                    </label>
+					<input
+                        pInputText
+                        id="email"
+                        [ngClass]="{'ng-invalid ng-dirty': emailNotValid}"
+                        formControlName="email"
+                        type="text" />
+                    <span *ngIf="emailNotValid && formCohorte.get('email')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="emailNotValid && formCohorte.get('email')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                    </div>
+				</div>
+
+
+
+				<div class="field col-12 md:col-6">
+					<label htmlFor="password">
+                        <span class="text-red-600">*</span>
+                        Password
+                    </label>
+                    <p-password formControlName="password" [toggleMask]="true"></p-password>
+                    <span *ngIf="passwordNotValid && formCohorte.get('password')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="passwordNotValid && formCohorte.get('password')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 10 caracteres</p>
+                    </div>
+					
+				</div>
+                <div class="field col-12 md:col-6">
+					<label htmlFor="password2">
+                        <span class="text-red-600">*</span>
+                        Password
+                    </label>
+					<p-password formControlName="password2"  [toggleMask]="true"></p-password>
+                        <span *ngIf="password2NotValid && formCohorte.get('password2')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <div *ngIf="password2NotValid && formCohorte.get('password2')?.errors?.['maxlength']">
+                            <p class="text-red-600">*Debe tener como máximo 10 números</p>
+                        </div>
+                        <div *ngIf="checarSiSonIguales()">
+                            <p class="text-red-600">Las contraseñas no coinciden</p>
+                        </div>
+				</div>
+
+                <div class="field col-12 md:col-6">
+					<div>Tiene permisos?</div>
+                        <br>
+                        <p-inputSwitch (onChange)="handleChange($event)" formControlName="is_staff" ></p-inputSwitch>
+                    </div>
+
+			</div>
+		</div>
+        <div class="grid flex flex-row-reverse ">
+            <div class="grid">
+                <div class="col">
+                    <button type="button"
+                    pButton icon="pi pi-times"
+                    label="Cerrar" class="p-button-raised p-button-danger"
+                    [routerLink]="['/admin/user']"></button>
+                </div>
+                <div class="col">
+                    <button type="Submit"   pButton icon="pi pi-check"label="Guardar" class="mr-2" ></button>
+                </div>
+            </div>
+        </div>
+	</div>
+</form>

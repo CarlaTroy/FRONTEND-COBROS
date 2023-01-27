@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { EnrollementFullDTO } from '../enrollement';
-import { EnrollementService } from '../../servicios/enrollement.service';
+import { UserFullDTO } from '../user';
+import { StudentService } from '../../servicios/student.service';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
-  selector: 'app-list-enrollement',
-  templateUrl: './list-enrollement.component.html',
-  styleUrls: ['./list-enrollement.component.scss']
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.scss']
 })
-export class ListEnrollementComponent implements OnInit {
+export class ListUserComponent implements OnInit {
 
-  //DTO
- selectedCohorte!: EnrollementFullDTO;
- listCohorte:EnrollementFullDTO[] = [];
+ //DTO
+ selectedCohorte!: UserFullDTO;
+ listCohorte:UserFullDTO[] = [];
   //variables globales
 loading:boolean=false;
  //subcription
@@ -31,23 +32,22 @@ loading:boolean=false;
          toast.addEventListener('mouseleave', Swal.resumeTimer)
      }
  })
-constructor(private enrollementService:EnrollementService) { }
+constructor(private userService:UsuarioService) { }
 
 ngOnInit(): void {
- this.loadDataCourses();
+ this.loadDataUsers();
  //refresh table and delete registro
- this.subDelete = this.enrollementService.refreshTable$.subscribe(()=>{
-     this.loadDataCourses();
+ this.subDelete = this.userService.refreshTable$.subscribe(()=>{
+     this.loadDataUsers();
  });
 }
-loadDataCourses(){
+loadDataUsers(){
  this.loading=true;
- this.subCohorte=this.enrollementService.getAll().subscribe(response=>{
-     
+ this.subCohorte=this.userService.obtenerTodos().subscribe(response=>{
+     debugger
      this.loading=false;
-     console.log('response.data')
-     console.log(response.data)
      this.listCohorte=response.data;
+     console.log(this.listCohorte)
    },error=>{
      let message= error.error.message;
      Swal.close();
@@ -59,10 +59,10 @@ loadDataCourses(){
        })
    });
 }
-btnDeletStudent(cohorte:EnrollementFullDTO){
+btnDeletStudent(cohorte:UserFullDTO){
  Swal.fire({
      title: '¿ Esta seguro en eliminar ?',
-     text: cohorte.cash.toString(),
+     text: cohorte.username,
      icon: 'warning',
      showCancelButton: true,
      confirmButtonColor: '#3085d6',
@@ -78,7 +78,7 @@ btnDeletStudent(cohorte:EnrollementFullDTO){
          allowOutsideClick: false,
          didOpen: () => {
            Swal.showLoading(undefined)
-           this.subDelete=this.enrollementService.deleteEnrollementId(cohorte.id).subscribe((response)=>{
+           this.subDelete=this.userService.eliminarPorId(cohorte.id).subscribe((response)=>{
              if(response.success){
                  this.Toast.fire({
                    icon: 'success',

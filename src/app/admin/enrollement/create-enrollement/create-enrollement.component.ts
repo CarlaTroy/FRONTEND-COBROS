@@ -4,10 +4,11 @@ import Swal from 'sweetalert2';
 import { EnrollementService } from '../../servicios/enrollement.service';
 import { StudentService } from '../../servicios/student.service';
 import { StudentFullDTO } from '../../student/student';
-import { EnrollementCreateDTO } from '../enrollement';
+import { EnrollementCreateDTO, TypePaysFullDTO } from '../enrollement';
 import { CourseFullDTO } from '../../course/course';
 import { CohorteService } from '../../servicios/cohorte.service';
 import { CohorteFullDTO } from '../../cohorte/cohorte';
+import { TypePaysService } from '../../servicios/type.pays.service';
 
 @Component({
   selector: 'app-create-enrollement',
@@ -18,6 +19,7 @@ export class CreateEnrollementComponent implements OnInit {
 
   listUsers:StudentFullDTO[] = [];
   listCohorte:CohorteFullDTO[] = [];
+  listTypePays:TypePaysFullDTO[] = [];
   subCourse!:Subscription;
   //toast
   Toast = Swal.mixin({
@@ -33,11 +35,13 @@ export class CreateEnrollementComponent implements OnInit {
   })
 constructor(private usuarioService:StudentService,
   private cohorteService: CohorteService,
+  private typePaysService: TypePaysService,
               private enrollementService:EnrollementService) { }
 
 ngOnInit(): void {
   this.loadDataStudents();
   this.loadDataCohorte();
+  this.loadDataTypePays()
 }
 loadDataStudents(){
   this.subCourse=this.usuarioService.getAll().subscribe(response=>{
@@ -70,6 +74,24 @@ loadDataCohorte(){
         })
     });
 }
+
+
+loadDataTypePays(){
+  this.subCourse=this.typePaysService.getAll().subscribe(response=>{
+    console.log(response.data)
+      this.listTypePays=response.data;
+    },error=>{
+      let message= error.error.message;
+      Swal.close();
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Error',
+          footer:message
+        })
+    });
+}
+
 createStudent(courseCreate:EnrollementCreateDTO){
   Swal.fire({
       allowOutsideClick: false,
@@ -79,7 +101,7 @@ createStudent(courseCreate:EnrollementCreateDTO){
   Swal.showLoading()
   this.enrollementService.create(courseCreate).subscribe(response=>{
       Swal.close();
-      if(response.succes){
+      if(response.success){
           this.Toast.fire({
               icon: 'success',
               title: response.message
