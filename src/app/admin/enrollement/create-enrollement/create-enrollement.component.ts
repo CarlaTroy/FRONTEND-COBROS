@@ -99,9 +99,10 @@ createStudent(courseCreate:EnrollementCreateDTO){
       timerProgressBar: false,
   });
   Swal.showLoading()
+  debugger
   this.enrollementService.create(courseCreate).subscribe(response=>{
       Swal.close();
-      if(response.succes){
+      if(response.success){
           this.Toast.fire({
               icon: 'success',
               title: response.message

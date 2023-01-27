@@ -1,19 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { StudentCreateDTO } from '../student';
-import { StudentService } from '../../servicios/student.service';
-import { UsuarioDTO } from '../../usuario/usuario.model';
+import { UserCreateDTO, UserFullDTO } from '../user';
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
-  selector: 'app-create-student',
-  templateUrl: './create-student.component.html',
-  styleUrls: ['./create-student.component.scss']
+  selector: 'app-create-user',
+  templateUrl: './create-user.component.html',
+  styleUrls: ['./create-user.component.scss']
 })
-export class CreateStudentComponent implements OnInit {
+export class CreateUserComponent implements OnInit {
 
-  listUsers:UsuarioDTO[] = [];
+  listUsers:UserFullDTO[] = [];
   subCourse!:Subscription;
   //toast
   Toast = Swal.mixin({
@@ -27,8 +25,7 @@ export class CreateStudentComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
   })
-constructor(private usuarioService:UsuarioService,
-              private cohorteService:StudentService) { }
+constructor(private usuarioService:UsuarioService) { }
 
 ngOnInit(): void {
   this.loadDataCourses();
@@ -48,14 +45,14 @@ loadDataCourses(){
         })
     });
 }
-createStudent(courseCreate:StudentCreateDTO){
+createStudent(userCreate:UserCreateDTO){
   Swal.fire({
       allowOutsideClick: false,
       text: 'Espere por favor...',
       timerProgressBar: false,
   });
   Swal.showLoading()
-  this.cohorteService.create(courseCreate).subscribe(response=>{
+  this.usuarioService.crear(userCreate).subscribe(response=>{
       Swal.close();
       if(response.success){
           this.Toast.fire({

@@ -23,11 +23,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Cursos',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-book',
                                  routerLink: ['/admin/course']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-book',
                                  routerLink: ['/admin/course/create']
                             }
                         ],
@@ -36,11 +36,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Cohortes',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-th-large',
                                 routerLink: ['/admin/cohorte']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-th-large',
                                  routerLink: ['/admin/cohorte/create']
                             }
                         ]
@@ -50,11 +50,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Estudiantes',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-users',
                                 routerLink: ['/admin/student']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-users',
                                  routerLink: ['/admin/student/create']
                             }
                         ]
@@ -64,11 +64,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Matrículas',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-calendar',
                                 routerLink: ['/admin/enrollement']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-calendar',
                                  routerLink: ['/admin/enrollement/create']
                             }
                         ]
@@ -78,11 +78,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Pagos',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-dollar',
                                 routerLink: ['/admin/pago']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-dollar',
                                  routerLink: ['/admin/pago/create']
                             }
                         ]
@@ -92,12 +92,26 @@ export class AppMenuComponent implements OnInit {
                         label: 'Reportes',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Gestionar', icon: 'pi pi-fw pi-chart-bar',
                                 routerLink: ['/admin/reporte']
                             },
                             {
-                                label: 'Crear', icon: 'pi pi-fw pi-bookmark',
+                                label: 'Crear', icon: 'pi pi-fw pi-chart-bar',
                                  routerLink: ['/admin/reporte/create']
+                            }
+                        ]
+                    },
+
+                    {
+                        label: 'Usuarios',
+                        items: [
+                            {
+                                label: 'Gestionar', icon: 'pi pi-fw pi-user',
+                                routerLink: ['/admin/user']
+                            },
+                            {
+                                label: 'Crear', icon: 'pi pi-fw pi-user',
+                                 routerLink: ['/admin/user/create']
                             }
                         ]
                     },

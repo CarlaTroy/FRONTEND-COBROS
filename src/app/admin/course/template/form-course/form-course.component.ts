@@ -48,10 +48,7 @@ export class FormCourseComponent implements OnInit {
       if(!this.modelCourseFull){
         return;
       }
-    //observable cuandos se crea un registro nuevo
-    this.sub=this.courseService.refreshForm$.subscribe(()=>{
-        this.formCourse.reset();
-    });
+    
   }
   OnDestroy(): void {
     if(this.sub) {
@@ -78,6 +75,12 @@ export class FormCourseComponent implements OnInit {
     console.log('createCourse')
     console.log(createCourse)
     this.onSubmitCourse.emit(createCourse);
+
+    //observable cuandos se crea un registro nuevo
+    this.sub=this.courseService.refreshForm$.subscribe(()=>{
+        this.formCourse.reset();
+    });
+    
     return;
   }
   initInputForm(){

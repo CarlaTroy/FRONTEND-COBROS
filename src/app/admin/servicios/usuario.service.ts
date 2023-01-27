@@ -6,6 +6,7 @@ import { CrearUsuarioDTO, LitarUsuarioDTO, LoginUsuarioDTO, UsuarioDTO } from '.
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserCreateDTO, UserFullDTO } from '../user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,9 @@ export class UsuarioService {
       localStorage.removeItem('email');
     }
 
-
+    get refreshTable$(){
+      return this._refresh$;
+    }
 
   login(usuario: LoginUsuarioDTO) {
     return this.http.post(`${this.apiURL}/login/`, usuario).pipe(
@@ -85,7 +88,7 @@ export class UsuarioService {
   }
 
   public obtenerTodos():Observable<any>{
-    return this.http.get<LitarUsuarioDTO[]>(`${this.apiURL}/users`);
+    return this.http.get<UserFullDTO[]>(`${this.apiURL}/users`);
   }
 
 
@@ -103,8 +106,8 @@ export class UsuarioService {
 
 
 
-  public crear(usuario: CrearUsuarioDTO) {
-    return this.http.post<boolean>(`${this.apiURL}/register/`, usuario, this.httpOptions)  //envia el contenido del form al backend (web api)
+  public crear(usuario: UserCreateDTO) {
+    return this.http.post<any>(`${this.apiURL}/register/`, usuario, this.httpOptions)  //envia el contenido del form al backend (web api)
     .pipe(
       tap(() => {
         this._refresh$.next();  //esto se ejecuta antes de retorna la data al componente
@@ -112,16 +115,16 @@ export class UsuarioService {
     );
   }
 
-  public editar(id: number, usuario: CrearUsuarioDTO){
+  public editar(id: number, usuario: UserCreateDTO){
     console.log('ID:'+id);
-    return this.http.put(`${this.apiURL}/users/${id}`, usuario).pipe(
+    return this.http.put<any>(`${this.apiURL}/users/${id}`, usuario).pipe(
       tap(() => {
         this._refresh$.next();  //esto se ejecuta antes de retorna la data al componente
       })
     );
   }
-  public eliminarPorId(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiURL}/users/${id}`).pipe(
+  public eliminarPorId(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/users/${id}`).pipe(
       tap(() => {
         this._refresh$.next();  //esto se ejecuta antes de retorna la data al componente
       })

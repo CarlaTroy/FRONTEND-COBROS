@@ -55,7 +55,7 @@ export class CreateCohorteComponent implements OnInit {
     Swal.showLoading()
     this.cohorteService.create(courseCreate).subscribe(response=>{
         Swal.close();
-        if(response.succes){
+        if(response.success){
             this.Toast.fire({
                 icon: 'success',
                 title: response.message
