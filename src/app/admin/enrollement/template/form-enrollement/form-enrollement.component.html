@@ -485,6 +485,7 @@
                         [readOnly]="!activateFieldCuotas"
                         id="cuotas"
                         min="0"
+                        max="7"
                         [ngClass]="{'ng-invalid ng-dirty': cuotasNotValid}"
                         formControlName="cuotas"
                         type="number" />
@@ -500,7 +501,9 @@
                     </label>
 					<input
                         pInputText
-                        min="0"
+                        min="1"
+                        max="27"
+                        (change)="onChangeLimit($event)"
                         id="day_limite"
                         [ngClass]="{'ng-invalid ng-dirty': DayLimitNotValid}"
                         formControlName="day_limite"

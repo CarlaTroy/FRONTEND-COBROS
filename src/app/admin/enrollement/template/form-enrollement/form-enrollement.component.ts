@@ -138,7 +138,7 @@ export class FormEnrollementComponent implements OnInit {
             cohorte_id: ['', [Validators.required]],
             tipe_pay_id: ['', [Validators.required]],
             cuotas: ['', [Validators.required, Validators.min(0), Validators.max(7)]],
-            day_limite: ['', [Validators.required, Validators.min(0)]],
+            day_limite: ['', [Validators.required, Validators.min(1),  Validators.max(27)]],
             cash: ['', [Validators.required]],
             discount: ['', [Validators.required]],
         });
@@ -148,6 +148,14 @@ export class FormEnrollementComponent implements OnInit {
         if(this.formCohorte.controls['cuotas'].value > 7){
             this.formCohorte.get('cuotas')!.setValue(
                 7
+             );
+        }
+    }
+
+    onChangeLimit(event: any){
+        if(this.formCohorte.controls['day_limite'].value > 27){
+            this.formCohorte.get('day_limite')!.setValue(
+                27
              );
         }
     }
