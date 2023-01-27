@@ -34,6 +34,8 @@ export class FormEnrollementComponent implements OnInit {
 
     typePayIdSelected!: number;
     typePayNameSelected: string = '';
+    typePayCodeSelected: string = '';
+
     display: boolean = false;
     displayCohorte: boolean = false;
 
@@ -44,6 +46,10 @@ export class FormEnrollementComponent implements OnInit {
 
     activateFieldCash: boolean = true;
     activateFieldCuotas: boolean = true;
+
+    priceEffectiveOfCourse:number = 0;
+    priceCuotasOfCourse:number = 0;
+
 
 
     //output
@@ -109,6 +115,7 @@ export class FormEnrollementComponent implements OnInit {
     btnSeleccionarStudent(student: StudentFullDTO) {
         this.selectedStudent = student;
         this.formCohorte.controls['student_id'].setValue(student.id);
+        
         this.studentSelectedForViewData = true;
         this.display = false;
     }
@@ -116,6 +123,9 @@ export class FormEnrollementComponent implements OnInit {
     btnSeleccionarCohorte(cohorte: CohorteFullDTO) {
         this.selectedCohorte = cohorte;
         this.formCohorte.controls['cohorte_id'].setValue(cohorte.id);
+        this.priceEffectiveOfCourse = cohorte.cost_effective
+
+        this.priceCuotasOfCourse = cohorte.cost_credit
         this.cohorteSelectedForViewData = true;
         this.displayCohorte = false;
 
@@ -160,9 +170,39 @@ export class FormEnrollementComponent implements OnInit {
         }
     }
 
+
+    onChangeDescuento(event: any){
+        let descuentoEfective = 0;
+        let descuentoCuota = 0;
+
+        descuentoEfective = this.formCohorte.controls['cash'].value * (this.formCohorte.controls['discount'].value/100);
+        descuentoCuota = this.formCohorte.controls['cuotas'].value * (this.formCohorte.controls['discount'].value/100);
+
+        descuentoEfective = this.priceEffectiveOfCourse -descuentoEfective
+        descuentoCuota = this.priceCuotasOfCourse -descuentoCuota
+
+        console.log(descuentoCuota)
+        console.log(descuentoEfective)
+        if(this.typePayCodeSelected === '001'){
+            //cuotas
+            this.formCohorte.get('cuotas')!.setValue(
+                descuentoCuota
+            );
+        }
+        if(this.typePayCodeSelected === '002'){
+            //efectivo
+            this.formCohorte.get('cash')!.setValue(
+                descuentoEfective
+            );
+        }
+       
+    }
+
+
+
     onChange(event: any) {
-      this.formCohorte.get('cash')!.setValue(
-        10
+      this.formCohorte.get('discount')!.setValue(
+        ''
     );
     
         if (!event.value) return;
@@ -171,12 +211,14 @@ export class FormEnrollementComponent implements OnInit {
         console.log(event.value.codigo);
         this.typePayIdSelected = Number.parseInt(event.value.id);
         this.typePayNameSelected = event.value.name;
+        this.typePayCodeSelected = event.value.codigo
+
 
         if (event.value.codigo == '002') {
             this.activateFieldCash = true;
             //this.formCohorte.get("cash")!.enable();
             this.formCohorte.get('cash')!.setValue(
-              ''
+              this.priceEffectiveOfCourse
           );
         } else {
             this.activateFieldCash = false;
@@ -190,7 +232,7 @@ export class FormEnrollementComponent implements OnInit {
             this.activateFieldCuotas = true;
             //this.formCohorte.get("cuotas")!.enable();
             this.formCohorte.get('cuotas')!.setValue(
-             ''
+             this.priceCuotasOfCourse
           );
             
         } else {

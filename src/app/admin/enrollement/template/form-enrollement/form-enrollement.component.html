@@ -523,6 +523,7 @@
                     </label>
 					<input
                         pInputText
+                        (change)="onChangeDescuento($event)"
                         min="0"
                         id="discount"
                         [ngClass]="{'ng-invalid ng-dirty': discountNotValid}"
