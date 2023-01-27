@@ -463,11 +463,12 @@
                     </label>
 					<input
                         pInputText
+                        [readOnly]="!activateFieldCash"
                         min="0"
                         id="cash"
                         [ngClass]="{'ng-invalid ng-dirty': cashNotValid}"
                         formControlName="cash"
-                        type="text" />
+                        type="number" />
                         <span *ngIf="cashNotValid && formCohorte.get('cash')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
@@ -480,7 +481,8 @@
                     </label>
 					<input 
                         pInputText
-                        [readOnly]="true"
+                        (change)="onChangeCuotas($event)" 
+                        [readOnly]="!activateFieldCuotas"
                         id="cuotas"
                         min="0"
                         [ngClass]="{'ng-invalid ng-dirty': cuotasNotValid}"
@@ -502,7 +504,7 @@
                         id="day_limite"
                         [ngClass]="{'ng-invalid ng-dirty': DayLimitNotValid}"
                         formControlName="day_limite"
-                        type="text" />
+                        type="number" />
                         <span *ngIf="DayLimitNotValid && formCohorte.get('day_limite')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
@@ -522,7 +524,7 @@
                         id="discount"
                         [ngClass]="{'ng-invalid ng-dirty': discountNotValid}"
                         formControlName="discount"
-                        type="text" />
+                        type="number" />
                         <span *ngIf="discountNotValid && formCohorte.get('discount')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>

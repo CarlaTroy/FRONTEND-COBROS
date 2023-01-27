@@ -42,8 +42,9 @@ export class FormEnrollementComponent implements OnInit {
     studentSelectedForViewData: boolean = true;
     cohorteSelectedForViewData: boolean = true;
 
-    activateFieldCash: boolean = false;
-    activateFieldCuotas: boolean = false;
+    activateFieldCash: boolean = true;
+    activateFieldCuotas: boolean = true;
+
 
     //output
     @Output() onSubmitCohorte: EventEmitter<EnrollementCreateDTO> =
@@ -136,17 +137,26 @@ export class FormEnrollementComponent implements OnInit {
             student_id: ['', [Validators.required, Validators.maxLength(100)]],
             cohorte_id: ['', [Validators.required]],
             tipe_pay_id: ['', [Validators.required]],
-            cuotas: ['', [Validators.required, Validators.min(0)]],
+            cuotas: ['', [Validators.required, Validators.min(0), Validators.max(7)]],
             day_limite: ['', [Validators.required, Validators.min(0)]],
             cash: ['', [Validators.required]],
             discount: ['', [Validators.required]],
         });
     }
 
+    onChangeCuotas(event: any){
+        if(this.formCohorte.controls['cuotas'].value > 7){
+            this.formCohorte.get('cuotas')!.setValue(
+                7
+             );
+        }
+    }
+
     onChange(event: any) {
       this.formCohorte.get('cash')!.setValue(
         10
     );
+    
         if (!event.value) return;
         console.log(event.value.id);
         console.log(event.value.name);
@@ -155,31 +165,31 @@ export class FormEnrollementComponent implements OnInit {
         this.typePayNameSelected = event.value.name;
 
         if (event.value.codigo == '002') {
-            this.activateFieldCuotas = true;
+            this.activateFieldCash = true;
             //this.formCohorte.get("cash")!.enable();
             this.formCohorte.get('cash')!.setValue(
-              10
+              ''
           );
         } else {
-            this.activateFieldCuotas = false;
+            this.activateFieldCash = false;
             //this.formCohorte.get("cash")!.disable();
             this.formCohorte.get('cash')!.setValue(
-              10
+              0
           );
 
         }
         if (event.value.codigo == '001') {
-            this.activateFieldCash = true;
+            this.activateFieldCuotas = true;
             //this.formCohorte.get("cuotas")!.enable();
             this.formCohorte.get('cuotas')!.setValue(
-             10
+             ''
           );
             
         } else {
-            this.activateFieldCash = false;
+            this.activateFieldCuotas = false;
             //this.formCohorte.get("cuotas")!.disable();
             this.formCohorte.get('cuotas')!.setValue(
-              10
+              0
           );
         }
     }

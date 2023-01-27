@@ -99,7 +99,6 @@ createStudent(courseCreate:EnrollementCreateDTO){
       timerProgressBar: false,
   });
   Swal.showLoading()
-  debugger
   this.enrollementService.create(courseCreate).subscribe(response=>{
       Swal.close();
       if(response.success){
