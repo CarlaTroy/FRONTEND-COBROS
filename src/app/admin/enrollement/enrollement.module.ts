@@ -17,6 +17,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import {DialogModule} from 'primeng/dialog'
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MessageService } from 'primeng/api';
+import { TablePaymentStudentComponent } from './template/table-payment-student/table-payment-student.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { MessageService } from 'primeng/api';
     CreateEnrollementComponent,
     EditEnrollementComponent,
     ListEnrollementComponent,
-    FormEnrollementComponent
+    FormEnrollementComponent,
+    TablePaymentStudentComponent
   ],
   imports: [
     CommonModule,

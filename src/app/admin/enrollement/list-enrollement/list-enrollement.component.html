@@ -83,7 +83,7 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-enrollement let-rowIndex="rowIndex">
             <tr class="grid">
 
                 <td class="col-1 flex justify-content-between align-items-center">
@@ -92,47 +92,38 @@
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">Nombre</span>
-                    <span >{{student.student.name +' '+ student.student.last_name}}</span>
+                    <span >{{enrollement.student.name +' '+ enrollement.student.last_name}}</span>
                 </td>
 
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Curso - Cohorte</span>
-                    <p>{{student.cohorte.course.name +' '+ student.cohorte.name}}</p>
+                    <p>{{enrollement.cohorte.course.name +' '+ enrollement.cohorte.name}}</p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Cuotas Pendientes</span>
-                    <p>{{student.cuotas}}</p>
+                    <p>{{enrollement.cuotas}}</p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Días límite</span>
-                    <p>{{student.day_limite}}</p>
+                    <p>{{enrollement.day_limite}}</p>
                 </td>
                 <td class="col-3 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
-<!--                         <div class="col">
+                        <div class="col">
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-eye"
-                                (click)="btnDeleteCourse(course)"
+                                (click)="btnViewPaypment(enrollement)"
                                 class="p-button-raised p-button-rounded">
                             </button>
-                        </div> -->
-                        <!--<div class="col pr-0">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-pencil"
-                                [routerLink]="['/admin/enrollement/edit',student.id]"
-                                class="p-button-raised p-button-rounded">
-                            </button>
-                        </div>-->
+                        </div>
                         <div class="col">
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-trash"
-                                (click)="btnDeletStudent(student)"
+                                (click)="btnDeletEnrollement(enrollement)"
                                 class="p-button-danger p-button-rounded">
                             </button>
                         </div>

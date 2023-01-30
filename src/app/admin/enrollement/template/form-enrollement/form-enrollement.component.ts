@@ -101,10 +101,11 @@ export class FormEnrollementComponent implements OnInit {
         if (!this.modelCohorteseFull) {
             return;
         }
-       
 
-     
-
+       //observable cuandos se crea un registro nuevo
+        this.sub = this.enrollementService.refreshForm$.subscribe(() => {
+            this.formCohorte.reset();
+        });
     }
     OnDestroy(): void {
         if (this.sub) {
@@ -115,7 +116,7 @@ export class FormEnrollementComponent implements OnInit {
     btnSeleccionarStudent(student: StudentFullDTO) {
         this.selectedStudent = student;
         this.formCohorte.controls['student_id'].setValue(student.id);
-        
+
         this.studentSelectedForViewData = true;
         this.display = false;
     }
@@ -195,7 +196,7 @@ export class FormEnrollementComponent implements OnInit {
                 descuentoEfective
             );
         }
-       
+
     }
 
 
@@ -204,7 +205,7 @@ export class FormEnrollementComponent implements OnInit {
       this.formCohorte.get('discount')!.setValue(
         ''
     );
-    
+
         if (!event.value) return;
         console.log(event.value.id);
         console.log(event.value.name);
@@ -234,7 +235,7 @@ export class FormEnrollementComponent implements OnInit {
             this.formCohorte.get('cuotas')!.setValue(
              this.priceCuotasOfCourse
           );
-            
+
         } else {
             this.activateFieldCuotas = false;
             //this.formCohorte.get("cuotas")!.disable();
@@ -278,14 +279,8 @@ export class FormEnrollementComponent implements OnInit {
         };
         console.log('this.formCohorte.value');
         console.log(this.formCohorte.value);
-
+        debugger
         this.onSubmitCohorte.emit(createCourse);
-
-         //observable cuandos se crea un registro nuevo
-         this.sub = this.enrollementService.refreshForm$.subscribe(() => {
-            this.formCohorte.reset();
-        });
-        
         return;
     }
     //validate input

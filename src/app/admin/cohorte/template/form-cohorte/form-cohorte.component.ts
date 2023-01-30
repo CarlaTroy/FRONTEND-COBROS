@@ -16,7 +16,7 @@ export class FormCohorteComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO[];
     @Input() modelCohorteseFull!:CohorteFullDTO;
-    
+
     courseIdSelected!: number;
     courseNameSelected: string = '';
 
@@ -42,7 +42,7 @@ export class FormCohorteComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
-                private cohorteService:CohorteService,) 
+                private cohorteService:CohorteService,)
                 {
                 }
 
@@ -57,7 +57,7 @@ export class FormCohorteComponent implements OnInit {
   if(!this.modelCohorteseFull){
     return;
   }
-    
+
   }
   OnDestroy(): void {
     if(this.sub) {
@@ -66,11 +66,11 @@ export class FormCohorteComponent implements OnInit {
   }
 
   loadDataForm(){
-  
-        this.formCohorte.patchValue(this.modelCohorteseFull);
-      this.courseNameSelected = this.modelCohorteseFull.course.name;
-      this.courseIdSelected = this.modelCohorteseFull.course.id;
-    
+
+    this.formCohorte.patchValue(this.modelCohorteseFull);
+    this.courseNameSelected = this.modelCohorteseFull.course.name;
+    this.courseIdSelected = this.modelCohorteseFull.course.id;
+
   }
 
   // function personality
@@ -86,7 +86,7 @@ export class FormCohorteComponent implements OnInit {
   }
 
 
-  
+
   onChange(event: any) {
     if(!event.value) return
     console.log(event.value['id'])
@@ -112,7 +112,7 @@ export class FormCohorteComponent implements OnInit {
     const createCourse:CohorteCreateDTO=this.formCohorte.value
     this.onSubmitCohorte.emit(createCourse);*/
 
-   
+
   const createCourse:CohorteCreateDTO={
       name:this.formCohorte.value.name,
         cost_credit:this.formCohorte.value.cost_credit,
@@ -128,7 +128,7 @@ export class FormCohorteComponent implements OnInit {
     this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
       this.formCohorte.reset();
   });
-  
+
     return;
   }
     //validate input

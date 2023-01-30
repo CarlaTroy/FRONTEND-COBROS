@@ -3,8 +3,11 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EnrollementFullDTO } from '../enrollement';
 import { EnrollementService } from '../../servicios/enrollement.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TablePaymentStudentComponent } from '../template/table-payment-student/table-payment-student.component';
 
 @Component({
+  providers: [DialogService],
   selector: 'app-list-enrollement',
   templateUrl: './list-enrollement.component.html',
   styleUrls: ['./list-enrollement.component.scss']
@@ -17,6 +20,7 @@ export class ListEnrollementComponent implements OnInit {
   //variables globales
 loading:boolean=false;
  //subcription
+ ref!: DynamicDialogRef;
  subCohorte!:Subscription;
  subDelete!:Subscription;
     //toast
@@ -31,7 +35,8 @@ loading:boolean=false;
          toast.addEventListener('mouseleave', Swal.resumeTimer)
      }
  })
-constructor(private enrollementService:EnrollementService) { }
+constructor(private enrollementService:EnrollementService,
+                public dialogService: DialogService,) { }
 
 ngOnInit(): void {
  this.loadDataCourses();
@@ -43,7 +48,7 @@ ngOnInit(): void {
 loadDataCourses(){
  this.loading=true;
  this.subCohorte=this.enrollementService.getAll().subscribe(response=>{
-     
+
      this.loading=false;
      console.log('response.data')
      console.log(response.data)
@@ -59,7 +64,14 @@ loadDataCourses(){
        })
    });
 }
-btnDeletStudent(cohorte:EnrollementFullDTO){
+btnViewPaypment(enrollement:EnrollementFullDTO){
+    this.ref=this.dialogService.open(TablePaymentStudentComponent, {
+        header: 'Gestionar pagos del estudiante '+enrollement.student.name+" "+enrollement.student.last_name,
+        width: '70%',
+        data:enrollement
+      });
+}
+btnDeletEnrollement(cohorte:EnrollementFullDTO){
  Swal.fire({
      title: '¿ Esta seguro en eliminar ?',
      text: cohorte.cash.toString(),

@@ -28,3 +28,16 @@ export interface TypePaysFullDTO {
     name:   string;
     codigo: string;
 }
+
+export interface PaymentFullDTO{
+    id:number,
+    amount:number,
+    date_pay:string,
+    status_pay:StatusPayDTO,
+    enrollement:EnrollementFullDTO
+}
+export interface StatusPayDTO{
+    id: number,
+    name: string,
+    codigo: string
+}
