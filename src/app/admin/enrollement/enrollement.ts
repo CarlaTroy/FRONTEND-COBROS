@@ -46,3 +46,8 @@ export interface PaymentEditDTO {
     date_pay: string,
     status_pay_id:number
 }
+export interface CuotasPaymentTableDTO{
+    id:number,
+    date_limit:string,
+    amout:number
+}

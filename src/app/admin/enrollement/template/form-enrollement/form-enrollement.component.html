@@ -9,12 +9,6 @@
 <p-toast></p-toast>
 
 
-
-
-
-
-
-
 <div class="grid">
 
     <div class="col-12 md:col-12 lg:col-12 pt-0">
@@ -309,7 +303,7 @@
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-productor let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-cohorte let-rowIndex="rowIndex">
                 <tr class="p-selectable-row">
                     <td>
                         <span class="p-column-title">ID</span>
@@ -317,34 +311,34 @@
                     </td>
                     <td>
                         <span class="p-column-title">Nombre</span>
-                        {{productor.name}}
+                        {{cohorte.name}}
                     </td>
 
                     <td>
                         <span class="p-column-title">Fecha de inicio</span>
-                        {{productor.date_init}}
+                        {{cohorte.date_init}}
                     </td>
                     <td>
                         <span class="p-column-title">Fecha final</span>
-                        <span class="image-text">{{productor.date_end}}</span>
+                        <span class="image-text">{{cohorte.date_end}}</span>
                     </td>
 
                     <td>
                         <span class="p-column-title">Costo en efectivo</span>
-                        <span class="image-text">{{productor.cost_effective}}</span>
+                        <span class="image-text">{{cohorte.cost_effective}}</span>
                     </td>
 
                     <td>
-                        <span class="p-column-title">Costo en crédito</span>
-                        <span class="image-text">{{productor.cost_credit}}</span>
+                        <span class="p-column-title">Costo a crédito</span>
+                        <span class="image-text">{{cohorte.cost_credit}}</span>
                     </td>
 
                     <td>
                         <span class="p-column-title">Acciones</span>
                         <div class="text-center pr-8">
 
-                            <abbr title="Añadir productor">
-                                <i class="pi pi-plus pl-3" (click)="btnSeleccionarCohorte(productor)"> Añadir</i>
+                            <abbr title="Añadir cohorte">
+                                <i class="pi pi-plus pl-3" (click)="btnSeleccionarCohorte(cohorte)"> Añadir</i>
                             </abbr>
 
 
@@ -447,11 +441,32 @@
                     <div class="field col-12 md:col-12">
                         <label htmlFor="canton">Tipo de Pago</label>
                         <p-dropdown id="name1" formControlName="tipe_pay_id"
-                        [options]='modelTypePaysFull' (onChange)="onChange($event)" dataKey="value" placeholder="Seleccionar Pago"
+                        [options]='modelTypePaysFull'
+                        (onChange)="onChange($event)"
+                        dataKey="value" placeholder="Seleccionar Pago"
                         optionLabel="name"  [showClear]="true"></p-dropdown>
                        <!-- <input pInputText id="name1" type="text" formControlName="latitud"  />-->
 
 
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <p><b>VALOR TOTAL A PAGAR </b> <span>USD {{valRealPayment}}</span></p>
+                        <p-table [value]="arrayCuotasPaymet" [tableStyle]="{'min-width': '50rem'}">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th># Cuotas</th>
+                                    <th>Fecha Limite</th>
+                                    <th>Valor a cancelar</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-payment>
+                                <tr>
+                                    <td>{{payment.id}}</td>
+                                    <td>{{payment.date_limit}}</td>
+                                    <td>USD {{payment.amout | number : '1.2-2'}}</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </div>
 
@@ -481,7 +496,7 @@
                     </label>
 					<input
                         pInputText
-                        (change)="onChangeCuotas($event)"
+                        (input)="inputCuotas($event)"
                         [readOnly]="!activateFieldCuotas"
                         id="cuotas"
                         min="0"
@@ -503,7 +518,7 @@
                         pInputText
                         min="1"
                         max="27"
-                        (change)="onChangeLimit($event)"
+                        (input)="inputLimit($event)"
                         id="day_limite"
                         [ngClass]="{'ng-invalid ng-dirty': DayLimitNotValid}"
                         formControlName="day_limite"
@@ -519,12 +534,13 @@
                 <div class="field col-12 md:col-6">
 					<label htmlFor="discount">
                         <span class="text-red-600">*</span>
-                        Descuento
+                        Descuento %
                     </label>
 					<input
                         pInputText
-                        (change)="onChangeDescuento($event)"
+                        (input)="inputDescount($event)"
                         min="0"
+                        max="100"
                         id="discount"
                         [ngClass]="{'ng-invalid ng-dirty': discountNotValid}"
                         formControlName="discount"
@@ -533,19 +549,6 @@
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
 				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			</div>
 		</div>

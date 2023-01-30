@@ -5,6 +5,7 @@ import { CourseFullDTO } from 'src/app/admin/course/course';
 import { StudentFullDTO } from 'src/app/admin/student/student';
 import Swal from 'sweetalert2';
 import {
+    CuotasPaymentTableDTO,
     EnrollementCreateDTO,
     EnrollementFullDTO,
     TypePaysFullDTO,
@@ -49,7 +50,7 @@ export class FormEnrollementComponent implements OnInit {
 
     priceEffectiveOfCourse:number = 0;
     priceCuotasOfCourse:number = 0;
-
+    valRealPayment:number=0;
 
 
     //output
@@ -73,6 +74,7 @@ export class FormEnrollementComponent implements OnInit {
     sub!: Subscription;
     //global var
     intanceCourse!: CourseFullDTO;
+    arrayCuotasPaymet!:CuotasPaymentTableDTO[];
     filterValue = '';
     constructor(
         private formBuilder: FormBuilder,
@@ -125,8 +127,6 @@ export class FormEnrollementComponent implements OnInit {
         this.selectedCohorte = cohorte;
         this.formCohorte.controls['cohorte_id'].setValue(cohorte.id);
         this.priceEffectiveOfCourse = cohorte.cost_effective
-
-        this.priceCuotasOfCourse = cohorte.cost_credit
         this.cohorteSelectedForViewData = true;
         this.displayCohorte = false;
 
@@ -151,97 +151,107 @@ export class FormEnrollementComponent implements OnInit {
             cuotas: ['', [Validators.required, Validators.min(0), Validators.max(7)]],
             day_limite: ['', [Validators.required, Validators.min(1),  Validators.max(27)]],
             cash: ['', [Validators.required]],
-            discount: ['', [Validators.required]],
+            discount: [0, [Validators.required,Validators.min(0), Validators.max(100)]],
         });
     }
-
-    onChangeCuotas(event: any){
-        if(this.formCohorte.controls['cuotas'].value > 7){
+    draTable(){
+        const valueCoutas:number =this.formCohorte.controls['cuotas'].value;
+        let cont:number=1;
+        let auxArrayCuotas:CuotasPaymentTableDTO[]=[];
+        let amount:number=this.valRealPayment/valueCoutas;
+        while(cont<=valueCoutas){
+            let coutaInsert:CuotasPaymentTableDTO={
+                id:cont,
+                amout:amount,
+                date_limit:""
+            };
+            auxArrayCuotas.push(coutaInsert);
+            cont++;
+        }
+        this.arrayCuotasPaymet=auxArrayCuotas;
+    }
+    inputCuotas(event: any){
+        const valueCoutas:number =this.formCohorte.controls['cuotas'].value;
+        if(valueCoutas > 7){
             this.formCohorte.get('cuotas')!.setValue(
                 7
              );
         }
+        // dibujar table y las cuotas
+        this.draTable();
     }
 
-    onChangeLimit(event: any){
-        if(this.formCohorte.controls['day_limite'].value > 27){
+    inputLimit(event: any){
+        const dayLimit:number=this.formCohorte.controls['day_limite'].value;
+        if(dayLimit > 27){
             this.formCohorte.get('day_limite')!.setValue(
                 27
              );
         }
+        //update date limite payment
+        let auxPaymentTable:CuotasPaymentTableDTO[]=[];
+        this.arrayCuotasPaymet.forEach(paymentTable=>{
+            let payTable:CuotasPaymentTableDTO={
+                id:paymentTable.id,
+                amout:paymentTable.amout,
+                date_limit:'test'
+            }
+            auxPaymentTable.push(payTable);
+        });
+        this.arrayCuotasPaymet=auxPaymentTable;
     }
 
 
-    onChangeDescuento(event: any){
-        let descuentoEfective = 0;
-        let descuentoCuota = 0;
-
-        descuentoEfective = this.formCohorte.controls['cash'].value * (this.formCohorte.controls['discount'].value/100);
-        descuentoCuota = this.formCohorte.controls['cuotas'].value * (this.formCohorte.controls['discount'].value/100);
-
-        descuentoEfective = this.priceEffectiveOfCourse -descuentoEfective
-        descuentoCuota = this.priceCuotasOfCourse -descuentoCuota
-
-        console.log(descuentoCuota)
-        console.log(descuentoEfective)
+    inputDescount(event: any){
         if(this.typePayCodeSelected === '001'){
-            //cuotas
-            this.formCohorte.get('cuotas')!.setValue(
-                descuentoCuota
-            );
+
+            this.valRealPayment=(this.selectedCohorte.cost_credit)-((this.selectedCohorte.cost_credit)*this.formCohorte.get('discount')?.value/100);
+            return;
         }
         if(this.typePayCodeSelected === '002'){
-            //efectivo
-            this.formCohorte.get('cash')!.setValue(
-                descuentoEfective
-            );
+            this.valRealPayment=(this.selectedCohorte.cost_effective)-((this.selectedCohorte.cost_effective)*(this.formCohorte.get('discount')?.value/100));
+            return;
         }
 
     }
 
-
-
     onChange(event: any) {
-      this.formCohorte.get('discount')!.setValue(
-        ''
-    );
 
         if (!event.value) return;
-        console.log(event.value.id);
-        console.log(event.value.name);
-        console.log(event.value.codigo);
+        let typePaysFull:TypePaysFullDTO={
+            id: event.value.id,
+            codigo:event.value.codigo,
+            name: event.value.name
+        }
         this.typePayIdSelected = Number.parseInt(event.value.id);
-        this.typePayNameSelected = event.value.name;
-        this.typePayCodeSelected = event.value.codigo
+        this.typePayNameSelected =typePaysFull.name;
+        this.typePayCodeSelected = typePaysFull.codigo
 
 
         if (event.value.codigo == '002') {
             this.activateFieldCash = true;
-            //this.formCohorte.get("cash")!.enable();
+            this.activateFieldCuotas = false;
             this.formCohorte.get('cash')!.setValue(
               this.priceEffectiveOfCourse
-          );
-        } else {
-            this.activateFieldCash = false;
-            //this.formCohorte.get("cash")!.disable();
-            this.formCohorte.get('cash')!.setValue(
-              0
-          );
-
+            );
+            this.formCohorte.get('cuotas')!.setValue(
+                0
+            );
+          this.valRealPayment=(this.selectedCohorte.cost_effective)-(((this.selectedCohorte.cost_effective))*this.formCohorte.get('discount')?.value/100);
+          return;
         }
         if (event.value.codigo == '001') {
             this.activateFieldCuotas = true;
+            this.activateFieldCash = false;
             //this.formCohorte.get("cuotas")!.enable();
             this.formCohorte.get('cuotas')!.setValue(
-             this.priceCuotasOfCourse
-          );
-
-        } else {
-            this.activateFieldCuotas = false;
-            //this.formCohorte.get("cuotas")!.disable();
-            this.formCohorte.get('cuotas')!.setValue(
-              0
-          );
+                this.priceCuotasOfCourse
+            );
+            this.formCohorte.get('cash')!.setValue(
+                    0
+                );
+            this.valRealPayment=(this.selectedCohorte.cost_credit)-(((this.selectedCohorte.cost_effective))*this.formCohorte.get('discount')?.value/100);
+            return;
         }
     }
 
@@ -260,10 +270,6 @@ export class FormEnrollementComponent implements OnInit {
                 }
             );
         }
-
-        /* this.formCohorte.value.course_id = this.studentIdSelected
-  const createCourse:CohorteCreateDTO=this.formCohorte.value
-  this.onSubmitCohorte.emit(createCourse);*/
         this.formCohorte.controls['tipe_pay_id'].setValue(
             this.typePayIdSelected
         );
