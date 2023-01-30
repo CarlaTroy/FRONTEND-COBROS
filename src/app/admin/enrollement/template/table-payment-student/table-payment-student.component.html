@@ -131,7 +131,7 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                     {{(modelEnrollement.cuotas-(rowIndex+1))*coustReal}}
+                     {{coustReal-(payment.amount*(rowIndex))}}
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">

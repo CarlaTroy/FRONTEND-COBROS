@@ -27,7 +27,9 @@ export class EnrollementService {
   }
   public create(enrollementCreate: EnrollementCreateDTO):Observable<any> {
     return this.http.post<boolean>(`${this.apiURL}/enrollements/`, enrollementCreate).pipe(
-        tap(() => this._resetForm$.next())
+        tap(() => {
+            this._resetForm$.next()
+        })
     );
   }
   public edit(enrollementCreate: EnrollementCreateDTO,id:number):Observable<any> {

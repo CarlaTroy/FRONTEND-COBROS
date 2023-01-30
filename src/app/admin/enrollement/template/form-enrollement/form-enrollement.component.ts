@@ -58,7 +58,7 @@ export class FormEnrollementComponent implements OnInit {
     @Output() onSubmitCohorte: EventEmitter<EnrollementCreateDTO> =
         new EventEmitter<EnrollementCreateDTO>();
     //form
-    formCohorte!: FormGroup;
+    formEnrrollement!: FormGroup;
     //toast
     Toast = Swal.mixin({
         toast: true,
@@ -94,7 +94,7 @@ export class FormEnrollementComponent implements OnInit {
     ngOnInit(): void {
 
         this.initInputForm();
-        this.formCohorte.get("tipe_pay_id")!.disable();
+        this.formEnrrollement.get("tipe_pay_id")!.disable();
         //si existe data entonces en modo edicion
         if (this.modelCohorteseFull) {
             this.loadDataForm();
@@ -105,10 +105,6 @@ export class FormEnrollementComponent implements OnInit {
             return;
         }
 
-       //observable cuandos se crea un registro nuevo
-        this.sub = this.enrollementService.refreshForm$.subscribe(() => {
-            this.formCohorte.reset();
-        });
     }
     OnDestroy(): void {
         if (this.sub) {
@@ -118,7 +114,7 @@ export class FormEnrollementComponent implements OnInit {
 
     btnSeleccionarStudent(student: StudentFullDTO) {
         this.selectedStudent = student;
-        this.formCohorte.controls['student_id'].setValue(student.id);
+        this.formEnrrollement.controls['student_id'].setValue(student.id);
 
         this.studentSelectedForViewData = true;
         this.display = false;
@@ -126,26 +122,26 @@ export class FormEnrollementComponent implements OnInit {
 
     btnSeleccionarCohorte(cohorte: CohorteFullDTO) {
         this.selectedCohorte = cohorte;
-        this.formCohorte.controls['cohorte_id'].setValue(cohorte.id);
+        this.formEnrrollement.controls['cohorte_id'].setValue(cohorte.id);
         this.priceEffectiveOfCourse = cohorte.cost_effective
         this.cohorteSelectedForViewData = true;
         this.displayCohorte = false;
 
         if(this.cohorteSelectedForViewData && this.studentSelectedForViewData){
-          this.formCohorte.get("tipe_pay_id")!.enable();
+          this.formEnrrollement.get("tipe_pay_id")!.enable();
         }
     }
     loadDataForm() {
         console.log('this.modelCohorteseFull');
         console.log(this.modelCohorteseFull);
-        this.formCohorte.patchValue(this.modelCohorteseFull);
+        this.formEnrrollement.patchValue(this.modelCohorteseFull);
         this.studentNameSelected = this.modelCohorteseFull.student.name;
         this.studentIdSelected = this.modelCohorteseFull.student.id;
     }
 
     // function personality
     initInputForm() {
-        this.formCohorte = this.formBuilder.group({
+        this.formEnrrollement = this.formBuilder.group({
             student_id: ['', [Validators.required, Validators.maxLength(100)]],
             cohorte_id: ['', [Validators.required]],
             tipe_pay_id: ['', [Validators.required]],
@@ -156,8 +152,8 @@ export class FormEnrollementComponent implements OnInit {
         });
     }
     draTable(){
-        const valueCoutas:number =this.formCohorte.get('cuotas')?.value;
-        const dateLimit:number =this.formCohorte.get('day_limite')?.value;
+        const valueCoutas:number =this.formEnrrollement.get('cuotas')?.value;
+        const dateLimit:number =this.formEnrrollement.get('day_limite')?.value;
         let cont:number=1;
         let auxArrayCuotas:CuotasPaymentTableDTO[]=[];
         let amount:number=this.valRealPayment/valueCoutas;
@@ -174,9 +170,9 @@ export class FormEnrollementComponent implements OnInit {
         this.arrayCuotasPaymet=auxArrayCuotas;
     }
     inputCuotas(event: any){
-        const valueCoutas:number =this.formCohorte.controls['cuotas'].value;
+        const valueCoutas:number =this.formEnrrollement.controls['cuotas'].value;
         if(valueCoutas > 7){
-            this.formCohorte.get('cuotas')!.setValue(
+            this.formEnrrollement.get('cuotas')!.setValue(
                 7
              );
         }
@@ -185,9 +181,9 @@ export class FormEnrollementComponent implements OnInit {
     }
 
     inputLimit(event: any){
-        const dayLimit:number=this.formCohorte.controls['day_limite'].value;
+        const dayLimit:number=this.formEnrrollement.controls['day_limite'].value;
         if(dayLimit > 27){
-            this.formCohorte.get('day_limite')!.setValue(
+            this.formEnrrollement.get('day_limite')!.setValue(
                 27
              );
         }
@@ -199,12 +195,12 @@ export class FormEnrollementComponent implements OnInit {
     inputDescount(event: any){
         if(this.typePayCodeSelected === '001'){
 
-            this.valRealPayment=(this.selectedCohorte.cost_credit)-((this.selectedCohorte.cost_credit)*this.formCohorte.get('discount')?.value/100);
+            this.valRealPayment=(this.selectedCohorte.cost_credit)-((this.selectedCohorte.cost_credit)*this.formEnrrollement.get('discount')?.value/100);
             this.draTable();
             return;
         }
         if(this.typePayCodeSelected === '002'){
-            this.valRealPayment=(this.selectedCohorte.cost_effective)-((this.selectedCohorte.cost_effective)*(this.formCohorte.get('discount')?.value/100));
+            this.valRealPayment=(this.selectedCohorte.cost_effective)-((this.selectedCohorte.cost_effective)*(this.formEnrrollement.get('discount')?.value/100));
             this.draTable();
             return;
         }
@@ -228,16 +224,16 @@ export class FormEnrollementComponent implements OnInit {
             this.activateFieldCash = true;
             this.activateFieldCuotas = false;
 
-            this.formCohorte.get('cash')!.setValue(
+            this.formEnrrollement.get('cash')!.setValue(
               this.priceEffectiveOfCourse
             );
-            this.formCohorte.get('cuotas')!.setValue(
+            this.formEnrrollement.get('cuotas')!.setValue(
                 0
             );
-            this.formCohorte.get('day_limite')!.setValue(
+            this.formEnrrollement.get('day_limite')!.setValue(
                 1
             );
-          this.valRealPayment=(this.selectedCohorte.cost_effective)-(((this.selectedCohorte.cost_effective))*this.formCohorte.get('discount')?.value/100);
+          this.valRealPayment=(this.selectedCohorte.cost_effective)-(((this.selectedCohorte.cost_effective))*this.formEnrrollement.get('discount')?.value/100);
           return;
         }
         if (event.value.codigo == '001') {
@@ -245,89 +241,93 @@ export class FormEnrollementComponent implements OnInit {
             this.activeDayLimite=true;
             this.activateFieldCash = false;
             //this.formCohorte.get("cuotas")!.enable();
-            this.formCohorte.get('cuotas')!.setValue(
+            this.formEnrrollement.get('cuotas')!.setValue(
                 this.priceCuotasOfCourse
             );
-            this.formCohorte.get('cash')!.setValue(
+            this.formEnrrollement.get('cash')!.setValue(
                     0
                 );
-            this.valRealPayment=(this.selectedCohorte.cost_credit)-(((this.selectedCohorte.cost_effective))*this.formCohorte.get('discount')?.value/100);
+            this.valRealPayment=(this.selectedCohorte.cost_credit)-(((this.selectedCohorte.cost_effective))*this.formEnrrollement.get('discount')?.value/100);
             return;
         }
     }
 
     submitCohorte() {
-        if (this.formCohorte.invalid) {
+        if (this.formEnrrollement.invalid) {
             this.Toast.fire({
                 icon: 'warning',
                 title: 'Debe completar todos los campos',
             });
-            return Object.values(this.formCohorte.controls).forEach(
+            return Object.values(this.formEnrrollement.controls).forEach(
                 (contol) => {
                     contol.markAsTouched();
                 }
             );
         }
-        this.formCohorte.controls['tipe_pay_id'].setValue(
+        this.formEnrrollement.controls['tipe_pay_id'].setValue(
             this.typePayIdSelected
         );
 
         const createCourse: EnrollementCreateDTO = {
-            student_id: this.formCohorte.value.student_id,
-            cohorte_id: this.formCohorte.value.cohorte_id,
-            tipe_pay_id: this.formCohorte.value.tipe_pay_id,
-            cuotas: this.formCohorte.value.cuotas,
-            day_limite: this.formCohorte.value.day_limite,
-            cash: this.formCohorte.value.cash,
-            discount: this.formCohorte.value.discount,
+            student_id: this.formEnrrollement.value.student_id,
+            cohorte_id: this.formEnrrollement.value.cohorte_id,
+            tipe_pay_id: this.formEnrrollement.value.tipe_pay_id,
+            cuotas: this.formEnrrollement.value.cuotas,
+            day_limite: this.formEnrrollement.value.day_limite,
+            cash: this.formEnrrollement.value.cash,
+            discount: this.formEnrrollement.value.discount,
         };
         console.log('this.formCohorte.value');
-        console.log(this.formCohorte.value);
+        console.log(this.formEnrrollement.value);
         this.onSubmitCohorte.emit(createCourse);
+        //observable cuandos se crea un registro nuevo
+        this.sub = this.enrollementService.refreshForm$.subscribe(() => {
+            this.formEnrrollement.reset();
+        });
         return;
     }
     //validate input
     get nameNotValid() {
         return (
-            this.formCohorte.get('student_id')?.invalid &&
-            this.formCohorte.get('student_id')?.touched
+            this.formEnrrollement.get('student_id')?.invalid &&
+            this.formEnrrollement.get('student_id')?.touched
         );
     }
 
     get lastNameNotValid() {
         return (
-            this.formCohorte.get('cohorte_id')?.invalid &&
-            this.formCohorte.get('cohorte_id')?.touched
+            this.formEnrrollement.get('cohorte_id')?.invalid &&
+            this.formEnrrollement.get('cohorte_id')?.touched
         );
     }
     get cashNotValid() {
         return (
-            this.formCohorte.get('cash')?.invalid &&
-            this.formCohorte.get('cash')?.touched
+            this.formEnrrollement.get('cash')?.invalid &&
+            this.formEnrrollement.get('cash')?.touched
         );
     }
     get cuotasNotValid() {
         return (
-            this.formCohorte.get('cuotas')?.invalid &&
-            this.formCohorte.get('cuotas')?.touched
+            this.formEnrrollement.get('cuotas')?.invalid &&
+            this.formEnrrollement.get('cuotas')?.touched
         );
     }
     get DayLimitNotValid() {
         return (
-            this.formCohorte.get('day_limite')?.invalid &&
-            this.formCohorte.get('day_limite')?.touched
+            this.formEnrrollement.get('day_limite')?.invalid &&
+            this.formEnrrollement.get('day_limite')?.touched
         );
     }
     get userIdNotValid() {
         return (
-            this.formCohorte.get('cash')?.invalid &&
-            this.formCohorte.get('cash')?.touched
+            this.formEnrrollement.get('cash')?.invalid &&
+            this.formEnrrollement.get('cash')?.touched
         );
     }
     get discountNotValid() {
         return (
-            this.formCohorte.get('discount')?.invalid &&
-            this.formCohorte.get('discount')?.touched
+            this.formEnrrollement.get('discount')?.invalid &&
+            this.formEnrrollement.get('discount')?.touched
         );
     }
 }

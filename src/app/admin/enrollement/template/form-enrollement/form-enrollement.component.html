@@ -430,7 +430,7 @@
 
 
 
-<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+<form [formGroup]="formEnrrollement" (ngSubmit)="submitCohorte()">
 
 	<div class="col-12">
 		<div class="card">
@@ -484,7 +484,7 @@
                         [ngClass]="{'ng-invalid ng-dirty': cashNotValid}"
                         formControlName="cash"
                         type="number" />
-                        <span *ngIf="cashNotValid && formCohorte.get('cash')?.errors?.['required']">
+                        <span *ngIf="cashNotValid && formEnrrollement.get('cash')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
 				</div>
@@ -504,7 +504,7 @@
                         [ngClass]="{'ng-invalid ng-dirty': cuotasNotValid}"
                         formControlName="cuotas"
                         type="number" />
-                        <span *ngIf="cuotasNotValid && formCohorte.get('cuotas')?.errors?.['required']">
+                        <span *ngIf="cuotasNotValid && formEnrrollement.get('cuotas')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
 				</div>
@@ -524,7 +524,7 @@
                         [ngClass]="{'ng-invalid ng-dirty': DayLimitNotValid}"
                         formControlName="day_limite"
                         type="number" />
-                        <span *ngIf="DayLimitNotValid && formCohorte.get('day_limite')?.errors?.['required']">
+                        <span *ngIf="DayLimitNotValid && formEnrrollement.get('day_limite')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
 				</div>
@@ -546,7 +546,7 @@
                         [ngClass]="{'ng-invalid ng-dirty': discountNotValid}"
                         formControlName="discount"
                         type="number" />
-                        <span *ngIf="discountNotValid && formCohorte.get('discount')?.errors?.['required']">
+                        <span *ngIf="discountNotValid && formEnrrollement.get('discount')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
 				</div>
