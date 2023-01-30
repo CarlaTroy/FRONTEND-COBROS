@@ -33,10 +33,10 @@ export interface PaymentFullDTO{
     id:number,
     amount:number,
     date_pay:string,
-    status_pay:StatusPayDTO,
+    status_pay:StatusPayFullDTO,
     enrollement:EnrollementFullDTO
 }
-export interface StatusPayDTO{
+export interface StatusPayFullDTO{
     id: number,
     name: string,
     codigo: string

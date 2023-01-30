@@ -3,8 +3,9 @@ import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
 import { PaymentService } from 'src/app/admin/servicios/payment.service';
+import { StatusPayService } from 'src/app/admin/servicios/status-pay.service';
 import Swal from 'sweetalert2';
-import { EnrollementFullDTO, PaymentFullDTO } from '../../enrollement';
+import { EnrollementFullDTO, PaymentFullDTO, StatusPayFullDTO } from '../../enrollement';
 
 @Component({
   providers: [MessageService],
@@ -15,27 +16,69 @@ import { EnrollementFullDTO, PaymentFullDTO } from '../../enrollement';
 export class TablePaymentStudentComponent implements OnInit {
   modelPayments!:PaymentFullDTO[];
   modelEnrollement!:EnrollementFullDTO;
+  modelStatusPays!:StatusPayFullDTO[];
   paymentRow:any;
   clonedProducts: { [s: string]: any; } = {};
   products2!: any[];
   cohorteFull!:CohorteFullDTO;
   coustReal!:number;
   contCoursre:number=1;
+  drpOption$:any;
   constructor(public config: DynamicDialogConfig,
                 public ref: DynamicDialogRef,
                 private messageService: MessageService,
+                private statusPayService:StatusPayService,
                 private paymentService:PaymentService) { }
 
   ngOnInit(): void {
     this.getPaymentsEnrrollement();
+    this.getStatusPays();
   }
   contMount(cuotasNum:number){
     let pendientePagar=this.coustReal*(cuotasNum-this.contCoursre);
     this.contCoursre++;
     return pendientePagar;
   }
+  onChange(op: StatusPayFullDTO){
+    let statusPay:StatusPayFullDTO;
+    return statusPay={
+        id:op.id,
+        name:op.name,
+        codigo:op.codigo
+    }
+  }
+  getStatusPays(){
+    this.statusPayService.getAll().subscribe(response=>{
+        if(response.success){
+            this.modelStatusPays=response.data;
+/*             this.drpOption$ = this.ddOptionSrv.getDrpOption().pipe(share())
+
+            this.drValue$ = this.drpOption$.pipe(
+              switchMapTo(this.ddValueSrv.getDrpModelVal()),
+            ) */
+            return;
+        }
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Información',
+            footer: response.message
+        })
+
+        console.log(response);
+    },error=>{
+        console.log(error);
+        let message= error.error.message;
+        Swal.close();
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error',
+            footer:message
+        })
+    });
+  }
   getPaymentsEnrrollement(){
-    debugger
     this.modelEnrollement=this.config.data;
     this.cohorteFull=this.modelEnrollement.cohorte;
     this.coustReal=this.cohorteFull.cost_credit-(this.cohorteFull.cost_credit*(this.modelEnrollement.discount/100));
@@ -71,7 +114,7 @@ export class TablePaymentStudentComponent implements OnInit {
     this.clonedProducts[product.id] = {...product};
   }
 
-  onRowEditSave(product: any) {
+  onRowEditSave(product: PaymentFullDTO) {
     if (product.price > 0) {
         delete this.clonedProducts[product.id];
         this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});

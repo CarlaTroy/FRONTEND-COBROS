@@ -1,7 +1,8 @@
-<div class="col-12 md:col-12" *ngIf="!modelPayments">
+<p-toast></p-toast>
+<div class="col-12 md:col-12" *ngIf="!modelPayments && !modelStatusPays">
     <p-progressBar mode="indeterminate" ></p-progressBar>
 </div>
-<div class="col-12 md:col-12" *ngIf="modelPayments">
+<div class="col-12 md:col-12" *ngIf="modelPayments  && modelStatusPays">
     <div class="grid">
         <div class="col-6">
             <div class="grid">
@@ -110,8 +111,23 @@
                 </td>
                 <td>{{payment.date_limit}}</td>
                 <td>{{payment.amount}}</td>
-                <td>{{payment.status_pay.name}}</td>
-                <td>{{contMount(payment.enrollement.cuotas)}}</td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown
+                                [options]="modelStatusPays"
+                                [(ngModel)]="payment.status_pay"
+                                optionLabel="name"
+                                [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{payment.status_pay.name|json}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <!-- {{contMount(payment.enrollement?.cuotas)}} -->
+                </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">
                         <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(payment)" class="p-button-rounded p-button-text"></button>
