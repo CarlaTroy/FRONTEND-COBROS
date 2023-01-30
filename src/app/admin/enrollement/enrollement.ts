@@ -10,6 +10,7 @@ export interface EnrollementFullDTO {
     day_limite: number;
     cash:       number;
     discount:   number;
+    created_on:string;
 }
 
 

@@ -455,14 +455,14 @@
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th># Cuotas</th>
-                                    <th>Fecha Limite</th>
+                                    <th>Fecha Limite pago</th>
                                     <th>Valor a cancelar</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-payment>
                                 <tr>
                                     <td>{{payment.id}}</td>
-                                    <td>{{payment.date_limit}}</td>
+                                    <td>{{payment.date_limit | date: 'yyyy/MM/dd'}}</td>
                                     <td>USD {{payment.amout | number : '1.2-2'}}</td>
                                 </tr>
                             </ng-template>
@@ -518,6 +518,7 @@
                         pInputText
                         min="1"
                         max="27"
+                        [readOnly]="!activeDayLimite"
                         (input)="inputLimit($event)"
                         id="day_limite"
                         [ngClass]="{'ng-invalid ng-dirty': DayLimitNotValid}"

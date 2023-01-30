@@ -15,7 +15,7 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['cuotas', 'student']">
+        [globalFilterFields]="['cuotas', 'student','created_on','studient','curso']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -48,36 +48,34 @@
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-2 pt-5">
+                <th pSortableColumn="created_on" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
-                        Nombre
-                        <p-sortIcon field="name"></p-sortIcon>
+                        Fecha
+                        <p-sortIcon field="created_on"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="studient" class="col-2 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                        Estudiante
+                        <p-sortIcon field="studient"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-2 pt-5">
+                <th pSortableColumn="curso" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Curso - Cohorte
-                        <p-sortIcon field="date_init"></p-sortIcon>
+                        <p-sortIcon field="curso"></p-sortIcon>
                     </div>
                 </th>
                 <th pSortableColumn="cost_effective" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
-                            Cuotas Pendientes
+                            ¿ Aplica Credito ?
                         </span>
                         <p-sortIcon field="cost_effective"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="cost_credit" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        <span>
-                            Días límite
-                        </span>
-                        <p-sortIcon field="cost_credit"></p-sortIcon>
-                    </div>
-                </th>
-                <th class="col-3 pt-5">
+                <th class="col-2 pt-5">
                     Acciones
                 </th>
             </tr>
@@ -91,23 +89,27 @@
                     {{rowIndex+1}}
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Nombre</span>
-                    <span >{{enrollement.student.name +' '+ enrollement.student.last_name}}</span>
+                    <span class="p-column-title">Fecha</span>
+                    <span >{{enrollement.created_on | date: 'yyyy-MM-dd'}}</span>
+                </td>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title">Estudiante</span>
+                    <span>{{enrollement.student.name +" "+ enrollement.student.last_name }}</span>
                 </td>
 
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Curso - Cohorte</span>
-                    <p>{{enrollement.cohorte.course.name +' '+ enrollement.cohorte.name}}</p>
+                    <p>{{enrollement.cohorte.course.name +" "+enrollement.cohorte.name}}</p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Cuotas Pendientes</span>
-                    <p>{{enrollement.cuotas}}</p>
+                    <p *ngIf="enrollement.cuotas==0">
+                        <p-button label="NO"  styleClass="mr-2"></p-button>
+                    </p>
+                    <p *ngIf="enrollement.cuotas>0">
+                        <p-button label="SI" [badge]="enrollement.cuotas" styleClass="mr-2"></p-button>
+                    </p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Días límite</span>
-                    <p>{{enrollement.day_limite}}</p>
-                </td>
-                <td class="col-3 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
                         <div class="col">
                             <button

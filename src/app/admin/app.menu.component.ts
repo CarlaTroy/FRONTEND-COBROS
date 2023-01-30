@@ -74,7 +74,7 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
 
-                    {
+              /*       {
                         label: 'Pagos',
                         items: [
                             {
@@ -86,8 +86,8 @@ export class AppMenuComponent implements OnInit {
                                  routerLink: ['/admin/pago/create']
                             }
                         ]
-                    },
-
+                    }, */
+/*
                     {
                         label: 'Reportes',
                         items: [
@@ -100,7 +100,7 @@ export class AppMenuComponent implements OnInit {
                                  routerLink: ['/admin/reporte/create']
                             }
                         ]
-                    },
+                    }, */
 
                     {
                         label: 'Usuarios',

@@ -74,7 +74,7 @@ btnViewPaypment(enrollement:EnrollementFullDTO){
 btnDeletEnrollement(cohorte:EnrollementFullDTO){
  Swal.fire({
      title: '¿ Esta seguro en eliminar ?',
-     text: cohorte.cash.toString(),
+     text: "Se eliminar al estudiante "+cohorte.student.name+" "+cohorte.student.last_name + " con su respectiva matricula "+cohorte.cohorte.name,
      icon: 'warning',
      showCancelButton: true,
      confirmButtonColor: '#3085d6',

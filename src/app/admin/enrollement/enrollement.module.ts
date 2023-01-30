@@ -18,7 +18,7 @@ import {DialogModule} from 'primeng/dialog'
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { MessageService } from 'primeng/api';
 import { TablePaymentStudentComponent } from './template/table-payment-student/table-payment-student.component';
-
+import {BadgeModule} from 'primeng/badge';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { TablePaymentStudentComponent } from './template/table-payment-student/t
     InputDemoModule,
     ProgressBarModule,
     DialogModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    BadgeModule
   ],
   providers: [MessageService]
 })

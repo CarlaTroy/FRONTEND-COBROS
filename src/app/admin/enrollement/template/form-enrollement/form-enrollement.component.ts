@@ -13,7 +13,7 @@ import {
 import { EnrollementService } from 'src/app/admin/servicios/enrollement.service';
 import { MessageService } from 'primeng/api';
 import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
-
+import * as moment from 'moment';
 @Component({
     providers: [MessageService],
     selector: 'app-form-enrollement',
@@ -45,8 +45,9 @@ export class FormEnrollementComponent implements OnInit {
     studentSelectedForViewData: boolean = true;
     cohorteSelectedForViewData: boolean = true;
 
-    activateFieldCash: boolean = true;
-    activateFieldCuotas: boolean = true;
+    activateFieldCash: boolean = false;
+    activateFieldCuotas: boolean = false;
+    activeDayLimite:boolean=false;
 
     priceEffectiveOfCourse:number = 0;
     priceCuotasOfCourse:number = 0;
@@ -155,15 +156,17 @@ export class FormEnrollementComponent implements OnInit {
         });
     }
     draTable(){
-        const valueCoutas:number =this.formCohorte.controls['cuotas'].value;
+        const valueCoutas:number =this.formCohorte.get('cuotas')?.value;
+        const dateLimit:number =this.formCohorte.get('day_limite')?.value;
         let cont:number=1;
         let auxArrayCuotas:CuotasPaymentTableDTO[]=[];
         let amount:number=this.valRealPayment/valueCoutas;
         while(cont<=valueCoutas){
+            let nowAux=moment().set({'date': dateLimit}).add(cont, 'M');
             let coutaInsert:CuotasPaymentTableDTO={
                 id:cont,
                 amout:amount,
-                date_limit:""
+                date_limit:nowAux.toString()
             };
             auxArrayCuotas.push(coutaInsert);
             cont++;
@@ -189,16 +192,7 @@ export class FormEnrollementComponent implements OnInit {
              );
         }
         //update date limite payment
-        let auxPaymentTable:CuotasPaymentTableDTO[]=[];
-        this.arrayCuotasPaymet.forEach(paymentTable=>{
-            let payTable:CuotasPaymentTableDTO={
-                id:paymentTable.id,
-                amout:paymentTable.amout,
-                date_limit:'test'
-            }
-            auxPaymentTable.push(payTable);
-        });
-        this.arrayCuotasPaymet=auxPaymentTable;
+        this.draTable();
     }
 
 
@@ -206,10 +200,12 @@ export class FormEnrollementComponent implements OnInit {
         if(this.typePayCodeSelected === '001'){
 
             this.valRealPayment=(this.selectedCohorte.cost_credit)-((this.selectedCohorte.cost_credit)*this.formCohorte.get('discount')?.value/100);
+            this.draTable();
             return;
         }
         if(this.typePayCodeSelected === '002'){
             this.valRealPayment=(this.selectedCohorte.cost_effective)-((this.selectedCohorte.cost_effective)*(this.formCohorte.get('discount')?.value/100));
+            this.draTable();
             return;
         }
 
@@ -231,17 +227,22 @@ export class FormEnrollementComponent implements OnInit {
         if (event.value.codigo == '002') {
             this.activateFieldCash = true;
             this.activateFieldCuotas = false;
+
             this.formCohorte.get('cash')!.setValue(
               this.priceEffectiveOfCourse
             );
             this.formCohorte.get('cuotas')!.setValue(
                 0
             );
+            this.formCohorte.get('day_limite')!.setValue(
+                1
+            );
           this.valRealPayment=(this.selectedCohorte.cost_effective)-(((this.selectedCohorte.cost_effective))*this.formCohorte.get('discount')?.value/100);
           return;
         }
         if (event.value.codigo == '001') {
             this.activateFieldCuotas = true;
+            this.activeDayLimite=true;
             this.activateFieldCash = false;
             //this.formCohorte.get("cuotas")!.enable();
             this.formCohorte.get('cuotas')!.setValue(
@@ -256,9 +257,6 @@ export class FormEnrollementComponent implements OnInit {
     }
 
     submitCohorte() {
-        console.log('this.formCohorte.value');
-        console.log(this.formCohorte.value);
-        console.log(this.studentIdSelected);
         if (this.formCohorte.invalid) {
             this.Toast.fire({
                 icon: 'warning',
