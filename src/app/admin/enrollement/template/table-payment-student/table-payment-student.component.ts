@@ -17,24 +17,10 @@ export class TablePaymentStudentComponent implements OnInit {
   modelPayments!:PaymentFullDTO[];
   modelEnrollement!:EnrollementFullDTO;
   modelStatusPays!:StatusPayFullDTO[];
-  paymentRow:any;
   clonedPayments: { [s: string]: PaymentFullDTO; } = {};
-  products2!: any[];
   cohorteFull!:CohorteFullDTO;
   coustReal!:number;
   contCoursre:number=1;
-    //toast
-    Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    })
   constructor(public config: DynamicDialogConfig,
                 public ref: DynamicDialogRef,
                 private messageService: MessageService,
@@ -45,28 +31,12 @@ export class TablePaymentStudentComponent implements OnInit {
     this.getPaymentsEnrrollement();
     this.getStatusPays();
   }
-  contMount(cuotasNum:number){
-    let pendientePagar=this.coustReal*(cuotasNum-this.contCoursre);
-    this.contCoursre++;
-    return pendientePagar;
-  }
-  onChange(op: StatusPayFullDTO){
-    let statusPay:StatusPayFullDTO;
-    return statusPay={
-        id:op.id,
-        name:op.name,
-        codigo:op.codigo
-    }
-  }
+
+
   getStatusPays(){
     this.statusPayService.getAll().subscribe(response=>{
         if(response.success){
             this.modelStatusPays=response.data;
-/*             this.drpOption$ = this.ddOptionSrv.getDrpOption().pipe(share())
-
-            this.drValue$ = this.drpOption$.pipe(
-              switchMapTo(this.ddValueSrv.getDrpModelVal()),
-            ) */
             return;
         }
         Swal.fire({
@@ -108,7 +78,6 @@ export class TablePaymentStudentComponent implements OnInit {
     },error=>{
         console.log(error);
         let message= error.error.message;
-        Swal.close();
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -118,7 +87,6 @@ export class TablePaymentStudentComponent implements OnInit {
     });
   }
   closeModal(){
-    //this.dialogService.cerrarModal();
     this.ref.close();
   }
   onRowEditInit(product: any) {

@@ -80,6 +80,11 @@
                     <br>
                     <span>{{modelEnrollement.discount}}%</span>
                 </div>
+                <div class="col">
+                    <b># Cuotas</b>
+                    <br>
+                    <span>{{modelEnrollement.cuotas}}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -126,7 +131,7 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <!-- {{contMount(payment.enrollement?.cuotas)}} -->
+                     {{(modelEnrollement.cuotas-(rowIndex+1))*coustReal}}
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">
