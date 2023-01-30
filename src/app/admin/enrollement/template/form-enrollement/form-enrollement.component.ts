@@ -50,7 +50,7 @@ export class FormEnrollementComponent implements OnInit {
     activeDayLimite:boolean=false;
 
     priceEffectiveOfCourse:number = 0;
-    priceCuotasOfCourse:number = 0;
+    priceCuotasOfCourse:number = 1;
     valRealPayment:number=0;
 
 
@@ -149,7 +149,7 @@ export class FormEnrollementComponent implements OnInit {
             student_id: ['', [Validators.required, Validators.maxLength(100)]],
             cohorte_id: ['', [Validators.required]],
             tipe_pay_id: ['', [Validators.required]],
-            cuotas: ['', [Validators.required, Validators.min(0), Validators.max(7)]],
+            cuotas: ['', [Validators.required, Validators.min(1), Validators.max(7)]],
             day_limite: ['', [Validators.required, Validators.min(1),  Validators.max(27)]],
             cash: ['', [Validators.required]],
             discount: [0, [Validators.required,Validators.min(0), Validators.max(100)]],
@@ -283,7 +283,6 @@ export class FormEnrollementComponent implements OnInit {
         };
         console.log('this.formCohorte.value');
         console.log(this.formCohorte.value);
-        debugger
         this.onSubmitCohorte.emit(createCourse);
         return;
     }
