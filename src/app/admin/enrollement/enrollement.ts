@@ -41,3 +41,8 @@ export interface StatusPayFullDTO{
     name: string,
     codigo: string
 }
+
+export interface PaymentEditDTO {
+    date_pay: string,
+    status_pay_id:number
+}

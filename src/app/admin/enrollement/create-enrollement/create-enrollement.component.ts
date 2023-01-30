@@ -32,7 +32,7 @@ export class CreateEnrollementComponent implements OnInit {
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
-  })
+})
 constructor(private usuarioService:StudentService,
   private cohorteService: CohorteService,
   private typePaysService: TypePaysService,

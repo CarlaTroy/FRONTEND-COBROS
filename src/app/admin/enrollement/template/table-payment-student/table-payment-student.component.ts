@@ -5,7 +5,7 @@ import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
 import { PaymentService } from 'src/app/admin/servicios/payment.service';
 import { StatusPayService } from 'src/app/admin/servicios/status-pay.service';
 import Swal from 'sweetalert2';
-import { EnrollementFullDTO, PaymentFullDTO, StatusPayFullDTO } from '../../enrollement';
+import { EnrollementFullDTO, PaymentEditDTO, PaymentFullDTO, StatusPayFullDTO } from '../../enrollement';
 
 @Component({
   providers: [MessageService],
@@ -18,12 +18,23 @@ export class TablePaymentStudentComponent implements OnInit {
   modelEnrollement!:EnrollementFullDTO;
   modelStatusPays!:StatusPayFullDTO[];
   paymentRow:any;
-  clonedProducts: { [s: string]: any; } = {};
+  clonedPayments: { [s: string]: PaymentFullDTO; } = {};
   products2!: any[];
   cohorteFull!:CohorteFullDTO;
   coustReal!:number;
   contCoursre:number=1;
-  drpOption$:any;
+    //toast
+    Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
   constructor(public config: DynamicDialogConfig,
                 public ref: DynamicDialogRef,
                 private messageService: MessageService,
@@ -111,20 +122,32 @@ export class TablePaymentStudentComponent implements OnInit {
     this.ref.close();
   }
   onRowEditInit(product: any) {
-    this.clonedProducts[product.id] = {...product};
+    this.clonedPayments[product.id] = {...product};
   }
 
-  onRowEditSave(product: PaymentFullDTO) {
-    if (product.price > 0) {
-        delete this.clonedProducts[product.id];
-        this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
+  onRowEditSave(payment: PaymentFullDTO) {
+    let paymentEdit:PaymentEditDTO={
+        date_pay:payment.date_pay,
+        status_pay_id:payment.status_pay.id,
     }
-    else {
-        this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
-    }
+    this.paymentService.edit(paymentEdit,payment.id).subscribe(response=>{
+        console.log(response);
+        if(response.success){
+            this.messageService.add({severity:'success', summary: 'Success', detail:response.message});
+            return;
+        }
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Información',
+            footer: response.message
+        })
+    },error=>{
+        console.log(error);
+    });
  }
- onRowEditCancel(product: any, index: number) {
-    this.products2[index] = this.clonedProducts[product.id];
-    delete this.clonedProducts[product.id];
+ onRowEditCancel(payment: PaymentFullDTO, index: number) {
+    this.modelPayments[index] = this.clonedPayments[payment.id];
+    delete this.clonedPayments[payment.id];
  }
 }
