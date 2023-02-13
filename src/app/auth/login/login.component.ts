@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UsuarioService } from 'src/app/admin/servicios/usuario.service';
-import { LoginUsuarioDTO } from 'src/app/admin/usuario/usuario.model';
+import { LoginUsuarioDTO } from 'src/app/admin/user/user';
 import Swal from 'sweetalert2';
 @Component({
     providers: [MessageService],
@@ -29,11 +29,11 @@ import Swal from 'sweetalert2';
         }
     `]
 
-    
+
 })
 export class LoginComponent {
     formUsuario!:FormGroup;
-    submited: any = false;
+    load: any = false;
     password!: string;
 
     Toast = Swal.mixin({
@@ -55,7 +55,7 @@ export class LoginComponent {
 
     ngOnInit(): void {
         this.iniciarFormulario();
-        
+
       }
 
     iniciarFormulario(){
@@ -65,29 +65,35 @@ export class LoginComponent {
         });
       }
       login():void{
-        this.submited = true;
+        this.load = true;
         if(this.formUsuario.invalid){
           this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar todos los campos'});
-          return;
+            return Object.values(this.formUsuario.controls).forEach(contol=>{
+                contol.markAsTouched();
+            });
         }
         //todo ok
         //console.log(this.formUsuario.value)
         let instanciaUsuarioCrear:LoginUsuarioDTO=this.formUsuario.value;
+        this.load=true;
         this.usuarioService.login(instanciaUsuarioCrear).subscribe(token=>{
-            
+          this.load=false;
           this.Toast.fire({
             icon: 'success',
             title: token.response
           })
-
-            setTimeout(() => {
-              this.router.navigate(['admin'])
-              //window.location.href = '/#/admin';
-            }, 2000);
+          this.router.navigate(['admin'])
           },error=>{
+            this.load=false;
             this.messageService.add({severity:'error', summary: 'Error', detail: error});
           });
-      
-      }
 
+      }
+    get usernameNoValido(){
+        return this.formUsuario.get('username')?.invalid && this.formUsuario.get('username')?.touched;
+    }
+
+    get passwordNoValido(){
+    return this.formUsuario.get('password')?.invalid && this.formUsuario.get('password')?.touched;
+    }
 }

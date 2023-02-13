@@ -1,10 +1,9 @@
+import { ToolbarModule } from 'primeng/toolbar';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
-import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './admin/admin.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
-import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
     imports: [
@@ -12,11 +11,9 @@ import { PrincipalComponent } from './principal/principal.component';
         RouterModule.forRoot([
             { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
             //{path: '', component: AdminComponent},
-            { path: "home",component:HomeComponent },
-            { path: "principal",component:PrincipalComponent },
             { path: "admin",component:AdminComponent,children:[
                 { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                { path: 'usuario', loadChildren: () => import('./admin/usuario/usuario.module').then(m => m.UsuarioModule) },
+                //{ path: 'usuario', loadChildren: () => import('./admin/usuario/usuario.module').then(m => m.UsuarioModule) },
                 { path: 'user', loadChildren: () => import('./admin/user/user.module').then(m => m.UserModule) },
                 { path: 'student', loadChildren: () => import('./admin/student/student.module').then(m => m.StudentModule) },
                 { path: 'enrollement', loadChildren: () => import('./admin/enrollement/enrollement.module').then(m => m.EnrollementModule) },
@@ -50,7 +47,7 @@ import { PrincipalComponent } from './principal/principal.component';
             { path: '**', redirectTo: 'pages/notfound' },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })
     ],
-    exports: [RouterModule]
+    exports: [RouterModule,ToolbarModule]
 })
 export class AppRoutingModule {
 }

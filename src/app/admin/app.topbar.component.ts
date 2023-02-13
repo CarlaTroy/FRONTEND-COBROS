@@ -40,7 +40,7 @@ export class AppTopBarComponent {
                         localStorage.removeItem('token');
                         console.log('token eliminado')
                         window.location.href = '/auth/login';
-                        
+
                         }*/id:'1'
                 }
             ]
@@ -62,7 +62,7 @@ logout(value: any){
     this.usuarioSevice.logout().subscribe((response) =>{
         console.log(response.data)
     },error=>{
-        let message= error.error.message;
+        let message= error.error?.message;
         this.messageService.add({severity:'error', summary: 'Error', detail: message});
       });
 

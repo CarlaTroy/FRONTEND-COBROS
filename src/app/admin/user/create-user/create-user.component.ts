@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { UserCreateDTO, UserFullDTO } from '../user';
+import { UserCreateDTO } from '../user';
 import { UsuarioService } from '../../servicios/usuario.service';
+import { UserFullDTO } from '../../student/student';
 
 @Component({
   selector: 'app-create-user',

@@ -1,9 +1,9 @@
+import { UserFullDTO } from './../student';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { StudentCreateDTO } from '../student';
 import { StudentService } from '../../servicios/student.service';
-import { UsuarioDTO } from '../../usuario/usuario.model';
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 })
 export class CreateStudentComponent implements OnInit {
 
-  listUsers:UsuarioDTO[] = [];
+  listUsers:UserFullDTO[] = [];
   subCourse!:Subscription;
   //toast
   Toast = Swal.mixin({

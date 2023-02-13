@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { UserFullDTO } from '../user';
 import { StudentService } from '../../servicios/student.service';
 import { UsuarioService } from '../../servicios/usuario.service';
+import { UserFullDTO } from '../../student/student';
 
 @Component({
   selector: 'app-list-user',

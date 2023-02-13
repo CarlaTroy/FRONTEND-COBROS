@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { StudentCreateDTO, StudentFullDTO } from '../student';
+import { StudentCreateDTO, StudentFullDTO, UserFullDTO } from '../student';
 import { StudentService } from '../../servicios/student.service';
-import { UsuarioDTO } from '../../usuario/usuario.model';
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 export class EditStudentComponent implements OnInit {
 //toast
 modelCohorteseFull!:StudentFullDTO;
-listUsers:UsuarioDTO[] = [];
+listUsers:UserFullDTO[] = [];
 //listCourse!: CourseFullDTO[];
 //suscription
 sub!:Subscription;

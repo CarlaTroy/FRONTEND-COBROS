@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { UserCreateDTO, UserFullDTO } from '../user';
+import { UserCreateDTO } from '../user';
 import { UsuarioService } from '../../servicios/usuario.service';
+import { UserFullDTO } from '../../student/student';
 
 @Component({
   selector: 'app-edit-user',

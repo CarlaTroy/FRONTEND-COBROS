@@ -2,8 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from 'src/app/admin/servicios/usuario.service';
+import { UserFullDTO } from 'src/app/admin/student/student';
 import Swal from 'sweetalert2';
-import { UserCreateDTO, UserFullDTO } from '../../user';
+import { GroupDTO, UserCreateDTO} from '../../user';
 
 
 
@@ -16,7 +17,8 @@ export class FormUserComponent implements OnInit {
 
   @Input() modeForm!:string;
     @Input() modelCohorteseFull!:UserFullDTO;
-
+    ListarGrupos:GroupDTO[]=[];
+    selectedGroup!:GroupDTO;
     courseIdSelected!: number;
     courseNameSelected: string = '';
 
@@ -41,11 +43,13 @@ export class FormUserComponent implements OnInit {
     //global var
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
+                private usuarioService:UsuarioService,
                 private cohorteService:UsuarioService,)
                 {
                 }
 
   ngOnInit(): void {
+    this.getAllGroups();
     this.initInputForm();
    //si existe data entonces en modo edicion
    if(this.modelCohorteseFull){
@@ -56,7 +60,7 @@ export class FormUserComponent implements OnInit {
   if(!this.modelCohorteseFull){
     return;
   }
-    
+
   }
   OnDestroy(): void {
     if(this.sub) {
@@ -64,6 +68,17 @@ export class FormUserComponent implements OnInit {
     }
   }
 
+  getAllGroups(){
+    debugger
+    this.usuarioService.obtenerTodosGrupos().subscribe(response=>{
+        debugger
+        this.ListarGrupos=response.data;
+        console.log(response);
+    },error=>{
+        debugger
+        console.log(error);
+    });
+  }
   loadDataForm(){
 
         this.formCohorte.patchValue(this.modelCohorteseFull);
@@ -78,6 +93,7 @@ export class FormUserComponent implements OnInit {
         username: ['', [Validators.required, Validators.maxLength(100)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required,Validators.maxLength(10)]],
+        gruop:['', [Validators.required]],
         password2: ['', [Validators.required,Validators.maxLength(10)]],
         is_staff: [true, [Validators.required]],
       }, {
@@ -96,7 +112,7 @@ export class FormUserComponent implements OnInit {
       if(contra1 === contra2){
         return null;
       }
-      
+
       return {
         comparandoPassword: true
       };
@@ -108,7 +124,7 @@ export class FormUserComponent implements OnInit {
     console.log(isChecked)
     this.formCohorte.value.is_staff = isChecked
   }
-  
+
   checarSiSonIguales():  boolean  {
     return  this.formCohorte.hasError('comparandoPassword')  &&
       this.formCohorte.get('password')!.dirty &&
@@ -126,7 +142,7 @@ export class FormUserComponent implements OnInit {
   submitCohorte(){
 
     console.log(this.formCohorte.value)
-  
+
     if(this.formCohorte.invalid){
         this.Toast.fire({
             icon: 'warning',

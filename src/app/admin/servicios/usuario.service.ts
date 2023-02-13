@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { CrearUsuarioDTO, LitarUsuarioDTO, LoginUsuarioDTO, UsuarioDTO } from '../usuario/usuario.model';
+import { environment } from 'src/environments/environment';;
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserCreateDTO, UserFullDTO } from '../user/user';
+import { GroupDTO, LoginUsuarioDTO, UserCreateDTO } from '../user/user';
+import { UserFullDTO } from '../student/student';
 
 @Injectable({
   providedIn: 'root'
@@ -81,7 +81,8 @@ export class UsuarioService {
         return resp.data;
       }),
       catchError((err) => {
-        //this.router.navigate(['/auth/login']);
+          //this.router.navigate(['/auth/login']);
+          this.router.navigate(['/']);
         return throwError(err.error.message);
       })
     );
@@ -89,6 +90,9 @@ export class UsuarioService {
 
   public obtenerTodos():Observable<any>{
     return this.http.get<UserFullDTO[]>(`${this.apiURL}/users`);
+  }
+  public obtenerTodosGrupos():Observable<any>{
+    return this.http.get<GroupDTO[]>(`${this.apiURL}/grupos`);
   }
 
 
@@ -131,7 +135,7 @@ export class UsuarioService {
     );
   }
   public obtenerUsuarioPorId(id: number):Observable<any>{
-    return this.http.get<UsuarioDTO>(`${this.apiURL}/users/${id}`);
+    return this.http.get<UserFullDTO>(`${this.apiURL}/users/${id}`);
   }
   //observables
   get refresh$(){

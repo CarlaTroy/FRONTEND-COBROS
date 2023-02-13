@@ -7,9 +7,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
-import { PrincipalModule } from "../../principal/principal.module";
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { TopbarPrincipalComponent } from 'src/app/topbar-principal/topbar-principal.component';
 
 @NgModule({
     declarations: [LoginComponent],
@@ -21,7 +21,6 @@ import { ToastModule } from 'primeng/toast';
         InputTextModule,
         FormsModule,
         PasswordModule,
-        PrincipalModule,
         InputTextModule,
         FormsModule,
         ReactiveFormsModule,

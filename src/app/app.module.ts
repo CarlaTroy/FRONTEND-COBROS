@@ -11,30 +11,27 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ClientComponent } from './admin/client/client.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { PrincipalModule } from './principal/principal.module';
 import { AdminModule } from './admin/admin.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { TopbarPrincipalComponent } from './topbar-principal/topbar-principal.component';
 
 @NgModule({
     declarations: [
-        AppComponent, 
-        NotfoundComponent, 
-        HomeComponent, 
-        DashboardComponent, 
-        ClientComponent, 
+        AppComponent,
+        NotfoundComponent,
+        ClientComponent,
+        TopbarPrincipalComponent
 
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
         AdminModule,
-        PrincipalModule,
-        
+
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -65,7 +65,7 @@
                     <div *ngIf="passwordNotValid && formCohorte.get('password')?.errors?.['maxlength']">
                         <p class="text-red-600">*Debe tener como máximo 10 caracteres</p>
                     </div>
-					
+
 				</div>
                 <div class="field col-12 md:col-6">
 					<label htmlFor="password2">
@@ -89,7 +89,20 @@
                         <br>
                         <p-inputSwitch (onChange)="handleChange($event)" formControlName="is_staff" ></p-inputSwitch>
                     </div>
-
+                    <div class="field col-12 md:col-6">
+                        <div class="field">
+                            <p-dropdown [options]="ListarGrupos"
+                                        [(ngModel)]="selectedGroup"
+                                        formControlName="gruop"
+                                        placeholder="Seleccionar Grupo" [group]="true">
+                                <ng-template let-group pTemplate="group">
+                                    <div class="flex align-items-center">
+                                        <span>{{group.label}}</span>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
 			</div>
 		</div>
         <div class="grid flex flex-row-reverse ">

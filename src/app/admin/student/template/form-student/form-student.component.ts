@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseFullDTO } from 'src/app/admin/course/course';
 import Swal from 'sweetalert2';
-import { StudentCreateDTO, StudentFullDTO } from '../../student';
+import { StudentCreateDTO, StudentFullDTO, UserFullDTO } from '../../student';
 import { StudentService } from 'src/app/admin/servicios/student.service';
-import { UsuarioDTO } from 'src/app/admin/usuario/usuario.model';
 
 @Component({
   selector: 'app-form-student',
@@ -15,7 +14,7 @@ import { UsuarioDTO } from 'src/app/admin/usuario/usuario.model';
 export class FormStudentComponent implements OnInit {
 
   @Input() modeForm!:string;
-    @Input() modelCourseFull!:UsuarioDTO[];
+    @Input() modelCourseFull!:UserFullDTO[];
     @Input() modelCohorteseFull!:StudentFullDTO;
 
     courseIdSelected!: number;
@@ -58,7 +57,7 @@ export class FormStudentComponent implements OnInit {
   if(!this.modelCohorteseFull){
     return;
   }
-   
+
   }
   OnDestroy(): void {
     if(this.sub) {
