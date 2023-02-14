@@ -1,17 +1,15 @@
-<div class="table-header">
+<!-- <div class="table-header">
     <div class="grid">
         <div class="col-12">
             <h3 class="mt-1"><b>{{modeForm}}</b></h3>
         </div>
     </div>
-</div>
-<form [formGroup]="formCohorte" (ngSubmit)="submitCohorte()">
+</div> -->
+<form [formGroup]="formUser" (ngSubmit)="submitCohorte()">
 
 	<div class="col-12">
 		<div class="card">
 			<div class="p-fluid p-formgrid grid">
-
-
 				<div class="field col-6">
 					<label htmlFor="username">
                         <span class="text-red-600">*</span>
@@ -23,10 +21,10 @@
                         [ngClass]="{'ng-invalid ng-dirty': usernameNotValid}"
                         formControlName="username"
                         type="text" />
-                    <span *ngIf="usernameNotValid && formCohorte.get('username')?.errors?.['required']">
+                    <span *ngIf="usernameNotValid && formUser.get('username')?.errors?.['required']">
                         <p class="text-red-600">*Campo Requerido</p>
                     </span>
-                    <div *ngIf="usernameNotValid && formCohorte.get('username')?.errors?.['maxlength']">
+                    <div *ngIf="usernameNotValid && formUser.get('username')?.errors?.['maxlength']">
                         <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
                     </div>
 				</div>
@@ -43,10 +41,10 @@
                         [ngClass]="{'ng-invalid ng-dirty': emailNotValid}"
                         formControlName="email"
                         type="text" />
-                    <span *ngIf="emailNotValid && formCohorte.get('email')?.errors?.['required']">
+                    <span *ngIf="emailNotValid && formUser.get('email')?.errors?.['required']">
                         <p class="text-red-600">*Campo Requerido</p>
                     </span>
-                    <div *ngIf="emailNotValid && formCohorte.get('email')?.errors?.['maxlength']">
+                    <div *ngIf="emailNotValid && formUser.get('email')?.errors?.['maxlength']">
                         <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
                     </div>
 				</div>
@@ -58,30 +56,38 @@
                         <span class="text-red-600">*</span>
                         Password
                     </label>
-                    <p-password formControlName="password" [toggleMask]="true"></p-password>
-                    <span *ngIf="passwordNotValid && formCohorte.get('password')?.errors?.['required']">
+                    <p-password
+                        formControlName="password"
+                        [toggleMask]="true"
+                        [ngClass]="{'ng-invalid ng-dirty': passwordNotValid}">
+                    </p-password>
+                    <span *ngIf="passwordNotValid && formUser.get('password')?.errors?.['required']">
                         <p class="text-red-600">*Campo Requerido</p>
                     </span>
-                    <div *ngIf="passwordNotValid && formCohorte.get('password')?.errors?.['maxlength']">
+                    <div *ngIf="passwordNotValid && formUser.get('password')?.errors?.['maxlength']">
                         <p class="text-red-600">*Debe tener como máximo 10 caracteres</p>
                     </div>
-
 				</div>
+
                 <div class="field col-12 md:col-6">
 					<label htmlFor="password2">
                         <span class="text-red-600">*</span>
                         Password
                     </label>
-					<p-password formControlName="password2"  [toggleMask]="true"></p-password>
-                        <span *ngIf="password2NotValid && formCohorte.get('password2')?.errors?.['required']">
-                            <p class="text-red-600">*Campo Requerido</p>
-                        </span>
-                        <div *ngIf="password2NotValid && formCohorte.get('password2')?.errors?.['maxlength']">
-                            <p class="text-red-600">*Debe tener como máximo 10 números</p>
-                        </div>
-                        <div *ngIf="checarSiSonIguales()">
-                            <p class="text-red-600">Las contraseñas no coinciden</p>
-                        </div>
+					<p-password
+                        formControlName="password2"
+                        [ngClass]="{'ng-invalid ng-dirty': password2NotValid}"
+                        [toggleMask]="true">
+                    </p-password>
+                    <span *ngIf="password2NotValid && formUser.get('password2')?.errors?.['required']">
+                        <p class="text-red-600">*Campo Requerido</p>
+                    </span>
+                    <div *ngIf="password2NotValid && formUser.get('password2')?.errors?.['maxlength']">
+                        <p class="text-red-600">*Debe tener como máximo 10 números</p>
+                    </div>
+                    <div *ngIf="checarSiSonIguales()">
+                        <p class="text-red-600">Las contraseñas no coinciden</p>
+                    </div>
 				</div>
 
                 <div class="field col-12 md:col-6">
@@ -91,16 +97,24 @@
                     </div>
                     <div class="field col-12 md:col-6">
                         <div class="field">
+
+                            <i class="pi pi-spin pi-spinner" style="font-size: 2rem" *ngIf="!ListarGrupos"></i>
                             <p-dropdown [options]="ListarGrupos"
-                                        [(ngModel)]="selectedGroup"
                                         formControlName="gruop"
-                                        placeholder="Seleccionar Grupo" [group]="true">
+                                        *ngIf="ListarGrupos"
+                                        [ngClass]="{'ng-invalid ng-dirty': groupNoValid}"
+                                        [(ngModel)]="selectedGroup"
+                                        optionLabel="name"
+                                        placeholder="Seleccionar Grupo">
                                 <ng-template let-group pTemplate="group">
                                     <div class="flex align-items-center">
-                                        <span>{{group.label}}</span>
+                                        <span>{{group.name}}</span>
                                     </div>
                                 </ng-template>
                             </p-dropdown>
+                            <span *ngIf="groupNoValid && formUser.get('gruop')?.errors?.['required']">
+                                <p class="text-red-600">*Campo Requerido</p>
+                            </span>
                         </div>
                     </div>
 			</div>

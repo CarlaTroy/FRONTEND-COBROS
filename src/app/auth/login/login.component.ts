@@ -65,7 +65,6 @@ export class LoginComponent {
         });
       }
       login():void{
-        this.load = true;
         if(this.formUsuario.invalid){
           this.messageService.add({severity:'error', summary: 'Error', detail: 'Debe completar todos los campos'});
             return Object.values(this.formUsuario.controls).forEach(contol=>{
@@ -73,14 +72,15 @@ export class LoginComponent {
             });
         }
         //todo ok
+        this.load = true;
         //console.log(this.formUsuario.value)
-        let instanciaUsuarioCrear:LoginUsuarioDTO=this.formUsuario.value;
+        let instanciaUsuario:LoginUsuarioDTO=this.formUsuario.value;
         this.load=true;
-        this.usuarioService.login(instanciaUsuarioCrear).subscribe(token=>{
+        this.usuarioService.login(instanciaUsuario).subscribe(response=>{
           this.load=false;
           this.Toast.fire({
             icon: 'success',
-            title: token.response
+            title: response.message
           })
           this.router.navigate(['admin'])
           },error=>{

@@ -4,7 +4,6 @@
     <p-progressBar mode="indeterminate" *ngIf="!listUsers"></p-progressBar>
     <app-form-user
         (onSubmitCohorte)="createStudent($event)"
-        [modeForm]="'Crear Usuario'"
         *ngIf="listUsers">
     </app-form-user>
 </div>

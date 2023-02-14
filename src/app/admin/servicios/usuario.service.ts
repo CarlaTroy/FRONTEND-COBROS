@@ -7,6 +7,7 @@ import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { GroupDTO, LoginUsuarioDTO, UserCreateDTO } from '../user/user';
 import { UserFullDTO } from '../student/student';
+import { LoginUserDTO } from 'src/app/auth/login/login';
 
 @Injectable({
   providedIn: 'root'
@@ -38,14 +39,14 @@ export class UsuarioService {
       }
     }
 
-    guardarDatosEnStorage(is_staff: string, token: string, name: string, email: string) {
-  //localStorage.setItem('id', id);
-  localStorage.setItem('is_staff', is_staff);
-  localStorage.setItem('token', token);
-  localStorage.setItem('name', name);
-  localStorage.setItem('email', email);
-  this.token = token;
-}
+    guardarDatosEnStorage(loginUser:LoginUserDTO) {
+        localStorage.setItem('id', loginUser.id.toString());
+        localStorage.setItem('is_staff', loginUser.is_staff.valueOf().toString());
+        localStorage.setItem('token', loginUser.token[0]);
+        localStorage.setItem('username', loginUser.username);
+        localStorage.setItem('email', loginUser.email);
+        this.token = loginUser.token;
+    }
 
     eliminarStorage() {
       this.token = '';
@@ -62,10 +63,9 @@ export class UsuarioService {
   login(usuario: LoginUsuarioDTO) {
     return this.http.post(`${this.apiURL}/login/`, usuario).pipe(
       map((resp: any) => {
-        console.log('resp')
-        console.log(resp)
-        this.guardarDatosEnStorage(resp.data['is_staff'], resp.data['token'], resp.data['username'], resp.data['email']);
-        return resp.data;
+        const loginUserDTO:LoginUserDTO=resp.data;
+        this.guardarDatosEnStorage(loginUserDTO);
+        return resp;
       }),
       catchError((err) => {
         return throwError(err.error.message);

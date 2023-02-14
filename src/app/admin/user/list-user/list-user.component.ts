@@ -44,7 +44,6 @@ ngOnInit(): void {
 loadDataUsers(){
  this.loading=true;
  this.subCohorte=this.userService.obtenerTodos().subscribe(response=>{
-     debugger
      this.loading=false;
      this.listCohorte=response.data;
      console.log(this.listCohorte)

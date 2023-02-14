@@ -5,6 +5,7 @@ export interface UserCreateDTO {
         password: string;
         password2: string;
         is_staff: boolean;
+        group:string;
 }
 export interface EditUsuarioDTO{
   id: number ;
