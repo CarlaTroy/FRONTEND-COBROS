@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CourseFullDTO } from 'src/app/admin/course/course';
 import Swal from 'sweetalert2';
-import { StudentCreateDTO, StudentFullDTO, UserFullDTO } from '../../student';
+import { FormStudentDTO, StudentCreateDTO, StudentFullDTO, UserFullDTO } from '../../student';
 import { StudentService } from 'src/app/admin/servicios/student.service';
+import { soloLetras } from 'src/app/core/validations/validateText';
 
 @Component({
   selector: 'app-form-student',
@@ -12,18 +13,13 @@ import { StudentService } from 'src/app/admin/servicios/student.service';
   styleUrls: ['./form-student.component.scss']
 })
 export class FormStudentComponent implements OnInit {
-
-  @Input() modeForm!:string;
-    @Input() modelCourseFull!:UserFullDTO[];
-    @Input() modelCohorteseFull!:StudentFullDTO;
-
-    courseIdSelected!: number;
-    courseNameSelected: string = '';
+    @Input() modeForm!:string;
+    @Input() modelStudentFull!:StudentFullDTO;
 
     //output
    @Output() onSubmitCohorte:EventEmitter<StudentCreateDTO>=new EventEmitter<StudentCreateDTO>();
     //form
-    formCohorte!:FormGroup;
+    formStudent!:FormGroup;
     //toast
     Toast = Swal.mixin({
         toast: true,
@@ -49,14 +45,10 @@ export class FormStudentComponent implements OnInit {
   ngOnInit(): void {
     this.initInputForm();
    //si existe data entonces en modo edicion
-   if(this.modelCohorteseFull){
-    this.loadDataForm();
-    return;
-  }
-  //modo creacion
-  if(!this.modelCohorteseFull){
-    return;
-  }
+    if(this.modelStudentFull){
+        this.loadDataForm();
+        return;
+    }
 
   }
   OnDestroy(): void {
@@ -64,47 +56,48 @@ export class FormStudentComponent implements OnInit {
         this.sub.unsubscribe();
     }
   }
-
+  validarLetras(event:any){
+    return soloLetras(event);
+  }
   loadDataForm(){
-  console.log('this.modelCohorteseFull')
-  console.log(this.modelCohorteseFull)
-        this.formCohorte.patchValue(this.modelCohorteseFull);
-        this.courseNameSelected = this.modelCohorteseFull.user.username;
-        this.courseIdSelected = this.modelCohorteseFull.user.id;
+    let formStudent:FormStudentDTO={
+        name:this.modelStudentFull.name,
+        address:this.modelStudentFull.address,
+        cell_phone:this.modelStudentFull.cell_phone,
+        identification:this.modelStudentFull.identification,
+        last_name:this.modelStudentFull.last_name,
+        email:this.modelStudentFull.user.email
+    }
+    this.formStudent.patchValue(formStudent);
+    this.formStudent.get('identification')?.disable();
+    //this.courseNameSelected = this.modelStudentFull.user.username;
+    //this.courseIdSelected = this.modelStudentFull.user.id;
 
   }
 
   // function personality
   initInputForm(){
-    this.formCohorte = this.formBuilder.group({
+    this.formStudent = this.formBuilder.group({
         name: ['', [Validators.required, Validators.maxLength(100)]],
         last_name: ['', [Validators.required]],
         identification: ['', [Validators.required,Validators.maxLength(10)]],
         cell_phone: ['', [Validators.required,Validators.maxLength(10)]],
         address: ['', [Validators.required,Validators.min(0)]],
-        user_id: ['', [Validators.required]],
+        email: ['', [Validators.required]],
       });
   }
 
 
 
-  onChange(event: any) {
-    if(!event.value) return
-    console.log(event.value.id)
-    console.log(event.value.username)
-    this.courseIdSelected = Number.parseInt(event.value.id)
-    this.courseNameSelected = event.value.username
-
-  }
 
 
-  submitCohorte(){
-    if(this.formCohorte.invalid){
+  submitStudent(){
+    if(this.formStudent.invalid){
         this.Toast.fire({
             icon: 'warning',
             title: 'Debe completar todos los campos'
         })
-        return Object.values(this.formCohorte.controls).forEach(contol=>{
+        return Object.values(this.formStudent.controls).forEach(contol=>{
             contol.markAsTouched();
         });
     }
@@ -112,45 +105,47 @@ export class FormStudentComponent implements OnInit {
     /* this.formCohorte.value.course_id = this.courseIdSelected
     const createCourse:CohorteCreateDTO=this.formCohorte.value
     this.onSubmitCohorte.emit(createCourse);*/
-    this.formCohorte.value.user_id= this.courseIdSelected
+
 
   const createCourse:StudentCreateDTO={
-        name:this.formCohorte.value.name,
-        last_name:this.formCohorte.value.last_name,
-        identification:this.formCohorte.value.identification,
-        cell_phone:this.formCohorte.value.cell_phone,
-        address:this.formCohorte.value.address,
-        user_id:this.courseIdSelected
+        name:this.formStudent.value.name,
+        last_name:this.formStudent.value.last_name,
+        identification:this.formStudent.value.identification,
+        cell_phone:this.formStudent.value.cell_phone,
+        address:this.formStudent.value.address,
+        email:this.formStudent.value.email
       }
-      console.log(this.formCohorte.value)
-
+      console.log(this.formStudent.value)
     this.onSubmitCohorte.emit(createCourse);
 
      //observable cuandos se crea un registro nuevo
      this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
-      this.formCohorte.reset();
+      this.formStudent.reset();
   });
     return;
   }
     //validate input
     get nameNotValid(){
-        return this.formCohorte.get('name')?.invalid && this.formCohorte.get('name')?.touched;
+        return this.formStudent.get('name')?.invalid && this.formStudent.get('name')?.touched;
     }
 
     get lastNameNotValid(){
-    return this.formCohorte.get('last_name')?.invalid && this.formCohorte.get('last_name')?.touched;
+    return this.formStudent.get('last_name')?.invalid && this.formStudent.get('last_name')?.touched;
     }
     get identificationNotValid(){
-        return this.formCohorte.get('identification')?.invalid && this.formCohorte.get('identification')?.touched;
+        return this.formStudent.get('identification')?.invalid && this.formStudent.get('identification')?.touched;
     }
     get cellPhoneNotValid(){
-        return this.formCohorte.get('cell_phone')?.invalid && this.formCohorte.get('cell_phone')?.touched;
+        return this.formStudent.get('cell_phone')?.invalid && this.formStudent.get('cell_phone')?.touched;
     }
     get AddressNotValid(){
-        return this.formCohorte.get('address')?.invalid && this.formCohorte.get('address')?.touched;
+        return this.formStudent.get('address')?.invalid && this.formStudent.get('address')?.touched;
     }
     get userIdNotValid(){
-        return this.formCohorte.get('user_id')?.invalid && this.formCohorte.get('user_id')?.touched;
+        return this.formStudent.get('user_id')?.invalid && this.formStudent.get('user_id')?.touched;
+    }
+    get emailNotValid(){
+        return this.formStudent.get('email')?.invalid && this.formStudent.get('email')?.touched;
     }
 
 }

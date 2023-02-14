@@ -13,8 +13,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 })
 export class EditStudentComponent implements OnInit {
 //toast
-modelCohorteseFull!:StudentFullDTO;
-listUsers:UserFullDTO[] = [];
+modelStudentFull!:StudentFullDTO;
 //listCourse!: CourseFullDTO[];
 //suscription
 sub!:Subscription;
@@ -32,19 +31,18 @@ Toast = Swal.mixin({
  }
 })
 constructor(
-private cohorteService:StudentService,
+private studentService:StudentService,
 private usuarioService:UsuarioService,
            private activatedRoute:ActivatedRoute) { }
 
 ngOnInit(): void {
  this.getCourseId();
- this.loadDataCourses();
 }
 getCourseId(){
  this.activatedRoute.params.subscribe((response:any)=>{
-     this.sub = this.cohorteService.getStudentId(Number(response.id)).subscribe(response=>{
+     this.sub = this.studentService.getStudentId(Number(response.id)).subscribe(response=>{
          if(response.success){
-             this.modelCohorteseFull=response.data;
+             this.modelStudentFull=response.data;
              return;
          }
          Swal.fire({
@@ -54,72 +52,56 @@ getCourseId(){
              footer: response.message
          })
      },error=>{
+        console.log(error);
          Swal.fire({
              icon: 'error',
              title: 'Oops...',
              text: 'Error',
-             footer: error.message
+             footer: error.error?.message
          })
      });
  });
 }
 
-loadDataCourses(){
-    this.subCourse=this.usuarioService.obtenerTodos().subscribe(response=>{
-      console.log('response.data')
-      console.log(response.data)
-        this.listUsers=response.data;
-      },error=>{
-        let message= error.error.message;
-        Swal.close();
+    editCourse(courseCreate:StudentCreateDTO){
+        //console.log('courseCreate')
+        //console.log(courseCreate)
         Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Error',
-            footer:message
-          })
-      });
-  }
+            allowOutsideClick: false,
+            text: 'Espere por favor...',
+            timerProgressBar: false,
+        });
+        Swal.showLoading()
+        this.studentService.edit(courseCreate,this.modelStudentFull.id).subscribe(response=>{
+            Swal.close();
+            if(response.success){
+                this.Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                })
+                return;
+            }
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Información',
+                footer: response.message
+            })
+        },error=>{
+            console.log(error);
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error',
+                footer: error.message
+            })
+        });
+    }
 
-editCourse(courseCreate:StudentCreateDTO){
-//console.log('courseCreate')
-//console.log(courseCreate)
- Swal.fire({
-     allowOutsideClick: false,
-     text: 'Espere por favor...',
-     timerProgressBar: false,
- });
- Swal.showLoading()
- this.cohorteService.edit(courseCreate,this.modelCohorteseFull.id).subscribe(response=>{
-     Swal.close();
-     if(response.success){
-         this.Toast.fire({
-             icon: 'success',
-             title: response.message
-         })
-         return;
-     }
-     Swal.fire({
-         icon: 'warning',
-         title: 'Oops...',
-         text: 'Información',
-         footer: response.message
-     })
- },error=>{
-     console.log(error);
-     Swal.close();
-     Swal.fire({
-         icon: 'error',
-         title: 'Oops...',
-         text: 'Error',
-         footer: error.message
-       })
- });
-}
-
-OnDestroy(){
-if(this.subCourse){
-    this.subCourse.unsubscribe();
-}
-}
+    OnDestroy(){
+        if(this.subCourse){
+            this.subCourse.unsubscribe();
+        }
+    }
 }

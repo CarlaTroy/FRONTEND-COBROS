@@ -12,8 +12,6 @@ import { UsuarioService } from '../../servicios/usuario.service';
   styleUrls: ['./create-student.component.scss']
 })
 export class CreateStudentComponent implements OnInit {
-
-  listUsers:UserFullDTO[] = [];
   subCourse!:Subscription;
   //toast
   Toast = Swal.mixin({
@@ -27,27 +25,11 @@ export class CreateStudentComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
   })
-constructor(private usuarioService:UsuarioService,
-              private cohorteService:StudentService) { }
+constructor(private cohorteService:StudentService) { }
 
 ngOnInit(): void {
-  this.loadDataCourses();
 }
-loadDataCourses(){
-  this.subCourse=this.usuarioService.obtenerTodos().subscribe(response=>{
-    console.log(response.data)
-      this.listUsers=response.data;
-    },error=>{
-      let message= error.error.message;
-      Swal.close();
-      Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error',
-          footer:message
-        })
-    });
-}
+
 createStudent(courseCreate:StudentCreateDTO){
   Swal.fire({
       allowOutsideClick: false,
@@ -77,7 +59,7 @@ createStudent(courseCreate:StudentCreateDTO){
           icon: 'error',
           title: 'Oops...',
           text: 'Error',
-          footer: error.message
+          footer: error.error?.message
         })
   });
 }

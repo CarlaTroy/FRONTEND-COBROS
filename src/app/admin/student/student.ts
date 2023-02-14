@@ -5,6 +5,7 @@ export interface StudentFullDTO {
     identification: string;
     cell_phone:     string;
     address:        string;
+    email:          string;
     user:           UserFullDTO;
 }
 
@@ -14,11 +15,21 @@ export interface StudentCreateDTO {
     identification: string;
     cell_phone:     string;
     address:        string;
-    user_id:        number;
+    email:          string;
 }
 
 export interface UserFullDTO {
     id:       number;
     username: string;
     email:    string;
+}
+
+
+export interface FormStudentDTO{
+    name: string,
+    last_name: string,
+    identification: string,
+    cell_phone: string,
+    address: string,
+    email: string
 }

@@ -40,7 +40,7 @@
                         id="email"
                         [ngClass]="{'ng-invalid ng-dirty': emailNotValid}"
                         formControlName="email"
-                        type="text" />
+                        type="email" />
                     <span *ngIf="emailNotValid && formUser.get('email')?.errors?.['required']">
                         <p class="text-red-600">*Campo Requerido</p>
                     </span>
