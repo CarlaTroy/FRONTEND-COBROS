@@ -34,6 +34,7 @@ export interface PaymentFullDTO{
     id:number,
     amount:number,
     date_pay:string,
+    date_limit:string,
     status_pay:StatusPayFullDTO,
     enrollement:EnrollementFullDTO
 }

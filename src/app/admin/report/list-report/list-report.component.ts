@@ -36,12 +36,7 @@ export class ListReportComponent implements OnInit {
     }
     return report.cohorte.cost_effective;
   }
-  saldoPendiente(report:PaymentFullDTO){
-    if(report.enrollement.cuotas>0){
-        return report.enrollement.cohorte.cost_credit;
-    }
-    return  0;
-  }
+
   coutasPagas(report:EnrollementFullDTO){
     let cont=0;
     if(report.tipe_pay.codigo=="001"){
@@ -56,6 +51,60 @@ export class ListReportComponent implements OnInit {
        return cont;
     }
     return cont;
+  }
+  saldoPendiente(report:EnrollementFullDTO){
+    let saldo=0;
+    if(report.tipe_pay.codigo=="001"){
+       this.listPaymentezAll.forEach(paymentez=>{
+            if(paymentez.enrollement.id=report.id){
+                //pagago
+                if(paymentez.status_pay.codigo=='001'){
+                    saldo+=Number(paymentez.amount);
+                }
+            }
+        });
+        let costoCredito=Number(report.cohorte.cost_credit);
+        return costoCredito-saldo;
+    }
+    return  saldo;
+  }
+  pensiones(report:EnrollementFullDTO){
+    let cont=0;
+    if(report.tipe_pay.codigo=="001"){
+        this.listPaymentezAll.forEach(paymentez=>{
+         if(paymentez.enrollement.id=report.id){
+            var diaPago = new Date(paymentez.date_pay);
+            var diaLimite = new Date(paymentez.date_limit);
+             //pagago
+             if(diaPago>diaLimite ){
+                 cont++;
+             }
+         }
+        });
+        if(cont==0){
+         return 'AL DIA';
+        }
+        return cont+' ATRASO';
+     }
+     return  'AL DIA';
+  }
+  estadoPago(report:EnrollementFullDTO){
+    let cont=0;
+    if(report.tipe_pay.codigo=="001"){
+       this.listPaymentezAll.forEach(paymentez=>{
+        if(paymentez.enrollement.id=report.id){
+            //pagago
+            if(paymentez.status_pay.codigo=='001'){
+                cont++;
+            }
+        }
+       });
+       if(cont==report.cuotas){
+        return 'PAGADO';
+       }
+       return 'NO PAGADO';
+    }
+    return  'PAGADO';
   }
   loadDataReport(){
     this.subReport=this.reportService.getAll().subscribe(response=>{

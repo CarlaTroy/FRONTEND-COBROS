@@ -22,10 +22,7 @@
         <div class="table-header">
             <div class="grid">
                 <div class="col">
-                    <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/student/create']"></p-button>
-                </div>
-                <div class="col">
-                    <h3 class="mt-1"><b>Estudiantes</b></h3>
+                    <h3 class="mt-1"><b>Reportes</b></h3>
                 </div>
                 <div class="col">
                     <span class="p-input-icon-left">
@@ -49,26 +46,26 @@
                         <p-sortIcon field="id"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-1 pt-5">
+                <th pSortableColumn="name" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Nombres
                         <p-sortIcon field="name"></p-sortIcon>
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-1 pt-5">
+                <th pSortableColumn="date_init" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Curso-Cohorte
                         <p-sortIcon field="date_init"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="date_end" class="col-2 pt-5">
+                <th pSortableColumn="date_end" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Valor total
                         <p-sortIcon field="date_end"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="cost_effective" class="col-2 pt-5">
+                <th pSortableColumn="cost_effective" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
                             Saldo Pendiente
@@ -76,7 +73,7 @@
                         <p-sortIcon field="cost_effective"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="cost_credit" class="col-2 pt-5">
+                <th pSortableColumn="cost_credit" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
                             Cuotas
@@ -84,8 +81,11 @@
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
                 </th>
-                <th class="col-3 pt-5">
+                <th class="col-2 pt-5">
                     Estado
+                </th>
+                <th class="col-2 pt-5">
+                    Pensiones
                 </th>
             </tr>
         </ng-template>
@@ -97,34 +97,39 @@
                     <span class="p-column-title">#</span>
                     {{rowIndex+1}}
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">Nombre</span>
                     <span>
-                        {{report.student.name+' '+report.student.last_name}}
+                        {{report.student.name+' - '+report.student.last_name}}
                     </span>
                 </td>
 
-                <td class="col-1 flex justify-content-between align-items-center">
+                <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Curso-Cohorte</span>
                     <p>
                         {{report.cohorte.course.name+' '+report.cohorte.name}}
                     </p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">  Valor total</span>
                     <p>${{totalCurso(report)}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Saldo Pendiente</span>
-                   <!--  <p>{{report.address}}</p> -->
+                    <p>${{saldoPendiente(report)}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
+                <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Cuotas</span>
                     <p>{{ coutasPagas(report)+"/"+(report.cuotas)}}</p>
                 </td>
 
-                <td class="col-3 flex justify-content-between align-items-center">
-                    pagado
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Estado</span>
+                    <p>{{ estadoPago(report)}}</p>
+                </td>
+                <td class="col-2 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Pensiones</span>
+                    <p>{{ pensiones(report)}}</p>
                 </td>
             </tr>
         </ng-template>
