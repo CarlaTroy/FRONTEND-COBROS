@@ -73,34 +73,15 @@ export class AppMenuComponent implements OnInit {
                             }
                         ]
                     },
-
-              /*       {
-                        label: 'Pagos',
-                        items: [
-                            {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-dollar',
-                                routerLink: ['/admin/pago']
-                            },
-                            {
-                                label: 'Crear', icon: 'pi pi-fw pi-dollar',
-                                 routerLink: ['/admin/pago/create']
-                            }
-                        ]
-                    }, */
-/*
                     {
                         label: 'Reportes',
                         items: [
                             {
-                                label: 'Gestionar', icon: 'pi pi-fw pi-chart-bar',
-                                routerLink: ['/admin/reporte']
+                                label: 'Gestionar', icon: 'pi pi-fw pi-calendar',
+                                routerLink: ['/admin/report']
                             },
-                            {
-                                label: 'Crear', icon: 'pi pi-fw pi-chart-bar',
-                                 routerLink: ['/admin/reporte/create']
-                            }
                         ]
-                    }, */
+                    },
 
                     {
                         label: 'Usuarios',

@@ -48,7 +48,6 @@ ngOnInit(): void {
 loadDataCourses(){
  this.loading=true;
  this.subCohorte=this.enrollementService.getAll().subscribe(response=>{
-
      this.loading=false;
      console.log('response.data')
      console.log(response.data)

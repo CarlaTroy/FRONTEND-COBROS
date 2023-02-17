@@ -22,12 +22,13 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                 //{ path: 'costo-produccion', loadChildren: () => import('./admin/costo-produccion/costo-produccion.module').then(m => m.CostoProduccionModule) },
                 { path: 'course', loadChildren: () => import('./admin/course/course.module').then(m => m.CourseModule) },
                 { path: 'cohorte', loadChildren: () => import('./admin/cohorte/cohorte.module').then(m => m.CohorteModule) },
+                { path: 'report', loadChildren: () => import('./admin/report/report.module').then(m => m.ReportModule) },
                 //{ path: 'productores', loadChildren: () => import('./admin/productores/productores.module').then(m => m.ProductoresModule) },
                 //{ path: 'intermediario-produccion', loadChildren: () => import('./admin/intermediario-produccion/intermediario-produccion.module').then(m => m.IntermediarioModule) },
                 //{ path: 'intermediario', loadChildren: () => import('./admin/intermediario/intermediario.module').then(m => m.IntermediarioModule) },
-                { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
-                { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
-                { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
+                //{ path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
+                //{ path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
+                //{ path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) },
             ]},
               {
 
