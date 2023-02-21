@@ -50,7 +50,7 @@
                 </th>
                 <th pSortableColumn="name" class="col-2 pt-5">
                     <div class="flex justify-content-between align-items-center">
-                        Nombre
+                        Curso-Cohorte
                         <p-sortIcon field="name"></p-sortIcon>
                     </div>
                 </th>
@@ -70,7 +70,7 @@
                 <th pSortableColumn="cost_effective" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
-                            Consto
+                            Costo
                             <br>
                             Efectivo
                         </span>
@@ -80,19 +80,14 @@
                 <th pSortableColumn="cost_credit" class="col-1 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         <span>
-                            Consto
+                            Costo
                             <br>
                             Credito
                         </span>
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
                 </th>
-                <th pSortableColumn="course" class="col-1 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        Curso
-                        <p-sortIcon field="course"></p-sortIcon>
-                    </div>
-                </th>
+                
                 <th class="col-2 pt-5">
                     Acciones
                 </th>
@@ -108,7 +103,7 @@
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
                     <span class="p-column-title">Nombre</span>
-                    <span >{{cohorte.name}}</span>
+                    <span >{{cohorte.course.name +" " + cohorte.name}}</span>
                 </td>
 
                 <td class="col-2 flex justify-content-between align-items-center">
@@ -127,10 +122,7 @@
                     <span class="p-column-title"> Costo Credito</span>
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Curso</span>
-                    <p>{{cohorte.course.name}}</p>
-                </td>
+                
                 <td class="col-2 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
 <!--                         <div class="col">

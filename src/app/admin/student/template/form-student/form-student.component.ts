@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { FormStudentDTO, StudentCreateDTO, StudentFullDTO, UserFullDTO } from '../../student';
 import { StudentService } from 'src/app/admin/servicios/student.service';
 import { soloLetras } from 'src/app/core/validations/validateText';
+import { soloNumeros } from 'src/app/core/validations/validateNumero';
+import { validarCedula } from 'src/app/core/validations/validateCedula';
 
 @Component({
   selector: 'app-form-student',
@@ -58,6 +60,12 @@ export class FormStudentComponent implements OnInit {
   }
   validarLetras(event:any){
     return soloLetras(event);
+  }
+  validateNumeros(event:any){
+    return soloNumeros(event);
+  }
+  validateCedula(){
+    return validarCedula();
   }
   loadDataForm(){
     let formStudent:FormStudentDTO={

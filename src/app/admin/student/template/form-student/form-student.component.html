@@ -62,6 +62,7 @@
                         pInputText
                         id="identification"
                         [ngClass]="{'ng-invalid ng-dirty': identificationNotValid}"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10"
                         formControlName="identification"
                         type="text" />
                         <span *ngIf="identificationNotValid && formStudent.get('identification')?.errors?.['required']">
@@ -81,6 +82,8 @@
                         min="0"
                         id="cell_phone"
                         [ngClass]="{'ng-invalid ng-dirty': cellPhoneNotValid}"
+                        (keypress)="validateNumeros($event)"
+                        minlength="10" maxlength="10"
                         formControlName="cell_phone"
                         type="text" />
                         <span *ngIf="cellPhoneNotValid && formStudent.get('cell_phone')?.errors?.['required']">

@@ -1,10 +1,10 @@
 <div class="layout-topbar shadow-5" >
     <div  class="flex justify-content-between  flex-wrap card-container col-12">
         <div routerLink="/admin" *ngIf="token" class="login text-3xl flex align-items-center justify-content-center font-bold text-white border-round m-2">
-            COBROS
+            COBROS-CENES
         </div>
         <div routerLink="/" *ngIf="!token" class="login text-4xl flex align-items-center justify-content-center font-bold text-white border-round m-2">
-            COBROS
+            COBROS-CENES
         </div>
         <div *ngIf="login && !token" routerLink="/auth/login" class=" login text-2xl flex align-items-center justify-content-centerfont-bold text-gray-900 border-round m-2">
             <i class="pi pi-user font-bold text-xl coloricon"> Login  </i>

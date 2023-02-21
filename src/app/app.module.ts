@@ -16,6 +16,8 @@ import { AdminModule } from './admin/admin.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { TopbarPrincipalComponent } from './topbar-principal/topbar-principal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+//import { LoginComponent } from './login/login.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +30,7 @@ import { TopbarPrincipalComponent } from './topbar-principal/topbar-principal.co
         AppRoutingModule,
         AppLayoutModule,
         AdminModule,
+        ReactiveFormsModule
 
 
     ],
