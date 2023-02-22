@@ -112,11 +112,11 @@
                 </td>
                 <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">  Valor total</span>
-                    <p>${{totalCurso(report)}}</p>
+                    <p>${{totalCurso(report)| number : '1.2-2'}}</p>
                 </td>
                 <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Saldo Pendiente</span>
-                    <p>${{saldoPendiente(report)}}</p>
+                    <p>${{saldoPendiente(report)| number : '1.2-2'}}</p>
                 </td>
                 <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title"> Cuotas</span>
