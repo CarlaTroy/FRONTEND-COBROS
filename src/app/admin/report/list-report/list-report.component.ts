@@ -66,7 +66,7 @@ export class ListReportComponent implements OnInit {
                 }
             }
         });
-        let costoCredito=Number(report.cohorte.cost_credit);
+        let costoCredito=Number(report.cohorte.cost_credit-(report.cohorte.cost_credit*(report.discount/100)));
         return costoCredito-saldo;
     }
     return  saldo;
