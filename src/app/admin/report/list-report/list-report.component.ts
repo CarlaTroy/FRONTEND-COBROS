@@ -1,5 +1,5 @@
 import { distinct, of, Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReportService } from '../../servicios/report.service';
 import { EnrollementFullDTO, PaymentFullDTO } from '../../enrollement/enrollement';
 import Swal from 'sweetalert2';
@@ -15,6 +15,7 @@ export class ListReportComponent implements OnInit {
     listPaymentezAll!:PaymentFullDTO[];
     loading!:boolean;
     selectedPayment!: PaymentFullDTO;
+    subPayment!:Subscription;
   constructor(private reportService:ReportService) { }
 
   ngOnInit(): void {
@@ -22,7 +23,8 @@ export class ListReportComponent implements OnInit {
     this.getAllPaymentez();
   }
   getAllPaymentez(){
-    this.reportService.getAllPaymentez().subscribe(response=>{
+    this.subPayment=this.reportService.getAllPaymentez().subscribe(response=>{
+        console.log(response);
         this.listPaymentezAll=response.data;
     },error=>{
         console.log(error);
@@ -127,5 +129,10 @@ export class ListReportComponent implements OnInit {
             footer:message
           })
     });
+  }
+  OnDestroy(){
+    if(this.subPayment){
+        this.subPayment.unsubscribe();
+    }
   }
 }

@@ -63,7 +63,7 @@ getCourseId(){
  });
 }
 
-    editCourse(courseCreate:StudentCreateDTO){
+    editStudent(courseCreate:StudentCreateDTO){
         //console.log('courseCreate')
         //console.log(courseCreate)
         Swal.fire({
@@ -94,7 +94,7 @@ getCourseId(){
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Error',
-                footer: error.message
+                footer: error.error?.message
             })
         });
     }

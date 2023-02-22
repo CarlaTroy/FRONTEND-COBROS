@@ -14,7 +14,7 @@ import { UserFullDTO } from '../../student/student';
 export class EditUserComponent implements OnInit {
 
  //toast
-modelCohorteseFull!:UserFullDTO;
+modelUserFull!:UserFullDTO;
 //listUsers:UsuarioDTO[] = [];
 //listCourse!: CourseFullDTO[];
 //suscription
@@ -43,7 +43,7 @@ getCourseId(){
  this.activatedRoute.params.subscribe((response:any)=>{
      this.sub = this.usuarioService.obtenerUsuarioPorId(Number(response.id)).subscribe(response=>{
          if(response.success){
-             this.modelCohorteseFull=response.data;
+             this.modelUserFull=response.data;
              return;
          }
          Swal.fire({
@@ -80,7 +80,7 @@ getCourseId(){
       });
   }
 */
-editCourse(courseCreate:UserCreateDTO){
+editUser(courseCreate:UserCreateDTO){
 //console.log('courseCreate')
 //console.log(courseCreate)
  Swal.fire({
@@ -89,7 +89,7 @@ editCourse(courseCreate:UserCreateDTO){
      timerProgressBar: false,
  });
  Swal.showLoading()
- this.usuarioService.editar(this.modelCohorteseFull.id,courseCreate).subscribe(response=>{
+ this.usuarioService.editar(this.modelUserFull.id,courseCreate).subscribe(response=>{
      Swal.close();
      if(response.success){
          this.Toast.fire({

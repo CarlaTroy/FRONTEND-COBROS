@@ -16,14 +16,14 @@ import { GroupDTO, UserCreateDTO} from '../../user';
 export class FormUserComponent implements OnInit {
 
 /*   @Input() modeForm!:string; */
-    @Input() modelCohorteseFull!:UserFullDTO;
+    @Input() modelUsuarioFull!:UserFullDTO;
     ListarGrupos!:GroupDTO[];
     selectedGroup!:GroupDTO;
     courseIdSelected!: number;
     courseNameSelected: string = '';
 
     //output
-   @Output() onSubmitCohorte:EventEmitter<UserCreateDTO>=new EventEmitter<UserCreateDTO>();
+   @Output() onSubmitUser:EventEmitter<UserCreateDTO>=new EventEmitter<UserCreateDTO>();
     //form
     formUser!:FormGroup;
     //toast
@@ -52,14 +52,8 @@ export class FormUserComponent implements OnInit {
     this.getAllGroups();
     this.initInputForm();
    //si existe data entonces en modo edicion
-   if(this.modelCohorteseFull){
-    //this.loadDataForm();
-    return;
-  }
-  //modo creacion
-  if(!this.modelCohorteseFull){
-    return;
-  }
+   this.loadDataForm();
+
 
   }
 
@@ -72,7 +66,10 @@ export class FormUserComponent implements OnInit {
     });
   }
   loadDataForm(){
-    this.formUser.patchValue(this.modelCohorteseFull);
+    //modo edicion
+    if(this.modelUsuarioFull!=null || this.modelUsuarioFull!=undefined){
+        this.formUser.patchValue(this.modelUsuarioFull);
+      }
   }
 
   // function personality
@@ -148,7 +145,7 @@ export class FormUserComponent implements OnInit {
         group:this.selectedGroup.name
     }
 
-    this.onSubmitCohorte.emit(createCourse);
+    this.onSubmitUser.emit(createCourse);
 
         //observable cuandos se crea un registro nuevo
         this.sub=this.cohorteService.refreshTable$.subscribe(()=>{

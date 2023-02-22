@@ -3,7 +3,7 @@
 <div class="card ui-fluid">
     <p-progressBar mode="indeterminate" *ngIf="!listUsers"></p-progressBar>
     <app-form-user
-        (onSubmitCohorte)="createStudent($event)"
+        (onSubmitUser)="createStudent($event)"
         *ngIf="listUsers">
     </app-form-user>
 </div>

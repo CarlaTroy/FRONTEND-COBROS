@@ -17,7 +17,7 @@ import { validarCedula } from 'src/app/core/validations/validateCedula';
 export class FormStudentComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelStudentFull!:StudentFullDTO;
-
+    identificationDisable!:boolean;
     //output
    @Output() onSubmitCohorte:EventEmitter<StudentCreateDTO>=new EventEmitter<StudentCreateDTO>();
     //form
@@ -77,7 +77,8 @@ export class FormStudentComponent implements OnInit {
         email:this.modelStudentFull.user.email
     }
     this.formStudent.patchValue(formStudent);
-    this.formStudent.get('identification')?.disable();
+    this.identificationDisable=true;
+    //this.formStudent.get('identification')?.disable();
     //this.courseNameSelected = this.modelStudentFull.user.username;
     //this.courseIdSelected = this.modelStudentFull.user.id;
 
