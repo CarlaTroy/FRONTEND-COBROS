@@ -43,7 +43,7 @@ export class ListReportComponent implements OnInit {
     let cont=0;
     if(report.tipe_pay.codigo=="001"){
        this.listPaymentezAll.forEach(paymentez=>{
-        if(paymentez.enrollement.id=report.id){
+        if(paymentez.enrollement.id==report.id){
             //pagago
             if(paymentez.status_pay.codigo=='001'){
                 cont++;
@@ -58,7 +58,7 @@ export class ListReportComponent implements OnInit {
     let saldo=0;
     if(report.tipe_pay.codigo=="001"){
        this.listPaymentezAll.forEach(paymentez=>{
-            if(paymentez.enrollement.id=report.id){
+            if(paymentez.enrollement.id==report.id){
                 //pagago
                 if(paymentez.status_pay.codigo=='001'){
                     saldo+=Number(paymentez.amount);
@@ -74,7 +74,7 @@ export class ListReportComponent implements OnInit {
     let cont=0;
     if(report.tipe_pay.codigo=="001"){
         this.listPaymentezAll.forEach(paymentez=>{
-         if(paymentez.enrollement.id=report.id){
+         if(paymentez.enrollement.id==report.id){
             var diaPago = new Date(paymentez.date_pay);
             var diaLimite = new Date(paymentez.date_limit);
              //pagago
@@ -94,7 +94,7 @@ export class ListReportComponent implements OnInit {
     let cont=0;
     if(report.tipe_pay.codigo=="001"){
        this.listPaymentezAll.forEach(paymentez=>{
-        if(paymentez.enrollement.id=report.id){
+        if(paymentez.enrollement.id==report.id){
             //pagago
             if(paymentez.status_pay.codigo=='001'){
                 cont++;
