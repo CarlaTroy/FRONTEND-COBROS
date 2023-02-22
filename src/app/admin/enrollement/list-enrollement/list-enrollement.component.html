@@ -33,7 +33,7 @@
                             pInputText
                             type="text"
                             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                            placeholder="Buscar por nombre" />
+                            placeholder="Buscar por fecha" />
                     </span>
                 </div>
             </div>
@@ -42,6 +42,7 @@
 
         <ng-template pTemplate="header">
             <tr class="grid">
+                <!-- <th style="width: 5rem"></th> -->
                 <th pSortableColumn="id" class="col-1 pt-4">
                     <div class="flex justify-content-between align-items-center">
                         #
@@ -81,8 +82,20 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-enrollement let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-enrollement let-rowIndex="rowIndex" let-expanded="expanded">
             <tr class="grid">
+                <!-- <td class="col-1 flex justify-content-between align-items-center">
+                    <button type="button" 
+                    pButton 
+                    pRipple 
+                    [pRowToggler]="enrollement" 
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" 
+                    
+                    ></button>
+                </td>
+            -->
+
 
                 <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">#</span>
@@ -133,6 +146,74 @@
                 </td>
             </tr>
         </ng-template>
+       <!-- <ng-template pTemplate="rowexpansion" >
+            <tr>
+                <td colspan="7">
+                    <div class="p-3">
+                        <p-table [value]="modelPayments"  dataKey="id" editMode="row" *ngIf="modelPayments">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="id"># <p-sortIcon field="price"></p-sortIcon></th>
+                                    <th pSortableColumn="customer">Fecha Pago<p-sortIcon field="customer"></p-sortIcon></th>
+                                    <th pSortableColumn="date">Fecha Limite<p-sortIcon field="date"></p-sortIcon></th>
+                                    <th pSortableColumn="amount">Monto <p-sortIcon field="amount"></p-sortIcon></th>
+                                    <th pSortableColumn="status">Estado <p-sortIcon field="status"></p-sortIcon></th>
+                                    <th style="width: 4rem">Saldo</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-payment let-rowIndex="rowIndex"  let-editing="editing" let-ri="rowIndex">
+                                <tr [pEditableRow]="payment">
+                                    <td>{{rowIndex+1}}</td>
+                <td>
+                   
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="date" [(ngModel)]="payment.date_pay">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{payment.date_pay}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>{{payment.date_limit}}</td>
+                <td>{{payment.amount}}</td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown
+                                [options]="modelStatusPays"
+                                [(ngModel)]="payment.status_pay"
+                                optionLabel="name"
+                                [style]="{'width':'100%'}"></p-dropdown>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{payment.status_pay.name|json}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                     {{coustReal-(payment.amount*(rowIndex))}}
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(payment)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(payment)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(payment, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">There are no order for this product yet.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+     -->
         <ng-template pTemplate="emptymessage">
             <tr>
                 <td colspan="8">No existen resultados.</td>

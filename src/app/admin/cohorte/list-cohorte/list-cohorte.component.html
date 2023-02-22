@@ -5,6 +5,7 @@
         [value]="listCohorte"
         [(selection)]="selectedCohorte"
         dataKey="id"
+        [tableStyle]="{'min-width': '60rem'}"
         styleClass="p-datatable-customers"
         [rowHover]="true"
         [rows]="10"
@@ -16,6 +17,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
         [globalFilterFields]="['name', 'date_init','date_end','cost_effective','cost_credit','course']">
+        
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -42,6 +44,7 @@
 
         <ng-template pTemplate="header">
             <tr class="grid">
+                
                 <th pSortableColumn="id" class="col-1 pt-4">
                     <div class="flex justify-content-between align-items-center">
                         #
@@ -96,6 +99,7 @@
 
         <ng-template pTemplate="body" let-cohorte let-rowIndex="rowIndex">
             <tr class="grid">
+                
 
                 <td class="col-1 flex justify-content-between align-items-center">
                     <span class="p-column-title">#</span>
@@ -156,6 +160,7 @@
                 </td>
             </tr>
         </ng-template>
+       
         <ng-template pTemplate="emptymessage">
             <tr>
                 <td colspan="8">No existen resultados.</td>

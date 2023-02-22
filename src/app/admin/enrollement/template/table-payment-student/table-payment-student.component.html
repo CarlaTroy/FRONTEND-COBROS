@@ -45,12 +45,12 @@
                 <div class="col">
                     <b>Valor del Curso Efectivo</b>
                     <br>
-                    <span>{{modelEnrollement.cohorte.cost_effective}} </span>
+                    <span>{{modelEnrollement.cohorte.cost_effective| number : '1.2-2'}} </span>
                 </div>
                 <div class="col">
                     <b>Valor del Curso Credito</b>
                     <br>
-                    <span>{{modelEnrollement.cohorte.cost_credit}} </span>
+                    <span>{{modelEnrollement.cohorte.cost_credit| number : '1.2-2'}} </span>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 <div class="col">
                     <b>Valor Real a pagar</b>
                     <br>
-                    <span>{{coustReal}} </span>
+                    <span>{{coustReal| number : '1.2-2'}} </span>
                 </div>
                 <div class="col">
                     <b>Descuento</b>
@@ -102,6 +102,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-payment let-rowIndex="rowIndex"  let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="payment">
+                
                 <td>{{rowIndex+1}}</td>
                 <td>
                     <!-- {{payment.date_pay}} -->
@@ -131,7 +132,7 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                     {{coustReal-(payment.amount*(rowIndex))}}
+                     {{coustReal-(payment.amount*(rowIndex))| number : '1.2-2'}}
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">
