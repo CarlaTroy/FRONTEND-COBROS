@@ -34,9 +34,10 @@ export class ListReportComponent implements OnInit {
   totalCurso(report:EnrollementFullDTO){
     // si existen cuenotas entonces ha pagado a credito
     if(report.tipe_pay.codigo=="001"){
-        return report.cohorte.cost_credit;
+        //aplicar si tiene descuento
+        return report.cohorte.cost_credit-((report.cohorte.cost_credit)*(report.discount/100));
     }
-    return report.cohorte.cost_effective;
+    return report.cohorte.cost_effective-((report.cohorte.cost_effective)*(report.discount/100));
   }
 
   coutasPagas(report:EnrollementFullDTO){
@@ -113,7 +114,6 @@ export class ListReportComponent implements OnInit {
         console.log(response);
         this.listReport=response.data;
         /* const dataDistinc=of(response.data.enrollement);
-        debugger
         dataDistinc.pipe(
             distinct()
         ).subscribe(value=>console.log(value))
