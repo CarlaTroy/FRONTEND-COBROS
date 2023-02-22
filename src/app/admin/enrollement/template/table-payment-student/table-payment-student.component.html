@@ -102,7 +102,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-payment let-rowIndex="rowIndex"  let-editing="editing" let-ri="rowIndex">
             <tr [pEditableRow]="payment">
-                
+
                 <td>{{rowIndex+1}}</td>
                 <td>
                     <!-- {{payment.date_pay}} -->
@@ -132,7 +132,7 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                     {{coustReal-(payment.amount*(rowIndex))| number : '1.2-2'}}
+                     {{sobrantePagar(payment.amount,(rowIndex+1))| number : '1.2-2'}}
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">

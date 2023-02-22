@@ -59,6 +59,9 @@ export class TablePaymentStudentComponent implements OnInit {
         })
     });
   }
+  sobrantePagar(monto:number,index:number){
+     return this.coustReal-(monto*index);
+  }
   getPaymentsEnrrollement(){
     this.modelEnrollement=this.config.data;
     this.cohorteFull=this.modelEnrollement.cohorte;
