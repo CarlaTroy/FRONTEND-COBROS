@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from 'src/app/admin/servicios/course.service';
 import Swal from 'sweetalert2';
 import { CourseCreateDTO } from '../../course';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-form-course',
@@ -33,6 +35,7 @@ export class FormCourseComponent implements OnInit {
   //suscription
   sub!:Subscription;
   constructor(private formBuilder: FormBuilder,
+              private router:Router, 
                 private courseService:CourseService) { }
     //functon defaul angular
   ngOnInit(): void {
@@ -48,6 +51,9 @@ export class FormCourseComponent implements OnInit {
       if(!this.modelCourseFull){
         return;
       }
+      this.courseService.refreshForm$.subscribe(() => {
+        this.router.navigate(['/admin/course']);
+       });
     
   }
   OnDestroy(): void {

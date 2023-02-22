@@ -72,8 +72,10 @@ btnViewPaypment(enrollement:EnrollementFullDTO){
 }
 btnDeletEnrollement(cohorte:EnrollementFullDTO){
  Swal.fire({
-     title: '¿ Esta seguro en eliminar ?',
-     text: "Se eliminar al estudiante "+cohorte.student.name+" "+cohorte.student.last_name + " con su respectiva matricula "+cohorte.cohorte.name,
+     title: '¿ Esta seguro de eliminar ?',
+     text: "Se eliminará al estudiante "+cohorte.student.name+" "+cohorte.student.last_name + " con su respectiva matricula: "
+     + cohorte.cohorte.name + ", con todos los pagos registrados \n"+
+     "RECUERDE QUE ESTA ACCIÓN ES IRREVERSIBLE",
      icon: 'warning',
      showCancelButton: true,
      confirmButtonColor: '#3085d6',
