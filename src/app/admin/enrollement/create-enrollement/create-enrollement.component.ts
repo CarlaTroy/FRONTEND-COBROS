@@ -17,7 +17,7 @@ import { TypePaysService } from '../../servicios/type.pays.service';
 })
 export class CreateEnrollementComponent implements OnInit {
 
-  listUsers:StudentFullDTO[] = [];
+  listStudents:StudentFullDTO[] = [];
   listCohorte:CohorteFullDTO[] = [];
   listTypePays:TypePaysFullDTO[] = [];
   subCourse!:Subscription;
@@ -46,7 +46,10 @@ ngOnInit(): void {
 loadDataStudents(){
   this.subCourse=this.usuarioService.getAll().subscribe(response=>{
     console.log(response.data)
-      this.listUsers=response.data;
+      this.listStudents=response.data;
+      this.listStudents=this.listStudents.filter(student=>{
+        return student.user.is_active==true;
+      });
     },error=>{
       let message= error.error.message;
       Swal.close();

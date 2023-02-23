@@ -1,13 +1,13 @@
 
 
 <div class="card ui-fluid">
-    <p-progressBar mode="indeterminate" *ngIf="!listUsers"></p-progressBar>
+    <p-progressBar mode="indeterminate" *ngIf="!listStudents"></p-progressBar>
     <app-form-enrollement
         (onSubmitCohorte)="createStudent($event)"
         [modeForm]="'Crear Enrollement'"
         [modelCohorteFull]="listCohorte"
-        [modelStudentFull]="listUsers"
+        [modelStudentFull]="listStudents"
         [modelTypePaysFull]="listTypePays"
-        *ngIf="listUsers">
+        *ngIf="listStudents">
     </app-form-enrollement>
 </div>
