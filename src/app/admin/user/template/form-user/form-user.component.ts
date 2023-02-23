@@ -69,6 +69,10 @@ export class FormUserComponent implements OnInit {
     //modo edicion
     if(this.modelUsuarioFull!=null || this.modelUsuarioFull!=undefined){
         this.formUser.patchValue(this.modelUsuarioFull);
+        //this.formUser.get('groups')?.setValue(this.modelUsuarioFull.groups[0]);
+        this.selectedGroup=this.modelUsuarioFull.groups[0];
+      /*   this.formUser.get('password')?.setValidators(null);
+        this.formUser.get('password2')?.setValidators(null); */
       }
   }
 
@@ -78,9 +82,10 @@ export class FormUserComponent implements OnInit {
         username: ['', [Validators.required, Validators.maxLength(100)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required,Validators.maxLength(10)]],
-        gruop:['', [Validators.required]],
+        groups:['', [Validators.required]],
         password2: ['', [Validators.required,Validators.maxLength(10)]],
         is_staff: [true, [Validators.required]],
+        is_active: [true, [Validators.required]],
       }, {
         validators: this.comparandoPassword('password', 'password2')
       });
@@ -107,6 +112,12 @@ export class FormUserComponent implements OnInit {
     let isChecked = e.checked;
     console.log(isChecked)
     this.formUser.value.is_staff = isChecked
+  }
+
+  handleActivo(e: any) {
+    let isChecked = e.checked;
+    console.log(isChecked)
+    this.formUser.value.is_active = isChecked
   }
 
   checarSiSonIguales():  boolean  {
@@ -142,6 +153,7 @@ export class FormUserComponent implements OnInit {
         password:this.formUser.value.password,
         password2:this.formUser.value.password2,
         is_staff:this.formUser.value.is_staff,
+        is_active:this.formUser.value.is_active,
         group:this.selectedGroup.name
     }
 

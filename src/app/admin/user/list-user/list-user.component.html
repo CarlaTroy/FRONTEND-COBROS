@@ -2,7 +2,7 @@
 <div class="card ui-fluid">
     <p-table
         #dt
-        [value]="listCohorte"
+        [value]="listUsers"
         [(selection)]="selectedCohorte"
         dataKey="id"
         styleClass="p-datatable-customers"
@@ -55,19 +55,25 @@
                     </div>
                 </th>
 
-                <th pSortableColumn="email" class="col-4 pt-5">
+                <th pSortableColumn="email" class="col-3 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Email
                         <p-sortIcon field="email"></p-sortIcon>
                     </div>
                 </th>
-                <th class="col-3 pt-5">
+                <th class="col-1 pt-5">
+                    Grupo
+                </th>
+                <th class="col-1 pt-5">
+                    Estado
+                </th>
+                <th class="col-2 pt-5">
                     Acciones
                 </th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
+        <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
             <tr class="grid">
 
                 <td class="col-1 flex justify-content-between align-items-center">
@@ -76,40 +82,28 @@
                 </td>
                 <td class="col-4 flex justify-content-between align-items-center">
                     <span class="p-column-title">Username</span>
-                    <span >{{student.username}}</span>
+                    <span >{{user.username}}</span>
                 </td>
 
-                <td class="col-4 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Email</span>
-                    <p>{{student.email}}</p>
-                </td>
                 <td class="col-3 flex justify-content-between align-items-center">
+                    <span class="p-column-title"> Email</span>
+                    <p>{{user.email}}</p>
+                </td>
+                <th class="col-1 pt-5">
+                    {{user.groups[0]?.name}}
+                </th>
+                <div class="col-1">
+                    <p-inputSwitch [(ngModel)]="user.is_active" [readonly]="true"></p-inputSwitch>
+                </div>
+                <td class="col-2 flex justify-content-between align-items-center">
                     <div class="grid pt-4">
-<!--                         <div class="col">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-eye"
-                                (click)="btnDeleteCourse(course)"
-                                class="p-button-raised p-button-rounded">
-                            </button>
-                        </div> -->
                         <div class="col pr-0">
                             <button
                                 pButton
                                 type="button"
                                 icon="pi pi-pencil"
-                                [routerLink]="['/admin/user/edit',student.id]"
+                                [routerLink]="['/admin/user/edit',user.id]"
                                 class="p-button-raised p-button-rounded">
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-trash"
-                                (click)="btnDeletStudent(student)"
-                                class="p-button-danger p-button-rounded">
                             </button>
                         </div>
                     </div>

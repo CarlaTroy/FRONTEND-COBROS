@@ -1,10 +1,12 @@
 
+
 export interface UserCreateDTO {
         username:string;
         email: string;
         password: string;
         password2: string;
         is_staff: boolean;
+        is_active:boolean,
         group:string;
 }
 export interface EditUsuarioDTO{
@@ -30,4 +32,6 @@ export interface LoginUsuarioDTO{
 
 export interface GroupDTO{
     name:string;
+    id:number,
+    permissions:number[]
 }

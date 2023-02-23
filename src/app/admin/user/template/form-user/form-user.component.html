@@ -51,7 +51,7 @@
 
 
 
-				<div class="field col-12 md:col-6">
+				<div class="field md:col-6">
 					<label htmlFor="password">
                         <span class="text-red-600">*</span>
                         Password
@@ -69,7 +69,7 @@
                     </div>
 				</div>
 
-                <div class="field col-12 md:col-6">
+                <div class="field md:col-6">
 					<label htmlFor="password2">
                         <span class="text-red-600">*</span>
                         Password
@@ -90,17 +90,33 @@
                     </div>
 				</div>
 
-                <div class="field col-12 md:col-6">
-					<div>Tiene permisos?</div>
-                        <br>
-                        <p-inputSwitch (onChange)="handleChange($event)" formControlName="is_staff" ></p-inputSwitch>
-                    </div>
+                <div class="field md:col-3">
+                    <label htmlFor="activo">
+                        <span class="text-red-600">*</span>
+                            Permidos staff
+                        <p-inputSwitch
+                            (onChange)="handleChange($event)"
+                            formControlName="is_staff" >
+                        </p-inputSwitch>
+                    </label>
+                </div>
+                <div class="field md:col-3">
+                    <label htmlFor="activo">
+                        <span class="text-red-600">*</span>
+                            Esta Activo
+                        <p-inputSwitch
+                            (onChange)="handleActivo($event)"
+                            formControlName="is_active" >
+                        </p-inputSwitch>
+                    </label>
+                </div>
+                <div class="field md:col-6">
                     <div class="field col-12 md:col-6">
                         <div class="field">
 
                             <i class="pi pi-spin pi-spinner" style="font-size: 2rem" *ngIf="!ListarGrupos"></i>
                             <p-dropdown [options]="ListarGrupos"
-                                        formControlName="gruop"
+                                        formControlName="groups"
                                         *ngIf="ListarGrupos"
                                         [ngClass]="{'ng-invalid ng-dirty': groupNoValid}"
                                         [(ngModel)]="selectedGroup"
@@ -112,13 +128,15 @@
                                     </div>
                                 </ng-template>
                             </p-dropdown>
-                            <span *ngIf="groupNoValid && formUser.get('gruop')?.errors?.['required']">
+                            <span *ngIf="groupNoValid && formUser.get('groups')?.errors?.['required']">
                                 <p class="text-red-600">*Campo Requerido</p>
                             </span>
                         </div>
                     </div>
-			</div>
-		</div>
+
+			    </div>
+		    </div>
+        </div>
         <div class="grid flex flex-row-reverse ">
             <div class="grid">
                 <div class="col">

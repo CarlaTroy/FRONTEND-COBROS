@@ -14,7 +14,7 @@ export class ListUserComponent implements OnInit {
 
  //DTO
  selectedCohorte!: UserFullDTO;
- listCohorte:UserFullDTO[] = [];
+ listUsers:UserFullDTO[] = [];
   //variables globales
 loading:boolean=false;
  //subcription
@@ -41,12 +41,13 @@ ngOnInit(): void {
      this.loadDataUsers();
  });
 }
+
 loadDataUsers(){
  this.loading=true;
  this.subCohorte=this.userService.obtenerTodos().subscribe(response=>{
      this.loading=false;
-     this.listCohorte=response.data;
-     console.log(this.listCohorte)
+     this.listUsers=response.data;
+     console.log(this.listUsers)
    },error=>{
      let message= error.error.message;
      Swal.close();
@@ -58,7 +59,7 @@ loadDataUsers(){
        })
    });
 }
-btnDeletStudent(cohorte:UserFullDTO){
+btnDeletUser(cohorte:UserFullDTO){
  Swal.fire({
      title: '¿ Esta seguro en eliminar ?',
      text: cohorte.username,

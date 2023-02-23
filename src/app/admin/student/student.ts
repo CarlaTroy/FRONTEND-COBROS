@@ -1,3 +1,5 @@
+import { GroupDTO } from "../user/user";
+
 export interface StudentFullDTO {
     id:             number;
     name:           string;
@@ -22,6 +24,9 @@ export interface UserFullDTO {
     id:       number;
     username: string;
     email:    string;
+    is_staff: boolean,
+    is_active: boolean,
+    groups:GroupDTO[]
 }
 
 
