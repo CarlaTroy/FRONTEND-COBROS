@@ -19,7 +19,7 @@ export class FormStudentComponent implements OnInit {
     @Input() modelStudentFull!:StudentFullDTO;
     identificationDisable!:boolean;
     //output
-   @Output() onSubmitCohorte:EventEmitter<StudentCreateDTO>=new EventEmitter<StudentCreateDTO>();
+   @Output() onSubmitStudent:EventEmitter<StudentCreateDTO>=new EventEmitter<StudentCreateDTO>();
     //form
     formStudent!:FormGroup;
     //toast
@@ -40,17 +40,15 @@ export class FormStudentComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
-                private cohorteService:StudentService,)
+                private studentService:StudentService,)
                 {
                 }
 
   ngOnInit(): void {
     this.initInputForm();
    //si existe data entonces en modo edicion
-    if(this.modelStudentFull){
-        this.loadDataForm();
-        return;
-    }
+   this.loadDataForm();
+
 
   }
   OnDestroy(): void {
@@ -68,19 +66,22 @@ export class FormStudentComponent implements OnInit {
     return validarCedula();
   }
   loadDataForm(){
-    let formStudent:FormStudentDTO={
-        name:this.modelStudentFull.name,
-        address:this.modelStudentFull.address,
-        cell_phone:this.modelStudentFull.cell_phone,
-        identification:this.modelStudentFull.identification,
-        last_name:this.modelStudentFull.last_name,
-        email:this.modelStudentFull.user.email
+    if(this.modelStudentFull!=undefined || this.modelStudentFull!=null){
+        let formStudent:FormStudentDTO={
+            name:this.modelStudentFull.name,
+            address:this.modelStudentFull.address,
+            cell_phone:this.modelStudentFull.cell_phone,
+            identification:this.modelStudentFull.identification,
+            last_name:this.modelStudentFull.last_name,
+            email:this.modelStudentFull.user.email,
+            is_active:this.modelStudentFull.user.is_active
+        }
+        this.formStudent.patchValue(formStudent);
+        this.identificationDisable=true;
+        //this.formStudent.get('identification')?.disable();
+        //this.courseNameSelected = this.modelStudentFull.user.username;
+        //this.courseIdSelected = this.modelStudentFull.user.id;
     }
-    this.formStudent.patchValue(formStudent);
-    this.identificationDisable=true;
-    //this.formStudent.get('identification')?.disable();
-    //this.courseNameSelected = this.modelStudentFull.user.username;
-    //this.courseIdSelected = this.modelStudentFull.user.id;
 
   }
 
@@ -93,11 +94,17 @@ export class FormStudentComponent implements OnInit {
         cell_phone: ['', [Validators.required,Validators.maxLength(10)]],
         address: ['', [Validators.required,Validators.min(0)]],
         email: ['', [Validators.required]],
+        is_active:[true,[Validators.required]]
       });
   }
 
 
 
+  handleActivo(e: any) {
+    let isChecked = e.checked;
+    console.log(isChecked)
+    this.formStudent.value.is_active = isChecked
+  }
 
 
   submitStudent(){
@@ -116,19 +123,20 @@ export class FormStudentComponent implements OnInit {
     this.onSubmitCohorte.emit(createCourse);*/
 
 
-  const createCourse:StudentCreateDTO={
+  const createStudent:StudentCreateDTO={
         name:this.formStudent.value.name,
         last_name:this.formStudent.value.last_name,
         identification:this.formStudent.value.identification,
         cell_phone:this.formStudent.value.cell_phone,
         address:this.formStudent.value.address,
-        email:this.formStudent.value.email
+        email:this.formStudent.value.email,
+        is_active:this.formStudent.value.is_active
       }
       console.log(this.formStudent.value)
-    this.onSubmitCohorte.emit(createCourse);
+    this.onSubmitStudent.emit(createStudent);
 
      //observable cuandos se crea un registro nuevo
-     this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
+     this.sub=this.studentService.refreshForm$.subscribe(()=>{
       this.formStudent.reset();
   });
     return;

@@ -18,6 +18,7 @@ export interface StudentCreateDTO {
     cell_phone:     string;
     address:        string;
     email:          string;
+    is_active:  boolean;
 }
 
 export interface UserFullDTO {
@@ -36,5 +37,6 @@ export interface FormStudentDTO{
     identification: string,
     cell_phone: string,
     address: string,
-    email: string
+    email: string,
+    is_active:boolean
 }

@@ -129,6 +129,17 @@
                         <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
                     </div>
 				</div>
+                <div class="field col-6">
+                    <label htmlFor="activo">
+                        <span class="text-red-600">*</span>
+                            Esta Activo
+                        <p-inputSwitch
+                            (onChange)="handleActivo($event)"
+                            formControlName="is_active" >
+                        </p-inputSwitch>
+                    </label>
+
+                </div>
 			</div>
 		</div>
         <div class="grid flex flex-row-reverse ">

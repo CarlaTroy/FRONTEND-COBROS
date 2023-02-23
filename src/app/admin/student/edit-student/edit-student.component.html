@@ -2,7 +2,7 @@
 <div class="card ui-fluid">
     <p-progressBar mode="indeterminate" *ngIf="!modelStudentFull"></p-progressBar>
     <app-form-student
-        (onSubmitCohorte)="editStudent($event)"
+        (onSubmitStudent)="editStudent($event)"
         [modelStudentFull]="modelStudentFull"
         [modeForm]="'Editar Estudiante'"
         *ngIf="modelStudentFull">

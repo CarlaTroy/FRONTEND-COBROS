@@ -2,7 +2,7 @@
 <div class="card ui-fluid">
     <p-table
         #dt
-        [value]="listCohorte"
+        [value]="listStudent"
         [(selection)]="selectedCohorte"
         dataKey="id"
         styleClass="p-datatable-customers"
@@ -138,13 +138,14 @@
                             </button>
                         </div>
                         <div class="col">
-                            <button
+                          <!--   <button
                                 pButton
                                 type="button"
                                 icon="pi pi-trash"
                                 (click)="btnDeletStudent(student)"
                                 class="p-button-danger p-button-rounded">
-                            </button>
+                            </button> -->
+                            <p-inputSwitch [(ngModel)]="student.user.is_active" [readonly]="true"></p-inputSwitch>
                         </div>
                     </div>
                 </td>

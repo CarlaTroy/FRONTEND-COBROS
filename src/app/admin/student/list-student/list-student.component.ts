@@ -13,7 +13,7 @@ export class ListStudentComponent implements OnInit {
 
  //DTO
  selectedCohorte!: StudentFullDTO;
- listCohorte:StudentFullDTO[] = [];
+ listStudent:StudentFullDTO[] = [];
   //variables globales
 loading:boolean=false;
  //subcription
@@ -44,7 +44,7 @@ loadDataCourses(){
  this.loading=true;
  this.subCohorte=this.cohorteService.getAll().subscribe(response=>{
      this.loading=false;
-     this.listCohorte=response.data;
+     this.listStudent=response.data;
    },error=>{
      let message= error.error.message;
      Swal.close();

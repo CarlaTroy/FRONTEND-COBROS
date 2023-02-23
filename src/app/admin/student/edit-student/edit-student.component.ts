@@ -36,9 +36,9 @@ private usuarioService:UsuarioService,
            private activatedRoute:ActivatedRoute) { }
 
 ngOnInit(): void {
- this.getCourseId();
+ this.getStudentId();
 }
-getCourseId(){
+getStudentId(){
  this.activatedRoute.params.subscribe((response:any)=>{
      this.sub = this.studentService.getStudentId(Number(response.id)).subscribe(response=>{
          if(response.success){
