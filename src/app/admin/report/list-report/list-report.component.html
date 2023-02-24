@@ -1,9 +1,9 @@
 
 
-<div class="card ui-fluid" *ngIf="listPaymentezAll && listReport">
+<div class="card ui-fluid" *ngIf="listPaymentezAll && reporteMapper">
     <p-table
         #dt
-        [value]="listReport"
+        [value]="reporteMapper"
         [(selection)]="selectedPayment"
         dataKey="id"
         styleClass="p-datatable-customers"
@@ -16,18 +16,18 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['name', 'last_name', 'identification','cell_phone']">
+        [globalFilterFields]="['nombresCompletos', 'cursoCohorte', 'valorTotal','saldoPendiente','cuotas','estado','pensiones']">
         <ng-template pTemplate="caption">
         <div class="table-header">
             <div class="grid">
                 <div class="col">
                     <h3 class="mt-1"><b>Reportes</b></h3>
                     <div class="flex">
-                        <button pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash" ></button> 
+                        <button pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash" ></button>
                     </div>
-                     
+
                 </div>
-                
+
                 <div class="col">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
@@ -52,22 +52,22 @@
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex justify-content-center align-items-center">
-                    
+
                         Nombres
-                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                        <p-columnFilter type="text" field="nombresCompletos" display="menu"></p-columnFilter>
                     </div>
                 </th>
 
                 <th pSortableColumn="date_init" style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
                         Curso-Cohorte
-                        <p-columnFilter type="date" field="date_init" display="menu"></p-columnFilter>
+                        <p-columnFilter type="text" field="cursoCohorte" display="menu"></p-columnFilter>
                     </div>
                 </th>
                 <th  style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
                         Valor total
-                        <p-columnFilter type="numeric" field="date_end"  display="menu" currency="USD"></p-columnFilter>
+                        <p-columnFilter type="numeric" field="valorTotal"  display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:5rem" >
@@ -75,34 +75,27 @@
                         <span>
                             Saldo Pendiente
                         </span>
-                        <p-columnFilter type="numeric" field="cost_effective" display="menu" currency="USD"></p-columnFilter>
+                        <p-columnFilter type="numeric" field="saldoPendiente" display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
                 <th  style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
-                        
+
                             Cuotas
-                        
-                        <p-columnFilter type="numeric" field="cost_credit" display="menu" currency="USD"></p-columnFilter>
+
+                        <p-columnFilter type="numeric" field="cuotas" display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
                 <th style="min-width:5rem">
                     <div class="flex justify-content-center align-items-center">
                     Estado
-                    <p-columnFilter field="status" matchMode="equals" display="menu">
-                        <!-- <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="estadoPago" (onChange)="filter($event)" placeholder="number">
-                                <ng-template let-option pTemplate="item">
-                                    <span [class]="'customer-badge status-' + estadoPago">{{option.label}}</span>
-                                </ng-template> 
-                            </p-dropdown>
-                        </ng-template> -->
-                    </p-columnFilter>
+                    <p-columnFilter type="text" field="estado" display="menu"></p-columnFilter>
                 </div>
                 </th>
                 <th style="width: 2rem">
-                    <div class="flex justify-content-center align-items-center">                        Pensiones
-                        <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
+                    <div class="flex justify-content-center align-items-center">
+                        Pensiones
+                        <p-columnFilter type="text" field="pensiones" display="menu"></p-columnFilter>
                     </div>
                 </th>
             </tr>
@@ -110,42 +103,14 @@
 
         <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
             <tr >
-
-                <td>
-                    
-                    {{rowIndex+1}}
-                </td>
-                <td >
-                    
-                        {{report.student.name+' - '+report.student.last_name}}
-                    
-                </td>
-
-                <td >
-                
-                        {{report.cohorte.course.name+' '+report.cohorte.name}}
-                    
-                </td>
-                <td >
-                    <p>${{totalCurso(report)| number : '1.2-2'}}</p>
-                </td>
-                <td >
-                   
-                    <p>${{saldoPendiente(report)| number : '1.2-2'}}</p>
-                </td>
-                <td>
-                   
-                    <p>{{ coutasPagas(report)+"/"+(report.cuotas)}}</p>
-                </td>
-
-                <td >
-                    
-                    <p>{{ estadoPago(report)}}</p>
-                </td>
-                <td>
-                    
-                    <p>{{ pensiones(report)}}</p>
-                </td>
+                <td>{{rowIndex+1}}</td>
+                <td >{{report.nombresCompletos}}</td>
+                <td>{{report.cursoCohorte}}</td>
+                <td >{{report.valorTotal | number : '1.2-2'}}</td>
+                <td >${{report.saldoPendiente | number : '1.2-2'}}</td>
+                <td>{{report.cuotas}}</td>
+                <td>{{report.estado}}</td>
+                <td>{{report.pensiones}}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
@@ -156,3 +121,5 @@
     </p-table>
 
 </div>
+
+
