@@ -7,7 +7,9 @@ import { FormStudentDTO, StudentCreateDTO, StudentFullDTO, UserFullDTO } from '.
 import { StudentService } from 'src/app/admin/servicios/student.service';
 import { soloLetras } from 'src/app/core/validations/validateText';
 import { soloNumeros } from 'src/app/core/validations/validateNumero';
-import { validarCedula } from 'src/app/core/validations/validateCedula';
+import {validarCedula } from 'src/app/core/validations/validateCedula';
+
+
 
 @Component({
   selector: 'app-form-student',
@@ -18,6 +20,7 @@ export class FormStudentComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelStudentFull!:StudentFullDTO;
     identificationDisable!:boolean;
+    cedulaValidadaConExito?: boolean;
     //output
    @Output() onSubmitStudent:EventEmitter<StudentCreateDTO>=new EventEmitter<StudentCreateDTO>();
     //form
@@ -62,9 +65,7 @@ export class FormStudentComponent implements OnInit {
   validateNumeros(event:any){
     return soloNumeros(event);
   }
-  validateCedula(){
-    return validarCedula();
-  }
+
   loadDataForm(){
     if(this.modelStudentFull!=undefined || this.modelStudentFull!=null){
         let formStudent:FormStudentDTO={
@@ -90,7 +91,7 @@ export class FormStudentComponent implements OnInit {
     this.formStudent = this.formBuilder.group({
         name: ['', [Validators.required, Validators.maxLength(100)]],
         last_name: ['', [Validators.required]],
-        identification: ['', [Validators.required,Validators.maxLength(10)]],
+        identification: ['', [Validators.required,Validators.maxLength(10), validarCedula()]],
         cell_phone: ['', [Validators.required,Validators.maxLength(10)]],
         address: ['', [Validators.required,Validators.min(0)]],
         email: ['', [Validators.required]],

@@ -19,21 +19,21 @@ export function validarCedula(): ValidatorFn | any{
                         return;
                     }else{
                         return{
-                            validateCedula:{
+                            validarCedula:{
                                 mensaje: 'Número de cédula inválido'
                             }
                         }
                     }
                 }else{
                     return{
-                        validateCedula:{
+                        validarCedula:{
                             mensaje: 'Número de cédula inválido'
                         }
                     }
                 }
             }else{
                 return{
-                    validateCedula:{
+                    validarCedula:{
                         mensaje: 'Número de cédula inválido'
                     }
                 }

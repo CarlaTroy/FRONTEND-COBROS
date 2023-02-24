@@ -63,11 +63,16 @@
                         id="identification"
                         [readOnly]="identificationDisable"
                         [ngClass]="{'ng-invalid ng-dirty': identificationNotValid}"
-                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+                        minlength="10" 
+                        maxlength="10"
                         formControlName="identification"
                         type="text" />
                         <span *ngIf="identificationNotValid && formStudent.get('identification')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <span *ngIf="identificationNotValid && this.formStudent.get('identification')?.errors?.['validarCedula']">
+                            <p class="text-red-600">{{this.formStudent.get('identification')?.errors?.['validarCedula']['mensaje'] }}</p>
                         </span>
                         <div *ngIf="nameNotValid && formStudent.get('identification')?.errors?.['maxlength']">
                             <p class="text-red-600">*Debe tener como máximo 10 caracteres</p>
