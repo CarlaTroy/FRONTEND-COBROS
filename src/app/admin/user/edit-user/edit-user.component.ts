@@ -111,7 +111,7 @@ editUser(courseCreate:UserCreateDTO){
          icon: 'error',
          title: 'Oops...',
          text: 'Error',
-         footer: error.message
+         footer: error.error?.message
        })
  });
 }
