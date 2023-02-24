@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReportService } from '../../servicios/report.service';
 import { EnrollementFullDTO, PaymentFullDTO } from '../../enrollement/enrollement';
 import Swal from 'sweetalert2';
+import { ReportDTOFullMapper } from '../report';
 
 @Component({
   selector: 'app-list-report',
@@ -13,23 +14,17 @@ export class ListReportComponent implements OnInit {
     subReport!:Subscription;
     listReport!:EnrollementFullDTO[];
     listPaymentezAll!:PaymentFullDTO[];
-    loading!:boolean;
+    reporteMapper!:ReportDTOFullMapper[];
+    loading:boolean=true;
     selectedPayment!: PaymentFullDTO;
     subPayment!:Subscription;
   constructor(private reportService:ReportService) { }
 
   ngOnInit(): void {
     this.loadDataReport();
-    this.getAllPaymentez();
+
   }
-  getAllPaymentez(){
-    this.subPayment=this.reportService.getAllPaymentez().subscribe(response=>{
-        console.log(response);
-        this.listPaymentezAll=response.data;
-    },error=>{
-        console.log(error);
-    });
-  }
+
 
   totalCurso(report:EnrollementFullDTO){
     // si existen cuenotas entonces ha pagado a credito
@@ -40,7 +35,7 @@ export class ListReportComponent implements OnInit {
     return report.cohorte.cost_effective-((report.cohorte.cost_effective)*(report.discount/100));
   }
 
-  coutasPagas(report:EnrollementFullDTO){
+  coutasPagas(report:EnrollementFullDTO):number{
     let cont=0;
     if(report.tipe_pay.codigo=="001"){
        this.listPaymentezAll.forEach(paymentez=>{
@@ -113,11 +108,42 @@ export class ListReportComponent implements OnInit {
     this.subReport=this.reportService.getAll().subscribe(response=>{
         console.log(response);
         this.listReport=response.data;
-        /* const dataDistinc=of(response.data.enrollement);
-        dataDistinc.pipe(
-            distinct()
-        ).subscribe(value=>console.log(value))
- */
+        this.subPayment=this.reportService.getAllPaymentez().subscribe(response=>{
+            console.log(response);
+            this.listPaymentezAll=response.data;
+            this.reporteMapper=[];
+            //mapear la data para enviar al reporte
+            this.listReport.forEach(elemento=>{
+                const cuotas=this.coutasPagas(elemento);
+                const estado=this.estadoPago(elemento);
+                const pensiones= this.pensiones(elemento);
+                const saldoPendiente=this.saldoPendiente(elemento);
+                const valorTotal=this.totalCurso(elemento);
+                let auxReport:ReportDTOFullMapper={
+                    id:elemento.id,
+                    nombresCompletos:elemento.student.name+' - '+elemento.student.last_name,
+                    cursoCohorte:elemento.cohorte.name+' '+elemento.cohorte.course.name,
+                    cuotas:cuotas.toString()+"/"+elemento.cuotas.toString(),
+                    estado:estado,
+                    pensiones:pensiones,
+                    saldoPendiente:saldoPendiente,
+                    valorTotal:valorTotal
+                };
+                this.loading=false;
+                this.reporteMapper.push(auxReport);
+            });
+        },error=>{
+            console.log(error);
+            let message= error.error.message;
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error',
+                footer:message
+            })
+        });
+
     },error=>{
         console.log(error);
         let message= error.error.message;
@@ -128,7 +154,7 @@ export class ListReportComponent implements OnInit {
             text: 'Error',
             footer:message
           })
-    });
+        });
   }
   OnDestroy(){
     if(this.subPayment){
