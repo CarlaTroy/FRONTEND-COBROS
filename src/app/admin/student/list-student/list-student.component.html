@@ -41,7 +41,7 @@
         </ng-template>
 
         <ng-template pTemplate="header">
-            <tr class="grid">
+            <tr >
                 <th pSortableColumn="id" class="col-1 pt-4">
                     <div class="flex justify-content-between align-items-center">
                         #
@@ -83,41 +83,46 @@
                         <p-sortIcon field="cost_credit"></p-sortIcon>
                     </div>
                 </th>
-                <th class="col-3 pt-5">
+                <th class="col-2 pt-5">
                     Acciones
+                </th>
+                <th class="col-2 pt-5">
+                    <div class="flex justify-content-between align-items-center">
+                     Estado
+                        <p type="boolean" field="verified" display="menu"></p>
+                    </div>
                 </th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
-            <tr class="grid">
+            <tr>
 
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">#</span>
+                <td >
                     {{rowIndex+1}}
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Nombre</span>
+                <td >
+                    
                     <span >{{student.name}}</span>
                 </td>
 
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Apellido</span>
+                <td >
+                    
                     <p>{{student.last_name}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">  Cédula</span>
+                <td >
+                    
                     <p>{{student.identification}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Celular</span>
+                <td >
+                    
                     <p>{{student.cell_phone}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Dirección</span>
+                <td >
+                    
                     <p>{{student.address}}</p>
                 </td>
-                <td class="col-3 flex justify-content-between align-items-center">
+                <td >
                     <div class="grid pt-4">
 <!--                         <div class="col">
                             <button
@@ -137,17 +142,10 @@
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div>
-                        <div class="col">
-                          <!--   <button
-                                pButton
-                                type="button"
-                                icon="pi pi-trash"
-                                (click)="btnDeletStudent(student)"
-                                class="p-button-danger p-button-rounded">
-                            </button> -->
-                            <p-inputSwitch [(ngModel)]="student.user.is_active" [readonly]="true"></p-inputSwitch>
-                        </div>
                     </div>
+                </td>
+                <td class="text-center" >
+                    <i class="pi" [ngClass]="{'true-icon pi-check-circle': student.user.is_active, 'false-icon pi-times-circle': !student.user.is_active}"></i>
                 </td>
             </tr>
         </ng-template>

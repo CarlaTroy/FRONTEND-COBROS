@@ -18,12 +18,16 @@
         [filterDelay]="0"
         [globalFilterFields]="['name', 'last_name', 'identification','cell_phone']">
         <ng-template pTemplate="caption">
-
         <div class="table-header">
             <div class="grid">
                 <div class="col">
                     <h3 class="mt-1"><b>Reportes</b></h3>
+                    <div class="flex">
+                        <button pButton label="Limpar" class="p-button-outlined" icon="pi pi-filter-slash" ></button> 
+                    </div>
+                     
                 </div>
+                
                 <div class="col">
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
@@ -39,96 +43,107 @@
         </ng-template>
 
         <ng-template pTemplate="header">
-            <tr class="grid">
-                <th pSortableColumn="id" class="col-1 pt-4">
-                    <div class="flex justify-content-between align-items-center">
+            <tr>
+                <th style="min-width:2rem">
+                    <div class="flex justify-content-center align-items-center">
                         #
-                        <p-sortIcon field="id"></p-sortIcon>
+                        <p field="id" display="menu"></p>
                     </div>
                 </th>
-                <th pSortableColumn="name" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
+                <th style="min-width:10rem">
+                    <div class="flex justify-content-center align-items-center">
+                    
                         Nombres
-                        <p-sortIcon field="name"></p-sortIcon>
+                        <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
                     </div>
                 </th>
 
-                <th pSortableColumn="date_init" class="col-2 pt-5">
+                <th pSortableColumn="date_init" style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
                         Curso-Cohorte
-                        <p-sortIcon field="date_init"></p-sortIcon>
+                        <p-columnFilter type="date" field="date_init" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="date_end" class="col-1 pt-5">
+                <th  style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
                         Valor total
-                        <p-sortIcon field="date_end"></p-sortIcon>
+                        <p-columnFilter type="numeric" field="date_end"  display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="cost_effective" class="col-1 pt-5">
+                <th style="min-width:5rem" >
                     <div class="flex justify-content-between align-items-center">
                         <span>
                             Saldo Pendiente
                         </span>
-                        <p-sortIcon field="cost_effective"></p-sortIcon>
+                        <p-columnFilter type="numeric" field="cost_effective" display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
-                <th pSortableColumn="cost_credit" class="col-1 pt-5">
+                <th  style="min-width:5rem">
                     <div class="flex justify-content-between align-items-center">
-                        <span>
+                        
                             Cuotas
-                        </span>
-                        <p-sortIcon field="cost_credit"></p-sortIcon>
+                        
+                        <p-columnFilter type="numeric" field="cost_credit" display="menu" currency="USD"></p-columnFilter>
                     </div>
                 </th>
-                <th class="col-2 pt-5">
+                <th style="min-width:5rem">
+                    <div class="flex justify-content-center align-items-center">
                     Estado
+                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                        <!-- <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <p-dropdown [ngModel]="value" [options]="estadoPago" (onChange)="filter($event)" placeholder="number">
+                                <ng-template let-option pTemplate="item">
+                                    <span [class]="'customer-badge status-' + estadoPago">{{option.label}}</span>
+                                </ng-template> 
+                            </p-dropdown>
+                        </ng-template> -->
+                    </p-columnFilter>
+                </div>
                 </th>
-                <th class="col-2 pt-5">
-                    Pensiones
+                <th style="width: 2rem">
+                    <div class="flex justify-content-center align-items-center">                        Pensiones
+                        <p-columnFilter type="text" field="" display="menu"></p-columnFilter>
+                    </div>
                 </th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-report let-rowIndex="rowIndex">
-            <tr class="grid">
+            <tr >
 
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">#</span>
+                <td>
+                    
                     {{rowIndex+1}}
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Nombre</span>
-                    <span>
+                <td >
+                    
                         {{report.student.name+' - '+report.student.last_name}}
-                    </span>
+                    
                 </td>
 
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Curso-Cohorte</span>
-                    <p>
+                <td >
+                
                         {{report.cohorte.course.name+' '+report.cohorte.name}}
-                    </p>
+                    
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">  Valor total</span>
+                <td >
                     <p>${{totalCurso(report)| number : '1.2-2'}}</p>
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Saldo Pendiente</span>
+                <td >
+                   
                     <p>${{saldoPendiente(report)| number : '1.2-2'}}</p>
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Cuotas</span>
+                <td>
+                   
                     <p>{{ coutasPagas(report)+"/"+(report.cuotas)}}</p>
                 </td>
 
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Estado</span>
+                <td >
+                    
                     <p>{{ estadoPago(report)}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Pensiones</span>
+                <td>
+                    
                     <p>{{ pensiones(report)}}</p>
                 </td>
             </tr>
