@@ -31,7 +31,9 @@ export class CourseService {
     );
   }
   public edit(courseCreate: CourseCreateDTO,id:number):Observable<any> {
-    return this.http.put<boolean>(`${this.apiURL}/courses/${id}`, courseCreate);
+    return this.http.put<boolean>(`${this.apiURL}/courses/${id}`, courseCreate).pipe(
+      tap(() => this._resetForm$.next())
+  );
   }
   public deleteCourseId(id: number): Observable<any> {
     return this.http.delete<boolean>(`${this.apiURL}/courses/${id}`).pipe(
