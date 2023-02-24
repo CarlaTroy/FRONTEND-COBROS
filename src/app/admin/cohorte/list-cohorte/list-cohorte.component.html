@@ -5,8 +5,7 @@
         [value]="listCohorte"
         [(selection)]="selectedCohorte"
         dataKey="id"
-        [tableStyle]="{'min-width': '70rem'}"
-        styleClass="p-datatable-sm"
+        styleClass="p-datatable-customers"
         [rowHover]="true"
         [rows]="10"
         [showCurrentPageReport]="true"
@@ -20,7 +19,7 @@
         
         <ng-template pTemplate="caption">
 
-        <div class="table-header ">
+        <div class="table-header">
             <div class="grid">
                 <div class="col">
                     <p-button label="Nuevo" icon="pi pi-plus" [routerLink]="['/admin/cohorte/create']"></p-button>
@@ -42,121 +41,77 @@
         </div>
         </ng-template>
 
-        <ng-template pTemplate="header">
-            <tr class="grid">
-                
-                <th pSortableColumn="id" class="col-1 pt-4">
-                    <div class="flex justify-content-between align-items-center">
-                        #
-                        <p-sortIcon field="id"></p-sortIcon>
-                    </div>
+        <ng-template pTemplate="header" let-columns>
+            <tr >
+                <th style="width:2%; text-align: center;">#</th>
+                <th pSortableColumn="name" style="width:32%; text-align: left;"> Curso -Cohorte
+                    <p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="name" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        Curso-Cohorte
-                        <p-sortIcon field="name"></p-sortIcon>
-                    </div>
+                <th pSortableColumn="date_init" style="width:15%; text-align: center;"> F_Inicio
+                    <p-sortIcon field="date_init"></p-sortIcon>     
                 </th>
-
-                <th pSortableColumn="date_init" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        Fecha Inicio
-                        <p-sortIcon field="date_init"></p-sortIcon>
-                    </div>
+                <th pSortableColumn="date_end" style="width:15%; text-align: center;">F_Fin
+                    <p-sortIcon field="date_end"></p-sortIcon>
                 </th>
-                <th pSortableColumn="date_end" class="col-2 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        Fecha Fin
-                        <p-sortIcon field="date_end"></p-sortIcon>
-                    </div>
+                <th pSortableColumn="cost_effective" style="width:18%; text-align: center;">$-Efectivo
+                    <p-sortIcon field="cost_effective"></p-sortIcon>
                 </th>
-                <th pSortableColumn="cost_effective" class="col-1 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        <span>
-                            Costo
-                            <br>
-                            Efectivo
-                        </span>
-                        <p-sortIcon field="cost_effective"></p-sortIcon>
-                    </div>
+                <th pSortableColumn="cost_credit" style="width:20%; text-align: center;">$-Crèdito
+                    <p-sortIcon field="cost_credit"></p-sortIcon>
                 </th>
-                <th pSortableColumn="cost_credit" class="col-1 pt-5">
-                    <div class="flex justify-content-between align-items-center">
-                        <span>
-                            Costo
-                            <br>
-                            Credito
-                        </span>
-                        <p-sortIcon field="cost_credit"></p-sortIcon>
-                    </div>
-                </th>
-                
-                <th class="col-2 pt-5">
-                    Acciones
-                </th>
+                <th class="col-2 p-5" style="width:3%; text-align: center; ">Acciones</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-cohorte let-rowIndex="rowIndex">
-            <tr class="grid">
+            <tr >
                 
 
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">#</span>
+                <td >
+                    
                     {{rowIndex+1}}
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Nombre</span>
+                <td>
+                    
                     <span >{{cohorte.course.name +" " + cohorte.name}}</span>
                 </td>
 
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Fecha Inicio</span>
+                <td style="min-width:5rem; text-align: center;" >
+                    
                     <p>{{cohorte.date_init}}</p>
                 </td>
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <span class="p-column-title">  Fecha Fin</span>
+                <td style="text-align: center;">
+                    
                     <p>{{cohorte.date_end}}</p>
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Costo Efectivo</span>
+                <td style="text-align: center;">
+                    
                     <p>{{cohorte.cost_effective}}</p>
                 </td>
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Costo Credito</span>
+                <td style="min-width:5rem; text-align: center;">
+                    
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
                 
-                <td class="col-2 flex justify-content-between align-items-center">
-                    <div class="grid pt-4">
-<!--                         <div class="col">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-eye"
-                                (click)="btnDeleteCourse(course)"
-                                class="p-button-raised p-button-rounded">
-                            </button>
-                        </div> -->
-                        <div class="col pr-0">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-pencil"
-                                [routerLink]="['/admin/cohorte/edit',cohorte.id]"
-                                class="p-button-raised p-button-rounded">
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button
-                                pButton
-                                type="button"
-                                icon="pi pi-trash"
-                                (click)="btnDeleteCohorte(cohorte)"
-                                class="p-button-danger p-button-rounded">
-                            </button>
-                        </div>
+                <td style="min-width:5rem; text-align: center;">
+                    <div>
+                        <button
+                            pButton
+                            type="button"
+                            icon="pi pi-pencil"
+                            [routerLink]="['/admin/cohorte/edit',cohorte.id]"
+                            class="p-button-raised p-button-rounded mr-2">
+                        </button>
+                        <button
+                            pButton
+                            type="button"
+                            icon="pi pi-trash"
+                            (click)="btnDeleteCohorte(cohorte)"
+                            class="p-button-danger p-button-rounded ">
+                        </button>
                     </div>
+                
+                
                 </td>
             </tr>
         </ng-template>
