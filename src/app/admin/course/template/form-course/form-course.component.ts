@@ -39,6 +39,9 @@ export class FormCourseComponent implements OnInit {
                 private courseService:CourseService) { }
     //functon defaul angular
   ngOnInit(): void {
+    this.courseService.refreshForm$.subscribe(() => {
+      this.router.navigate(['/admin/course']);
+    });
       //console.log(response);
       //modo creacion
       this.initInputForm();
@@ -51,9 +54,7 @@ export class FormCourseComponent implements OnInit {
       if(!this.modelCourseFull){
         return;
       }
-      this.courseService.refreshForm$.subscribe(() => {
-        this.router.navigate(['/admin/course']);
-       });
+ 
     
   }
   OnDestroy(): void {

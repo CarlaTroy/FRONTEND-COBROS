@@ -104,4 +104,9 @@ export class ListCoursesComponent implements OnInit {
         }
       })
   }
+  ngOnDestroy(): void {
+    if(this.subCourse){
+      this.subCourse.unsubscribe();
+    }
+  }
 }

@@ -6,46 +6,46 @@
     </div>
 </div>
 <form [formGroup]="formCourse" (ngSubmit)="submitCourse()">
-    <div class="col-12 md:col-12">
-        <div class="card p-fluid">
-            <div class="field">
-                <label htmlFor="nombre">
-                    <span class="text-red-600">*</span>
-                    Nombre
-                </label>
-                <input pInputText
-                        type="text"
-                        formControlName="name"
-                        [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
-                        [maxlength]="100"/>
-
-                <span *ngIf="nameNotValid && formCourse.get('name')?.errors?.['required']">
-                    <p class="text-red-600">*Campo Requerido</p>
-                </span>
-                <div *ngIf="nameNotValid && formCourse.get('name')?.errors?.['maxlength']">
-                    <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+    <div class="col-12 p-0">
+        <div class="card pb-0">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-4 px-2 pt-0">
+                        <label htmlFor="nombre">
+                            <span class="text-red-600">*</span>
+                            Nombre                            
+                        </label>
+                        <input pInputText
+                                type="text"
+                                formControlName="name"
+                                [ngClass]="{'ng-invalid ng-dirty': nameNotValid}"
+                                [maxlength]="100"/>        
+                        <span *ngIf="nameNotValid && formCourse.get('name')?.errors?.['required']">
+                                <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <div *ngIf="nameNotValid && formCourse.get('name')?.errors?.['maxlength']">
+                                <p class="text-red-600">*Debe tener como máximo 100 caracteres</p>
+                        </div>
+                    </div>
+                    <div class="field col-8 px-2 pt-0">
+                        <label htmlFor="canton">
+                            <span class="text-red-600">*</span>
+                            Descripción
+                        </label>
+                        <textarea rows="2"
+                                    cols="30"
+                                    formControlName="description"
+                                    placeholder="Escribe una descripción"
+                                    [ngClass]="{'ng-invalid ng-dirty': descriptionNotValid}"
+                                    pInputTextarea>
+                        </textarea>
+                        <span *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['required']">
+                            <p class="text-red-600">*Campo Requerido</p>
+                        </span>
+                        <div *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['maxlength']">
+                            <p class="text-red-600">* Debe tener como máximo 250 caracteres</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <label htmlFor="canton">
-                    <span class="text-red-600">*</span>
-                    Descripción
-                </label>
-                <textarea rows="5"
-                            cols="30"
-                            formControlName="description"
-                            placeholder="Escribe una descripción"
-                            [ngClass]="{'ng-invalid ng-dirty': descriptionNotValid}"
-                            pInputTextarea>
-                </textarea>
-                <span *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['required']">
-                    <p class="text-red-600">*Campo Requerido</p>
-                </span>
-                <div *ngIf="descriptionNotValid && formCourse.get('description')?.errors?.['maxlength']">
-                    <p class="text-red-600">* Debe tener como máximo 250 caracteres</p>
-                </div>
-            </div>
-
         </div>
         <div class="grid flex flex-row-reverse ">
             <div class="grid">
