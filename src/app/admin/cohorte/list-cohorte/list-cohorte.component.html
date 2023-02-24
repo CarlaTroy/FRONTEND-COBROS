@@ -44,52 +44,43 @@
         <ng-template pTemplate="header" let-columns>
             <tr >
                 <th style="width:2%; text-align: center;">#</th>
-                <th pSortableColumn="name" style="width:32%; text-align: left;"> Curso -Cohorte
+                <th pSortableColumn="name" style="width:27%; text-align: left;"> Curso -Cohorte
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="date_init" style="width:15%; text-align: center;"> F_Inicio
+                <th pSortableColumn="date_init" style="width:20%; text-align: center;"> F_Inicio
                     <p-sortIcon field="date_init"></p-sortIcon>     
                 </th>
-                <th pSortableColumn="date_end" style="width:15%; text-align: center;">F_Fin
+                <th pSortableColumn="date_end" style="width:20%; text-align: center;">F_Fin
                     <p-sortIcon field="date_end"></p-sortIcon>
                 </th>
-                <th pSortableColumn="cost_effective" style="width:18%; text-align: center;">$-Efectivo
+                <th pSortableColumn="cost_effective" style="width:30%; text-align: center;">USD-Efectivo
                     <p-sortIcon field="cost_effective"></p-sortIcon>
                 </th>
-                <th pSortableColumn="cost_credit" style="width:20%; text-align: center;">$-Crèdito
-                    <p-sortIcon field="cost_credit"></p-sortIcon>
+                <th pSortableColumn="cost_effective" style="width:30%; text-align: center;">USD-Credito
+                    <p-sortIcon field="cost_effective"></p-sortIcon>
                 </th>
-                <th class="col-2 p-5" style="width:3%; text-align: center; ">Acciones</th>
+                <th class="col-2 p-5" style="width:10%; text-align: center; ">Acciones</th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-cohorte let-rowIndex="rowIndex">
             <tr >
-                
-
                 <td >
-                    
                     {{rowIndex+1}}
                 </td>
                 <td>
-                    
                     <span >{{cohorte.course.name +" " + cohorte.name}}</span>
                 </td>
-
-                <td style="min-width:5rem; text-align: center;" >
-                    
+                <td  >
                     <p>{{cohorte.date_init}}</p>
                 </td>
-                <td style="text-align: center;">
-                    
+                <td >
                     <p>{{cohorte.date_end}}</p>
                 </td>
-                <td style="text-align: center;">
-                    
+                <td >
                     <p>{{cohorte.cost_effective}}</p>
                 </td>
-                <td style="min-width:5rem; text-align: center;">
-                    
+                <td >
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
                 
