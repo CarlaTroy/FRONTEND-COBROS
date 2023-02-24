@@ -14,6 +14,7 @@ import { EnrollementService } from 'src/app/admin/servicios/enrollement.service'
 import { MessageService } from 'primeng/api';
 import { CohorteFullDTO } from 'src/app/admin/cohorte/cohorte';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 @Component({
     providers: [MessageService],
     selector: 'app-form-enrollement',
@@ -80,6 +81,7 @@ export class FormEnrollementComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         public messageService: MessageService,
+        private router: Router,
         private enrollementService: EnrollementService
     ) {}
 
@@ -145,7 +147,7 @@ export class FormEnrollementComponent implements OnInit {
             student_id: ['', [Validators.required, Validators.maxLength(100)]],
             cohorte_id: ['', [Validators.required]],
             tipe_pay_id: ['', [Validators.required]],
-            cuotas: ['', [Validators.required, Validators.min(1), Validators.max(7)]],
+            cuotas: ['', [Validators.required]],
             day_limite: ['', [Validators.required, Validators.min(1),  Validators.max(27)]],
             cash: ['', [Validators.required]],
             discount: [0, [Validators.required,Validators.min(0), Validators.max(100)]],
@@ -219,8 +221,14 @@ export class FormEnrollementComponent implements OnInit {
         this.typePayNameSelected =typePaysFull.name;
         this.typePayCodeSelected = typePaysFull.codigo
 
+        //efectivo
 
         if (event.value.codigo == '002') {
+            const inputFormCuotas=this.formEnrrollement.get('cuotas');
+            inputFormCuotas?.clearValidators();
+            inputFormCuotas?.setValidators([Validators.required]);
+            inputFormCuotas?.updateValueAndValidity();
+
             this.activateFieldCash = true;
             this.activateFieldCuotas = false;
 
@@ -236,10 +244,16 @@ export class FormEnrollementComponent implements OnInit {
           this.valRealPayment=(this.selectedCohorte.cost_effective)-(((this.selectedCohorte.cost_effective))*this.formEnrrollement.get('discount')?.value/100);
           return;
         }
+        //cuotas
         if (event.value.codigo == '001') {
             this.activateFieldCuotas = true;
             this.activeDayLimite=true;
             this.activateFieldCash = false;
+
+            const inputFormCuotas=this.formEnrrollement.get('cuotas');
+            inputFormCuotas?.clearValidators();
+            inputFormCuotas?.setValidators([Validators.required,Validators.min(1),Validators.max(7)]);
+            inputFormCuotas?.updateValueAndValidity();
             //this.formCohorte.get("cuotas")!.enable();
             this.formEnrrollement.get('cuotas')!.setValue(
                 this.priceCuotasOfCourse
@@ -252,7 +266,7 @@ export class FormEnrollementComponent implements OnInit {
         }
     }
 
-    submitCohorte() {
+    submitEnrrollement() {
         if (this.formEnrrollement.invalid) {
             this.Toast.fire({
                 icon: 'warning',
@@ -282,7 +296,7 @@ export class FormEnrollementComponent implements OnInit {
         this.onSubmitCohorte.emit(createCourse);
         //observable cuandos se crea un registro nuevo
         this.sub = this.enrollementService.refreshForm$.subscribe(() => {
-            this.formEnrrollement.reset();
+            this.router.navigate(['/admin/enrollement']);
         });
         return;
     }
