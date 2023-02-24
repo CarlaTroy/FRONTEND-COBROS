@@ -28,6 +28,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Crear', icon: 'pi pi-fw pi-book',
+                                
                                  routerLink: ['/admin/course/create']
                             }
                         ],

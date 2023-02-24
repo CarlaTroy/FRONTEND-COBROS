@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class FormCourseComponent implements OnInit {
     @Input() modeForm!:string;
     @Input() modelCourseFull!:CourseFullDTO;
+    @Input() isSecretary!:boolean;
     //output
    @Output() onSubmitCourse:EventEmitter<CourseCreateDTO>=new EventEmitter<CourseCreateDTO>();
    //form
