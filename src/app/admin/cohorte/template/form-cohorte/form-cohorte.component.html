@@ -87,7 +87,9 @@
                         min="0"
                         [ngClass]="{'ng-invalid ng-dirty': costEffectiveNotValid}"
                         formControlName="cost_effective"
-                        type="number" />
+                        type="number"
+                        min="0" 
+                        onkeypress="if(event.keyCode < 46 || event.keyCode > 57 || event.keyCode == 47) event.returnValue = false;"/>
                         <span *ngIf="costEffectiveNotValid && formCohorte.get('cost_effective')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>
@@ -103,7 +105,9 @@
                         id="cost_credit"
                         [ngClass]="{'ng-invalid ng-dirty': costCreditNotValid}"
                         formControlName="cost_credit"
-                        type="number" />
+                        type="number" 
+                        min="0" 
+                        onkeypress="if(event.keyCode < 46 || event.keyCode > 57 || event.keyCode == 47) event.returnValue = false;"/>
                         <span *ngIf="costCreditNotValid && formCohorte.get('cost_credit')?.errors?.['required']">
                             <p class="text-red-600">*Campo Requerido</p>
                         </span>

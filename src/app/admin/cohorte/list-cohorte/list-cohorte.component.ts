@@ -96,7 +96,7 @@ export class ListCohorteComponent implements OnInit {
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Error',
-                    footer:message
+                    footer:'Error no se puede eliminar, exiten estudiantes matriculados en : ' + cohorte.course.name + "-" + cohorte.name
                   })
               })
             }

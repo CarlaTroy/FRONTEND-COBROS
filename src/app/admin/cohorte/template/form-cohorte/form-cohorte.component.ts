@@ -6,6 +6,7 @@ import { CohorteService } from 'src/app/admin/servicios/cohorte.service';
 import Swal from 'sweetalert2';
 import { CohorteCreateDTO, CohorteFullDTO } from '../../cohorte';
 import { CourseService } from 'src/app/admin/servicios/course.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-cohorte',
@@ -42,6 +43,7 @@ export class FormCohorteComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
+                private router:Router, 
                 private cohorteService:CohorteService,)
                 {
                 }
@@ -126,7 +128,7 @@ export class FormCohorteComponent implements OnInit {
 
     //observable cuandos se crea un registro nuevo
     this.sub=this.cohorteService.refreshForm$.subscribe(()=>{
-      this.formCohorte.reset();
+      this.router.navigate(['/admin/cohorte']);;
   });
 
     return;

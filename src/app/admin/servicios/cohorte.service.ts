@@ -27,7 +27,9 @@ export class CohorteService {
   }
 
   public edit(courseCreate: CohorteCreateDTO,id:number):Observable<any> {
-    return this.http.put<boolean>(`${this.apiURL}/cohortes/${id}`, courseCreate);
+    return this.http.put<boolean>(`${this.apiURL}/cohortes/${id}`, courseCreate).pipe(
+      tap(() => this._resetForm$.next())
+  );
   }
 
 
