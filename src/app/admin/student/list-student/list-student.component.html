@@ -145,7 +145,8 @@
                     </div>
                 </td>
                 <td class="text-center" >
-                    <i class="pi" [ngClass]="{'true-icon pi-check-circle': student.user.is_active, 'false-icon pi-times-circle': !student.user.is_active}"></i>
+                    
+                    <i class="pi" [ngClass]="{'pi-check-circle': student.user.is_active,  'p-error pi-times-circle': !student.user.is_active}"></i>
                 </td>
             </tr>
         </ng-template>
