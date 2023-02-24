@@ -15,7 +15,7 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['cuotas', 'student','created_on','studient','curso']">
+        [globalFilterFields]="['student.name', 'student.last_name', 'cohorte.course.name', 'cohorte.name', 'cuotas', 'student','created_on','studient','curso']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -26,14 +26,14 @@
                 <div class="col">
                     <h3 class="mt-1"><b>Matrículas</b></h3>
                 </div>
-                <div class="col">
+                <div class="col" >
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input
                             pInputText
                             type="text"
                             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                            placeholder="Buscar por fecha" />
+                            placeholder="Buscar por estudiante/curso" />
                     </span>
                 </div>
             </div>
@@ -116,14 +116,14 @@
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
                     <p *ngIf="enrollement.cuotas==0">
-                        <p-button label="NO"  styleClass="mr-2"></p-button>
+                        <span label="NO"  styleClass="mr-2">NO</span>
                     </p>
                     <p *ngIf="enrollement.cuotas>0">
-                        <p-button label="SI" [badge]="enrollement.cuotas" styleClass="mr-2"></p-button>
+                        <span label= "SI"  styleClass="mr-2">Si: {{enrollement.cuotas}} cuotas</span>
                     </p>
                 </td>
                 <td class="col-2 flex justify-content-between align-items-center">
-                    <div class="grid pt-4">
+                    
                         <div class="col">
                             <button
                                 pButton
@@ -133,6 +133,7 @@
                                 class="p-button-raised p-button-rounded">
                             </button>
                         </div>
+                
                         <div class="col">
                             <button
                                 pButton
@@ -142,7 +143,7 @@
                                 class="p-button-danger p-button-rounded">
                             </button>
                         </div>
-                    </div>
+                    
                 </td>
             </tr>
         </ng-template>

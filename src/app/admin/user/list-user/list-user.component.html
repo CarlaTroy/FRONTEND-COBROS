@@ -15,7 +15,7 @@
         [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
-        [globalFilterFields]="['username', 'email']">
+        [globalFilterFields]="['username', 'email', 'groups.name']">
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -33,7 +33,7 @@
                             pInputText
                             type="text"
                             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                            placeholder="Buscar por username" />
+                            placeholder="Buscar por nombe de usuario" />
                     </span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         </ng-template>
 
         <ng-template pTemplate="header">
-            <tr class="grid">
+            <tr class>
                 <th pSortableColumn="id" class="col-1 pt-4">
                     <div class="flex justify-content-between align-items-center">
                         #
@@ -55,7 +55,7 @@
                     </div>
                 </th>
 
-                <th pSortableColumn="email" class="col-3 pt-5">
+                <th pSortableColumn="email" class="col-4 pt-5">
                     <div class="flex justify-content-between align-items-center">
                         Email
                         <p-sortIcon field="email"></p-sortIcon>
@@ -74,28 +74,26 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
-            <tr class="grid">
-
-                <td class="col-1 flex justify-content-between align-items-center">
-                    <span class="p-column-title">#</span>
+            <tr >
+                <td >
                     {{rowIndex+1}}
                 </td>
-                <td class="col-4 flex justify-content-between align-items-center">
-                    <span class="p-column-title">Username</span>
+                <td >
                     <span >{{user.username}}</span>
                 </td>
 
-                <td class="col-3 flex justify-content-between align-items-center">
-                    <span class="p-column-title"> Email</span>
+                <td >
                     <p>{{user.email}}</p>
                 </td>
-                <th class="col-1 pt-5">
+                <th>
                     {{user.groups[0]?.name}}
                 </th>
+                <td >
                 <div class="col-1">
-                    <p-inputSwitch [(ngModel)]="user.is_active" [readonly]="true"></p-inputSwitch>
+                    <p-inputSwitch   [(ngModel)]="user.is_active" [readonly]="true" ></p-inputSwitch>
                 </div>
-                <td class="col-2 flex justify-content-between align-items-center">
+                </td >
+                <td >
                     <div class="grid pt-4">
                         <div class="col pr-0">
                             <button
@@ -108,6 +106,7 @@
                         </div>
                     </div>
                 </td>
+                
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
