@@ -15,7 +15,7 @@ export class ListReportComponent implements OnInit {
     listReport!:EnrollementFullDTO[];
     listPaymentezAll!:PaymentFullDTO[];
     reporteMapper!:ReportDTOFullMapper[];
-    loading!:boolean;
+    loading:boolean=true;
     selectedPayment!: PaymentFullDTO;
     subPayment!:Subscription;
   constructor(private reportService:ReportService) { }
@@ -129,6 +129,7 @@ export class ListReportComponent implements OnInit {
                     saldoPendiente:saldoPendiente,
                     valorTotal:valorTotal
                 };
+                this.loading=false;
                 this.reporteMapper.push(auxReport);
             });
         },error=>{
