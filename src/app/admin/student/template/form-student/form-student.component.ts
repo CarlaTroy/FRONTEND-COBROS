@@ -8,6 +8,7 @@ import { StudentService } from 'src/app/admin/servicios/student.service';
 import { soloLetras } from 'src/app/core/validations/validateText';
 import { soloNumeros } from 'src/app/core/validations/validateNumero';
 import {validarCedula } from 'src/app/core/validations/validateCedula';
+import { Router } from '@angular/router';
 
 
 
@@ -43,6 +44,7 @@ export class FormStudentComponent implements OnInit {
     intanceCourse!:CourseFullDTO;
     filterValue = '';
   constructor(private formBuilder: FormBuilder,
+                private router:Router, 
                 private studentService:StudentService,)
                 {
                 }
@@ -138,7 +140,7 @@ export class FormStudentComponent implements OnInit {
 
      //observable cuandos se crea un registro nuevo
      this.sub=this.studentService.refreshForm$.subscribe(()=>{
-      this.formStudent.reset();
+      this.router.navigate(['/admin/student']);
   });
     return;
   }
