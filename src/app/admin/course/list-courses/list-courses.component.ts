@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CourseService } from '../../servicios/course.service';
+import { UsuarioService } from '../../servicios/usuario.service';
 import { CourseFullDTO } from '../course';
 
 @Component({
@@ -30,7 +31,9 @@ export class ListCoursesComponent implements OnInit {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-  constructor(private courseService:CourseService) { }
+    tipoUsuario=this.usuarioService.definirTipoUsuario();
+  constructor(private courseService:CourseService,
+    private usuarioService:UsuarioService) { }
 
   ngOnInit(): void {
     this.loadDataCourses();

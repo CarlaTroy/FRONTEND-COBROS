@@ -45,9 +45,12 @@ export class UsuarioService {
         localStorage.setItem('token', loginUser.token[0]);
         localStorage.setItem('username', loginUser.username);
         localStorage.setItem('email', loginUser.email);
+        localStorage.setItem('grupos', loginUser.grupos[0].name.toString());
         this.token = loginUser.token;
     }
-
+    definirTipoUsuario(){
+        return localStorage.getItem('grupos');
+    }
     eliminarStorage() {
       this.token = '';
       localStorage.removeItem('is_staff');

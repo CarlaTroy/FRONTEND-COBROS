@@ -9,12 +9,12 @@ import { LayoutService } from '../services/app.layout.service';
 })
 export class AppMenuComponent implements OnInit {
 
-    model: any[] = [];
-
+    modelAdmin: any[] = [];
     constructor(public layoutService: LayoutService) { }
 
     ngOnInit() {
-        this.model = [
+
+        this.modelAdmin = [
             {
                 label: 'Administrador',
                 items: [
@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
                             },
                             {
                                 label: 'Crear', icon: 'pi pi-fw pi-book',
-                                
+
                                  routerLink: ['/admin/course/create']
                             }
                         ],

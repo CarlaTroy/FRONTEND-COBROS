@@ -47,7 +47,7 @@
                 </th>
                 <th pSortableColumn="name" style="width:60%; text-align: left;"> Descripción
                 </th>
-                <th class="col-2 p-5" style="width:10%; text-align: center; ">Acciones</th>
+                <th class="col-2 p-5" style="width:10%; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">Acciones</th>
             </tr>
         </ng-template>
 
@@ -56,7 +56,7 @@
                 <td>{{rowIndex+1}}</td>
                 <td><p>{{course.name}}</p></td>
                 <td><p>{{course.description}}</p></td>
-                <td style="min-width:5rem; text-align: center;">
+                <td style="min-width:5rem; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">
                     <div>
                         <button
                             pButton
