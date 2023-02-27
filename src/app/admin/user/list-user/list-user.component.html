@@ -67,7 +67,7 @@
                 <th class="col-1 pt-5">
                     Estado
                 </th>
-                <th class="col-2 pt-5">
+                <th class="col-2 pt-5" [hidden]="tipoUsuario=='Adminstrador'">
                     Acciones
                 </th>
             </tr>
@@ -93,7 +93,7 @@
                     <p-inputSwitch   [(ngModel)]="user.is_active" [readonly]="true" ></p-inputSwitch>
                 </div>
                 </td >
-                <td >
+                <td  [hidden]="tipoUsuario=='Adminstrador'">
                     <div class="grid pt-4">
                         <div class="col pr-0">
                             <button
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                 </td>
-                
+
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">

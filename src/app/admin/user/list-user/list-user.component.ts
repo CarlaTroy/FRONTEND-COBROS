@@ -32,7 +32,9 @@ loading:boolean=false;
          toast.addEventListener('mouseleave', Swal.resumeTimer)
      }
  })
-constructor(private userService:UsuarioService) { }
+ tipoUsuario=this.usuarioService.definirTipoUsuario();
+constructor(private userService:UsuarioService,
+    private usuarioService:UsuarioService) { }
 
 ngOnInit(): void {
  this.loadDataUsers();
