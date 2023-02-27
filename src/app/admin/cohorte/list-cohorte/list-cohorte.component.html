@@ -16,7 +16,7 @@
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
         [globalFilterFields]="['course.name', 'name', 'date_init','date_end','cost_effective','cost_credit','course']">
-        
+
         <ng-template pTemplate="caption">
 
         <div class="table-header">
@@ -48,7 +48,7 @@
                     <p-sortIcon field="name"></p-sortIcon>
                 </th>
                 <th pSortableColumn="date_init" style="width:20%; text-align: center;"> F_Inicio
-                    <p-sortIcon field="date_init"></p-sortIcon>     
+                    <p-sortIcon field="date_init"></p-sortIcon>
                 </th>
                 <th pSortableColumn="date_end" style="width:20%; text-align: center;">F_Fin
                     <p-sortIcon field="date_end"></p-sortIcon>
@@ -59,7 +59,7 @@
                 <th pSortableColumn="cost_effective" style="width:30%; text-align: center;">USD-Credito
                     <p-sortIcon field="cost_effective"></p-sortIcon>
                 </th>
-                <th class="col-2 p-5" style="width:10%; text-align: center; ">Acciones</th>
+                <th class="col-2 p-5" style="width:10%; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">Acciones</th>
             </tr>
         </ng-template>
 
@@ -83,8 +83,8 @@
                 <td  style=" text-align: center;">
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
-                
-                <td style="min-width:5rem; text-align: center;">
+
+                <td style="min-width:5rem; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">
                     <div>
                         <button
                             pButton
@@ -101,12 +101,12 @@
                             class="p-button-danger p-button-rounded ">
                         </button>
                     </div>
-                
-                
+
+
                 </td>
             </tr>
         </ng-template>
-       
+
         <ng-template pTemplate="emptymessage">
             <tr>
                 <td colspan="8">No existen resultados.</td>

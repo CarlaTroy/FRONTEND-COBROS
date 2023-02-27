@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CohorteService } from '../../servicios/cohorte.service';
+import { UsuarioService } from '../../servicios/usuario.service';
 import { CohorteFullDTO } from '../cohorte';
 
 @Component({
@@ -30,7 +31,9 @@ export class ListCohorteComponent implements OnInit {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-  constructor(private cohorteService:CohorteService) { }
+    tipoUsuario=this.usuarioService.definirTipoUsuario();
+  constructor(private cohorteService:CohorteService,
+                private usuarioService:UsuarioService) { }
 
   ngOnInit(): void {
     this.loadDataCourses();
