@@ -35,7 +35,7 @@
             [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [filterDelay]="0"
-            [globalFilterFields]="['id','nombre', 'apellido', 'cedula', 'celular']">
+            [globalFilterFields]="['id','name', 'last_name', 'identification', 'cell_phone']">
             <ng-template pTemplate="caption">
 
             <div class="table-header">
@@ -220,7 +220,7 @@
             [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [filterDelay]="0"
-            [globalFilterFields]="['id','name', 'date_init', 'date_end', 'cost_effective', 'cost_credit']">
+            [globalFilterFields]="['id','course.name','name', 'date_init', 'date_end', 'cost_effective', 'cost_credit']">
             <ng-template pTemplate="caption">
 
             <div class="table-header">

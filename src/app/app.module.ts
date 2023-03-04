@@ -17,6 +17,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { TopbarPrincipalComponent } from './topbar-principal/topbar-principal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 //import { LoginComponent } from './login/login.component';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         AppRoutingModule,
         AppLayoutModule,
         AdminModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FontAwesomeModule
 
 
     ],
