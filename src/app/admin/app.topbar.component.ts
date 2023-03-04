@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 export class AppTopBarComponent {
 
     email: any = localStorage.getItem('email');
-    usuarioLogueado: any = localStorage.getItem('name');
+    usuarioLogueado: any = localStorage.getItem('username');
     tokenObtenido: any = localStorage.getItem('token');
 
 

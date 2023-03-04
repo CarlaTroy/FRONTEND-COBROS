@@ -59,7 +59,7 @@
                 <th pSortableColumn="cost_effective" style="width:30%; text-align: center;">USD-Credito
                     <p-sortIcon field="cost_effective"></p-sortIcon>
                 </th>
-                <th class="col-2 p-5" style="width:10%; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">Acciones</th>
+                <th class="col-2 p-5" style="width:10%; text-align: center;" [hidden]="tipoUsuario!='Administrador'">Acciones</th>
             </tr>
         </ng-template>
 
@@ -84,7 +84,7 @@
                     <p>{{cohorte.cost_credit}}</p>
                 </td>
 
-                <td style="min-width:5rem; text-align: center;" [hidden]="tipoUsuario=='Admistrador'">
+                <td style="min-width:5rem; text-align: center;" [hidden]="tipoUsuario!='Administrador'">
                     <div>
                         <button
                             pButton

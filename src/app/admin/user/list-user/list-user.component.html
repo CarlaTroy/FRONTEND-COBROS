@@ -67,7 +67,7 @@
                 <th class="col-1 pt-5">
                     Estado
                 </th>
-                <th class="col-2 pt-5" [hidden]="tipoUsuario=='Adminstrador'">
+                <th class="col-2 pt-5"[hidden]="tipoUsuario!='Administrador'" >
                     Acciones
                 </th>
             </tr>
@@ -93,7 +93,7 @@
                     <p-inputSwitch   [(ngModel)]="user.is_active" [readonly]="true" ></p-inputSwitch>
                 </div>
                 </td >
-                <td  [hidden]="tipoUsuario=='Adminstrador'">
+                <td  [hidden]="tipoUsuario!=='Administrador'">
                     <div class="grid pt-4">
                         <div class="col pr-0">
                             <button
