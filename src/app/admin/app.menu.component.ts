@@ -16,7 +16,7 @@ export class AppMenuComponent implements OnInit {
 
         this.modelAdmin = [
             {
-                label: 'Administrador',
+                label: 'Panel de Administrador',
                 items: [
                     { label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: ['/admin'] },
                     {
